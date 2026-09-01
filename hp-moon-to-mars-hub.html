@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Moon to Mars: The Creator Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2148D4;
+  --blue-dark:#1A3AAB;
+  --blue-tint:#EEF1FC;
+  --ink:#2D3037;
+  --ink-60:#6B6E75;
+  --white:#FFFFFF;
+  --surface:#F3F3F3;
+  --section:#E8E8E8;
+  --storm:#578292;
+  --bloom:#E8483F;
+  --line:#D8D8D8;
+  --font:"Forma DJR UI","Forma DJR Text","Archivo","Helvetica Neue",Arial,sans-serif;
+  --slant:-20deg;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--white);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* ---------- sidebar ---------- */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:252px;z-index:50;
+  background:var(--white);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;padding:26px 0 20px;
+}
+.sb-logo{padding:0 24px 26px;border-bottom:1px solid var(--line)}
+.sb-nav{padding:18px 14px;flex:1;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.sb-link{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  padding:11px 12px;font-size:15px;color:var(--ink);border-radius:3px;
+  transition:background .15s ease,color .15s ease;position:relative;
+}
+.sb-link:hover{background:var(--blue-tint);color:var(--blue);text-decoration:none}
+.sb-link .tick{width:9px;height:16px;background:var(--section);transform:skewX(var(--slant));flex:none;transition:background .18s ease}
+.sb-link.on{color:var(--blue);font-weight:500;background:var(--blue-tint)}
+.sb-link.on .tick{background:var(--blue)}
+.sb-badge{margin-left:auto;font-size:11px;font-weight:500;background:var(--bloom);color:var(--white);padding:2px 7px;border-radius:2px}
+.sb-foot{padding:18px 24px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-60);line-height:1.45}
+.sb-toggle{display:none}
+
+.shell{margin-left:252px}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1060px;margin:0 auto;padding:0 44px}
+.band{padding:72px 0}
+.band-grey{background:var(--section)}
+.band-soft{background:var(--surface)}
+h1,h2,h3,h4{font-weight:500;letter-spacing:-0.015em;line-height:1.15}
+h2{font-size:34px;margin-bottom:8px}
+h3{font-size:21px}
+.lede{color:var(--ink-60);max-width:62ch;margin-bottom:36px}
+
+/* ---------- stripe system (20deg, from the logo slant) ---------- */
+.stripes{display:flex;gap:5px;height:26px}
+.stripes i{
+  display:block;width:11px;height:100%;
+  background:var(--blue);
+  transform:skewX(var(--slant));
+}
+.stripes i:nth-child(2){opacity:.72}
+.stripes i:nth-child(3){opacity:.44}
+.stripes i:nth-child(4){opacity:.2}
+.rule{height:3px;background:var(--blue);width:64px;margin-bottom:22px;transform:skewX(var(--slant))}
+
+/* ---------- logo ---------- */
+.logo{display:flex;align-items:center;gap:14px}
+.logo svg{display:block}
+.logo-div{width:1px;height:26px;background:var(--line)}
+.logo-txt{font-size:13px;color:var(--ink-60);line-height:1.3}
+.logo-txt b{display:block;font-weight:500;color:var(--ink)}
+
+/* ---------- gate ---------- */
+#gate{position:fixed;inset:0;background:var(--white);z-index:100;display:flex;flex-direction:column}
+#gate .gate-top{padding:28px 32px}
+#gate .gate-mid{flex:1;display:flex;align-items:center;padding:0 32px}
+.gate-card{max-width:430px;width:100%}
+.gate-card .stripes{margin-bottom:30px}
+.gate-card h1{font-size:38px;margin-bottom:14px}
+.gate-card p{color:var(--ink-60);margin-bottom:30px}
+.gate-row{display:flex;gap:10px}
+input[type=password],input[type=search]{
+  font-family:inherit;font-size:16px;color:var(--ink);
+  border:1px solid var(--line);background:var(--white);
+  padding:13px 15px;border-radius:4px;width:100%;
+}
+input[type=password]:focus,input[type=search]:focus{border-color:var(--blue);outline:none}
+.btn{background:var(--ink);color:var(--white);padding:13px 26px;border-radius:4px;font-weight:500;white-space:nowrap;transition:background .18s ease}
+.btn:hover{background:#000}
+.btn-blue{background:var(--blue)}
+.btn-blue:hover{background:var(--blue-dark)}
+.gate-err{color:var(--bloom);font-size:14px;margin-top:14px;min-height:20px}
+#gate .gate-foot{padding:24px 32px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-60)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 44px;max-width:1060px;margin:0 auto}
+.head-l{display:flex;align-items:center;gap:12px;font-size:14px}
+.live-dot{width:8px;height:14px;background:var(--blue);transform:skewX(var(--slant));flex:none}
+.stamp{font-size:13px;color:var(--ink-60);white-space:nowrap}
+.burger{display:none;width:24px;height:16px;position:relative;flex:none}
+.burger span{position:absolute;left:0;width:100%;height:2px;background:var(--ink);transition:transform .2s ease,opacity .2s ease}
+.burger span:nth-child(1){top:0}
+.burger span:nth-child(2){top:7px}
+.burger span:nth-child(3){top:14px}
+
+/* ---------- hero ---------- */
+.hero{padding:64px 0 24px}
+.hero h1{font-size:52px;max-width:19ch;margin-bottom:18px}
+.hero p{color:var(--ink-60);max-width:60ch;font-size:18px}
+
+/* ---------- metrics ---------- */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);border:1px solid var(--line);margin:44px 0 0}
+.metric{background:var(--white);padding:26px 24px}
+.metric .n{font-size:40px;font-weight:500;letter-spacing:-0.03em;line-height:1}
+.metric .l{font-size:13px;color:var(--ink-60);margin-top:8px}
+.metric .n span{font-size:20px;color:var(--ink-60)}
+
+/* ---------- waiting block ---------- */
+.waiting{border-left:5px solid var(--bloom);background:var(--white);padding:26px 30px;margin-top:2px;border:1px solid var(--line);border-left:5px solid var(--bloom)}
+.waiting h3{margin-bottom:12px}
+.waiting ul{list-style:none;display:grid;gap:9px}
+.waiting li{display:flex;gap:11px;align-items:baseline;font-size:15px}
+.waiting li::before{content:"";width:9px;height:9px;background:var(--bloom);transform:skewX(var(--slant));flex:none;position:relative;top:1px}
+
+/* ---------- phases ---------- */
+.phases{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:20px}
+.phase{background:var(--white);border:1px solid var(--line);padding:28px}
+.phase.on{border-color:var(--blue);border-top:4px solid var(--blue)}
+.phase .tag{display:inline-block;font-size:12px;font-weight:500;padding:4px 10px;background:var(--section);color:var(--ink-60);margin-bottom:14px}
+.phase.on .tag{background:var(--blue);color:var(--white)}
+.phase h3{margin-bottom:8px}
+.phase p{font-size:14px;color:var(--ink-60)}
+
+/* ---------- lifeline ---------- */
+.lifeline{position:relative;padding:0 0 4px}
+.rail{position:absolute;left:6%;right:6%;top:96px;height:2px;background:var(--line);overflow:hidden}
+.rail i{display:block;height:100%;width:0;background:var(--blue);transition:width 1.5s cubic-bezier(.22,.75,.3,1)}
+.nodes{position:relative;display:grid;grid-template-columns:repeat(6,1fr)}
+.node{position:relative;padding:0 6px;display:flex;flex-direction:column;align-items:center;text-align:center;background:none}
+.node .when{font-size:12px;color:var(--ink-60);min-height:52px;display:flex;align-items:flex-end;justify-content:center;line-height:1.35;max-width:16ch}
+.node .dot{width:15px;height:26px;margin:14px 0 16px;background:var(--white);border:2px solid var(--line);transform:skewX(var(--slant));transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.node .lab{font-size:14px;line-height:1.35;color:var(--ink-60);max-width:16ch;transition:color .18s ease}
+.node .own{font-size:11px;font-weight:500;padding:3px 8px;margin-top:10px;display:inline-block}
+.node:hover .dot{border-color:var(--blue);transform:skewX(var(--slant)) scale(1.14)}
+.node:hover .lab{color:var(--blue)}
+.node.done .dot{background:var(--blue);border-color:var(--blue)}
+.node.done .lab{color:var(--ink)}
+.node.live .dot{background:var(--storm);border-color:var(--storm)}
+.node.live .lab{color:var(--ink);font-weight:500}
+.node[aria-expanded=true] .dot{background:var(--blue);border-color:var(--blue);transform:skewX(var(--slant)) scale(1.22)}
+.node[aria-expanded=true] .lab{color:var(--blue);font-weight:500}
+.owner,.own{font-size:11px;font-weight:500;padding:3px 8px;display:inline-block}
+.owner.hp,.own.hp{background:var(--bloom);color:var(--white)}
+.owner.be,.own.be{background:var(--ink);color:var(--white)}
+.owner.both,.own.both{background:var(--storm);color:var(--white)}
+
+/* ---------- stage panel ---------- */
+.stage-panel{border:1px solid var(--blue);background:var(--white);max-height:0;overflow:hidden;opacity:0;padding:0 40px;transition:max-height .4s cubic-bezier(.22,.75,.3,1),opacity .28s ease,padding .4s ease}
+.stage-panel.open{max-height:1400px;min-height:52vh;opacity:1;padding:40px;margin-top:34px}
+.sp-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:30px;flex-wrap:wrap}
+.sp-head .st{font-size:13px;color:var(--ink-60);margin-bottom:8px}
+.sp-head h3{font-size:28px}
+.sp-lead{font-size:17px;color:var(--ink-60);margin-bottom:0;max-width:56ch}
+.sp-body{display:grid;grid-template-columns:1.3fr 1fr;gap:48px}
+.sp-body h4{font-size:12px;font-weight:500;padding-bottom:8px;border-bottom:2px solid var(--blue);margin-bottom:16px;display:inline-block}
+.sp-body ul{list-style:none;display:grid;gap:10px}
+.sp-body li{padding-left:18px;position:relative;font-size:15px}
+.sp-body li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;background:var(--blue);transform:skewX(var(--slant))}
+.risk{margin-top:26px;padding:16px 18px;background:var(--surface);border-left:4px solid var(--bloom);font-size:14px}
+.links{display:grid;gap:8px}
+.linkrow{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);background:var(--white);font-size:14px;color:var(--ink);transition:border-color .15s ease,color .15s ease}
+.linkrow:hover{border-color:var(--blue);color:var(--blue);text-decoration:none}
+.linkrow .ic{width:8px;height:14px;background:var(--blue);transform:skewX(var(--slant));flex:none}
+.linkrow.pending{color:var(--ink-60);border-style:dashed;cursor:default}
+.linkrow.pending:hover{border-color:var(--line);color:var(--ink-60)}
+.linkrow.pending .ic{background:var(--line)}
+.linkrow .soon{margin-left:auto;font-size:11px;color:var(--ink-60);white-space:nowrap}
+.ownnote{font-size:15px;color:var(--ink-60);line-height:1.55;padding-left:16px;border-left:3px solid var(--blue)}
+.sp-close{margin-top:34px;font-size:14px;color:var(--blue);font-weight:500}
+.sp-close:hover{text-decoration:underline}
+
+/* ---------- filters ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;padding:22px 0 26px;border-bottom:1px solid var(--line);margin-bottom:30px}
+.fgroup .flabel{font-size:12px;color:var(--ink-60);margin-bottom:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--white);padding:8px 14px;font-size:14px;border-radius:3px;transition:all .15s ease}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.on{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.fsearch{flex:1;min-width:220px}
+.fcount{font-size:14px;color:var(--ink-60);padding-bottom:9px;white-space:nowrap}
+
+/* ---------- creator cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(345px,1fr));gap:18px}
+.card{background:var(--white);border:1px solid var(--line);display:flex;flex-direction:column;transition:border-color .16s ease,transform .16s ease}
+.card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.card .bar{height:4px;background:var(--section)}
+.card.s-confirmed .bar{background:var(--blue)}
+.card.s-approved .bar{background:var(--storm)}
+.card.s-optional .bar{background:var(--bloom)}
+.card.s-new .bar{background:var(--ink)}
+.card.s-declined{opacity:.62}
+.card.s-declined .bar{background:var(--line)}
+.card-in{padding:22px 22px 20px;flex:1;display:flex;flex-direction:column}
+.card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:4px}
+.card h3{font-size:19px}
+.card .role{font-size:14px;color:var(--ink-60);margin-bottom:16px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.pill{font-size:11px;font-weight:500;padding:4px 9px;background:var(--surface);color:var(--ink-60);border:1px solid var(--line)}
+.pill.sector{background:var(--blue-tint);color:var(--blue);border-color:#C9D4F7}
+.pill.news{background:#EAF1F3;color:var(--storm);border-color:#CFDEE2}
+.pill.warn{background:#FCECEB;color:var(--bloom);border-color:#F6CFCC}
+.status{font-size:11px;font-weight:500;padding:4px 9px;white-space:nowrap;flex:none}
+.status.s-confirmed{background:var(--blue);color:var(--white)}
+.status.s-approved{background:var(--storm);color:var(--white)}
+.status.s-optional{background:var(--bloom);color:var(--white)}
+.status.s-new{background:var(--ink);color:var(--white)}
+.status.s-declined{background:var(--section);color:var(--ink-60)}
+.stat{display:flex;gap:22px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px}
+.stat div .k{font-size:11px;color:var(--ink-60)}
+.stat div .v{font-size:17px;font-weight:500}
+.safety{font-size:14px;color:var(--ink-60);line-height:1.5}
+.safety .clip{display:block;max-height:66px;overflow:hidden;transition:max-height .3s ease}
+.safety .clip.open{max-height:600px}
+.more{font-size:13px;color:var(--blue);font-weight:500;margin-top:8px}
+.more:hover{text-decoration:underline}
+.plats{font-size:13px;color:var(--ink-60);margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.plats b{font-weight:500;color:var(--ink)}
+.card-foot{display:flex;gap:8px;padding:14px 22px;background:var(--surface);border-top:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.yt{font-size:14px;font-weight:500}
+.empty{padding:60px 0;color:var(--ink-60);border:1px dashed var(--line);text-align:center}
+
+/* ---------- what we need from HP ---------- */
+.checks{display:grid;gap:2px;background:var(--line);border:1px solid var(--line)}
+.need{display:flex;gap:14px;align-items:flex-start;background:var(--white);padding:16px 20px}
+.ntick{width:9px;height:16px;background:var(--bloom);transform:skewX(var(--slant));flex:none;margin-top:4px}
+.ntext{font-size:15px}
+.nwhen{display:block;font-size:13px;color:var(--ink-60);margin-top:3px}
+
+/* ---------- meetings ---------- */
+.meets{display:grid;gap:2px;background:var(--line);border:1px solid var(--line)}
+.meet{background:var(--white);padding:26px 28px;display:grid;grid-template-columns:220px 1fr;gap:28px}
+.meet.next{border-left:4px solid var(--blue);padding-left:24px}
+.meet-when .w{font-size:17px;font-weight:500;line-height:1.25}
+.meet-when .len{font-size:13px;color:var(--ink-60);margin-top:6px}
+.meet-when .who{font-size:13px;color:var(--ink-60);margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.meet h3{font-size:19px;margin-bottom:6px}
+.meet .purpose{font-size:15px;color:var(--ink-60);margin-bottom:18px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.col .ch{font-size:12px;font-weight:500;color:var(--ink);padding-bottom:8px;margin-bottom:10px;border-bottom:2px solid var(--section)}
+.col.hpc .ch{border-bottom-color:var(--bloom)}
+.col.bec .ch{border-bottom-color:var(--blue)}
+.col ul{list-style:none;display:grid;gap:7px}
+.col li{font-size:14px;padding-left:16px;position:relative;color:var(--ink-60)}
+.col li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;transform:skewX(var(--slant));background:var(--line)}
+.col.hpc li::before{background:var(--bloom)}
+.col.bec li::before{background:var(--blue)}
+.howwework{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--storm);padding:22px 26px;margin-top:26px;font-size:15px;color:var(--ink-60)}
+.howwework b{color:var(--ink);font-weight:500}
+
+/* ---------- reporting shell ---------- */
+.rep{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.repbox{border:1px dashed var(--line);padding:24px;background:var(--white)}
+.repbox .k{font-size:14px;font-weight:500;margin-bottom:6px}
+.repbox .v{font-size:13px;color:var(--ink-60)}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#B9BCC2;padding:44px 0;font-size:13px;margin-top:0}
+footer .fin{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .stripes i{background:var(--white)}
+
+.hidden{display:none !important}
+
+@media (max-width:1100px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.12)}
+  .sidebar.open{transform:translateX(0)}
+  .shell{margin-left:0}
+  .burger{display:block}
+  .scrim{position:fixed;inset:0;background:rgba(45,48,55,.45);z-index:45;opacity:0;pointer-events:none;transition:opacity .25s ease}
+  .scrim.on{opacity:1;pointer-events:auto}
+  .phases{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .rep{grid-template-columns:repeat(2,1fr)}
+  /* lifeline turns vertical on narrow screens */
+  .rail{left:22px;right:auto;top:14px;bottom:40px;width:2px;height:auto}
+  .rail i{width:100%;height:0;transition:height 1.5s cubic-bezier(.22,.75,.3,1)}
+  .nodes{grid-template-columns:1fr;gap:4px}
+  .node{flex-direction:row;align-items:center;text-align:left;gap:16px;padding:14px 0;flex-wrap:wrap}
+  .node .when{min-height:0;align-items:center;order:2;max-width:none;flex:1}
+  .node .dot{margin:0;order:1;flex:none;margin-left:15px}
+  .node .lab{order:3;flex-basis:100%;max-width:none;padding-left:46px;font-size:15px}
+  .node .own{order:4;margin-left:46px;margin-top:6px}
+  .stage-panel.open{padding:26px 22px;min-height:0}
+  .sp-body{grid-template-columns:1fr;gap:30px}
+  .sp-head h3{font-size:22px}
+  .hero h1{font-size:38px}
+}
+@media (max-width:820px){
+  .meet{grid-template-columns:1fr;gap:18px}
+  .cols{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wrap{padding:0 20px}
+  .head-in{padding:14px 20px}
+  .metrics{grid-template-columns:1fr}
+  .rep{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .hero h1{font-size:32px}
+  h2{font-size:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PASSWORD GATE ============ -->
+<div id="gate">
+  <div class="gate-top">
+    <div class="logo">
+      <svg width="42" height="42" viewBox="0 0 42 42" aria-label="HP">
+        <circle cx="21" cy="21" r="19.5" fill="none" stroke="#2148D4" stroke-width="3"/>
+        <text x="21" y="28" text-anchor="middle" font-family="Archivo, Helvetica, Arial, sans-serif"
+              font-size="19" font-style="italic" font-weight="500" fill="#2148D4">hp</text>
+      </svg>
+    </div>
+  </div>
+  <div class="gate-mid">
+    <div class="gate-card">
+      <div class="stripes"><i></i><i></i><i></i><i></i></div>
+      <h1>Moon to Mars</h1>
+      <p>The creator programme hub for HP and Butterfly Effect. This page holds live roster, approvals and timeline for the campaign. Enter the password you were sent to continue.</p>
+      <div class="gate-row">
+        <input type="password" id="pw" placeholder="Password" autocomplete="current-password" aria-label="Password">
+        <button class="btn" id="enter">Open hub</button>
+      </div>
+      <div class="gate-err" id="err" role="alert"></div>
+    </div>
+  </div>
+  <div class="gate-foot">
+    Confidential. Shared between HP and Butterfly Effect only, please do not forward this link.
+  </div>
+</div>
+
+<!-- ============ SITE ============ -->
+<div id="site" class="hidden">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="logo">
+      <svg width="38" height="38" viewBox="0 0 42 42" aria-label="HP">
+        <circle cx="21" cy="21" r="19.5" fill="none" stroke="#2148D4" stroke-width="3"/>
+        <text x="21" y="28" text-anchor="middle" font-family="Archivo, Helvetica, Arial, sans-serif"
+              font-size="19" font-style="italic" font-weight="500" fill="#2148D4">hp</text>
+      </svg>
+      <span class="logo-div"></span>
+      <span class="logo-txt"><b>Moon to Mars</b>with Butterfly Effect</span>
+    </div>
+  </div>
+  <nav class="sb-nav" id="sbnav" aria-label="Sections">
+    <a class="sb-link" href="#overview"><span class="tick"></span>Where things stand</a>
+    <a class="sb-link" href="#phases"><span class="tick"></span>The three phases</a>
+    <a class="sb-link" href="#timeline"><span class="tick"></span>Phase 1 timeline</a>
+    <a class="sb-link" href="#roster"><span class="tick"></span>Creator roster</a>
+    <a class="sb-link" href="#meetings"><span class="tick"></span>How we work together</a>
+    <a class="sb-link" href="#decisions"><span class="tick"></span>What we need from you</a>
+    <a class="sb-link" href="#reporting"><span class="tick"></span>Reporting</a>
+  </nav>
+  <div class="sb-foot">
+    Confidential, HP and Butterfly Effect only.<br>Updated 1 Sep 2026.
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+
+<header>
+  <div class="head-in">
+    <button class="burger" id="burger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="head-l"><span class="live-dot"></span>Phase 1 is live, first content targeted for the week of 5 October</div>
+    <span class="stamp">Updated 1 Sep 2026</span>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="wrap hero" id="overview">
+  <div class="rule"></div>
+  <h1>Everything you need to move this campaign forward</h1>
+  <p>Phase 1 is live. Below is where the roster stands, what is waiting on you, and the dates we are working back from to get first content live in the first week of October.</p>
+
+  <div class="metrics">
+    <div class="metric"><div class="n" id="m1">9</div><div class="l">Creators approved by HP</div></div>
+    <div class="metric"><div class="n" id="m2">6</div><div class="l">Verbally agreed, contracts pending</div></div>
+    <div class="metric"><div class="n" id="m3">15</div><div class="l">New candidates for review</div></div>
+    <div class="metric"><div class="n">8<span>&ndash;12</span></div><div class="l">Target roster size</div></div>
+  </div>
+
+  <div class="waiting">
+    <h3>Decided on Thursday 3 September</h3>
+    <ul>
+      <li>Sign off the creator brief so outreach can begin</li>
+      <li>Yes or no on the 15 new candidates below</li>
+      <li>The two optional creators from round one</li>
+      <li>Which workstation models creators can choose from, this sets the shipping date</li>
+      <li>Who at HP runs the workflow session with each creator</li>
+    </ul>
+  </div>
+</section>
+
+<!-- phases -->
+<section class="band wrap" id="phases">
+  <div class="rule"></div>
+  <h2>The programme in three phases</h2>
+  <p class="lede">Phase 1 carries the campaign into the holiday buying window. Phases 2 and 3 build on the same roster once the first content is proving out.</p>
+  <div class="phases">
+    <div class="phase on">
+      <span class="tag">Live now</span>
+      <h3>Phase 1, YouTube first</h3>
+      <p>Eight to twelve multichannel creators across product design and manufacturing, and architecture, engineering and construction. Each one gets a workstation, a workflow session with HP, and produces a core YouTube film plus cross platform posts. Target go live, first week of October.</p>
+    </div>
+    <div class="phase">
+      <span class="tag">Next</span>
+      <h3>Phase 2, LinkedIn</h3>
+      <p>Six LinkedIn first creators reaching the procurement and IT decision makers who sign off hardware. Names to be confirmed once Phase 1 is in market.</p>
+    </div>
+    <div class="phase">
+      <span class="tag">Next</span>
+      <h3>Phase 3, amplification</h3>
+      <p>Tech publishers, meme pages and newsletter placements extending the reach of the content that performs. Sourcing begins once Phase 1 results are in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- timeline -->
+<section class="band band-grey" id="timeline">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>Phase 1 timeline</h2>
+    <p class="lede">Six stages between here and go live, running left to right. Select any point on the line to open it, and you will find what happens inside that stage, who owns it, and the documents attached to it.</p>
+
+    <div class="lifeline">
+      <div class="rail"><i id="railFill"></i></div>
+      <div class="nodes" id="nodes"></div>
+    </div>
+    <div class="stage-panel" id="detail"></div>
+  </div>
+</section>
+
+<!-- roster -->
+<section class="band" id="roster">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>The creator roster</h2>
+    <p class="lede">Everyone in consideration for Phase 1, with brand safety notes, channel spread and newsletter ownership. Filter to see a sector or a status on its own, and mark your call on each new candidate.</p>
+
+    <div class="filters">
+      <div class="fgroup">
+        <div class="flabel">Status</div>
+        <div class="chips" data-f="status">
+          <button class="chip on" data-v="all">All</button>
+          <button class="chip" data-v="confirmed">Verbally agreed</button>
+          <button class="chip" data-v="approved">Approved by HP</button>
+          <button class="chip" data-v="optional">Optional</button>
+          <button class="chip" data-v="new">New, for review</button>
+          <button class="chip" data-v="declined">Declined</button>
+        </div>
+      </div>
+      <div class="fgroup">
+        <div class="flabel">Sector</div>
+        <div class="chips" data-f="sector">
+          <button class="chip on" data-v="all">All</button>
+          <button class="chip" data-v="PD&amp;M">PD&amp;M</button>
+          <button class="chip" data-v="AEC">AEC</button>
+        </div>
+      </div>
+      <div class="fgroup">
+        <div class="flabel">Gender</div>
+        <div class="chips" data-f="gender">
+          <button class="chip on" data-v="all">All</button>
+          <button class="chip" data-v="f">Women</button>
+          <button class="chip" data-v="m">Men</button>
+        </div>
+      </div>
+      <div class="fgroup">
+        <div class="flabel">Newsletter</div>
+        <div class="chips" data-f="news">
+          <button class="chip on" data-v="all">All</button>
+          <button class="chip" data-v="yes">Runs one</button>
+        </div>
+      </div>
+      <div class="fgroup fsearch">
+        <div class="flabel">Search</div>
+        <input type="search" id="q" placeholder="Name, software or discipline" aria-label="Search creators">
+      </div>
+      <div class="fcount" id="count"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty hidden" id="empty">No creators match those filters. Clear one to see more.</div>
+  </div>
+</section>
+
+<!-- meetings -->
+<section class="band band-soft" id="meetings">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>How we work together</h2>
+    <p class="lede">Decisions happen live on these calls rather than over email, so there is one conversation, one answer and one record. We circulate a written summary within two hours of each call, and that summary is what both sides work from.</p>
+
+    <div class="meets">
+
+      <div class="meet next">
+        <div class="meet-when">
+          <div class="w">Thursday 3 September</div>
+          <div class="len">45 minutes</div>
+          <div class="who">HP: campaign lead and anyone with a view on the roster<br>BE: Elfried, Ellen, Vuyo</div>
+        </div>
+        <div>
+          <h3>Roster and brief sign off</h3>
+          <p class="purpose">The gate everything else depends on. We leave this call with an approved brief and a final creator list, or the campaign moves out of October.</p>
+          <div class="cols">
+            <div class="col hpc">
+              <div class="ch">What we need from HP</div>
+              <ul>
+                <li>Brief approved as final, or changes given on the call</li>
+                <li>Yes or no on each of the 15 new candidates</li>
+                <li>The two optional creators resolved</li>
+              </ul>
+            </div>
+            <div class="col bec">
+              <div class="ch">What we bring</div>
+              <ul>
+                <li>Full roster with brand safety notes, already on this page</li>
+                <li>Why each new candidate matches what you approved</li>
+                <li>The sector balance across PD&amp;M and AEC</li>
+                <li>Outreach plan ready to run the moment we have a yes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meet">
+        <div class="meet-when">
+          <div class="w">Every Tuesday, from 8 September</div>
+          <div class="len">30 minutes, standing</div>
+          <div class="who">HP: campaign lead<br>BE: Ellen and Vuyo</div>
+        </div>
+        <div>
+          <h3>Weekly programme call</h3>
+          <p class="purpose">The rhythm call. Short, same time each week, and the place anything outstanding gets closed before it turns into a delay.</p>
+          <div class="cols">
+            <div class="col hpc">
+              <div class="ch">What we need from HP</div>
+              <ul>
+                <li>Answers on anything raised in last week's summary</li>
+                <li>Workstation models confirmed, on the 8 September call</li>
+                <li>Technical contact named for the workflow sessions</li>
+                <li>ManyChat mechanic signed off</li>
+                <li>Conversion and ManyChat lens discussion</li>
+              </ul>
+            </div>
+            <div class="col bec">
+              <div class="ch">What we bring</div>
+              <ul>
+                <li>Creator responses and where each one sits</li>
+                <li>Rates against budget as they come in</li>
+                <li>Anything at risk against the timeline, flagged early</li>
+                <li>This page updated before the call, not after</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meet">
+        <div class="meet-when">
+          <div class="w">Week of 15 September</div>
+          <div class="len">30 minutes</div>
+          <div class="who">HP: campaign lead and technical contact<br>BE: Ellen and Vuyo</div>
+        </div>
+        <div>
+          <h3>Hardware and workflow sessions</h3>
+          <p class="purpose">Gets machines moving and books each creator in with your technical team. The single biggest risk to October sits in this week.</p>
+          <div class="cols">
+            <div class="col hpc">
+              <div class="ch">What we need from HP</div>
+              <ul>
+                <li>Shipping confirmed against each creator's choice</li>
+                <li>Technical contact available across the following two weeks</li>
+                <li>Software mapping validated per creator</li>
+              </ul>
+            </div>
+            <div class="col bec">
+              <div class="ch">What we bring</div>
+              <ul>
+                <li>Signed contracts and confirmed addresses</li>
+                <li>Workstation selections per creator</li>
+                <li>Content approach agreed with each creator</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meet">
+        <div class="meet-when">
+          <div class="w">Mondays and Thursdays, week of 22 September</div>
+          <div class="len">30 minutes</div>
+          <div class="who">HP: campaign lead and brand reviewer<br>BE: Ellen and Vuyo</div>
+        </div>
+        <div>
+          <h3>Content review, round one</h3>
+          <p class="purpose">Twice weekly for one week only, so concepts and cuts move in small batches rather than piling into a single review.</p>
+          <div class="cols">
+            <div class="col hpc">
+              <div class="ch">What we need from HP</div>
+              <ul>
+                <li>Feedback inside 48 hours of each submission</li>
+                <li>One named person holding final approval</li>
+                <li>Changes consolidated into a single response per creator</li>
+              </ul>
+            </div>
+            <div class="col bec">
+              <div class="ch">What we bring</div>
+              <ul>
+                <li>Concepts and cuts grouped by creator</li>
+                <li>Our own view before you see it, nothing passed through raw</li>
+                <li>Revisions turned around within 24 hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meet">
+        <div class="meet-when">
+          <div class="w">Week of 29 September</div>
+          <div class="len">30 minutes</div>
+          <div class="who">HP: campaign lead<br>BE: Elfried, Ellen, Vuyo</div>
+        </div>
+        <div>
+          <h3>Go live readiness</h3>
+          <p class="purpose">Final check before anything publishes. Everything either has a green light or a named owner and a date.</p>
+          <div class="cols">
+            <div class="col hpc">
+              <div class="ch">What we need from HP</div>
+              <ul>
+                <li>Round one content approved in full</li>
+                <li>Boosted media budget and channel priority confirmed</li>
+                <li>Anyone who needs to see it before launch has seen it</li>
+              </ul>
+            </div>
+            <div class="col bec">
+              <div class="ch">What we bring</div>
+              <ul>
+                <li>Posting schedule across the roster</li>
+                <li>ManyChat mechanic tested end to end</li>
+                <li>Tracking links built and checked</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meet">
+        <div class="meet-when">
+          <div class="w">Weekly through October, then the week after close</div>
+          <div class="len">30 minutes, then 60 for the recap</div>
+          <div class="who">HP: campaign lead and wider team for the recap<br>BE: Ellen and Vuyo</div>
+        </div>
+        <div>
+          <h3>In market, and the recap</h3>
+          <p class="purpose">Performance and sentiment reviewed weekly while content is live, then a full read out the week the campaign closes rather than a month later.</p>
+          <div class="cols">
+            <div class="col hpc">
+              <div class="ch">What we need from HP</div>
+              <ul>
+                <li>A steer on anything you want amplified or paused</li>
+                <li>Who should be in the room for the recap</li>
+              </ul>
+            </div>
+            <div class="col bec">
+              <div class="ch">What we bring</div>
+              <ul>
+                <li>Live post URLs, views and click data by creator</li>
+                <li>Comment sentiment tagged for buying intent</li>
+                <li>Top performing assets flagged for paid reuse</li>
+                <li>Full recap ready the week the campaign ends</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="howwework">
+      <b>One decision, one record.</b> Approvals given on these calls are treated as final and written up straight after. If someone at HP cannot make a call, we would rather move the call than collect views separately, because split feedback is what turns a two day decision into a two week one.
+    </div>
+  </div>
+</section>
+
+<!-- decisions -->
+<section class="band" id="decisions">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>What we need from HP, and when</h2>
+    <p class="lede">Every open item in Phase 1, with the call it gets decided on. Nothing here needs answering in advance, it is here so both sides walk into each meeting knowing exactly what it is for.</p>
+    <div class="checks" id="checks"></div>
+  </div>
+</section>
+
+<!-- reporting -->
+<section class="band" id="reporting">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>Reporting, live from October</h2>
+    <p class="lede">Built now so nothing is scrambled later. Once content goes live this section fills with post level data, by creator and by round.</p>
+    <div class="rep">
+      <div class="repbox"><div class="k">Post URLs</div><div class="v">Every live post by creator and round, linked</div></div>
+      <div class="repbox"><div class="k">Views and watch through</div><div class="v">Including drop off against the workflow story</div></div>
+      <div class="repbox"><div class="k">Link clicks and ManyChat</div><div class="v">Discount code interactions captured per creator</div></div>
+      <div class="repbox"><div class="k">Comment sentiment</div><div class="v">Tagged for buying intent, not volume</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fin">
+    <div>
+      <div class="stripes" style="height:18px;margin-bottom:16px"><i></i><i></i><i></i><i></i></div>
+      <div>HP and Butterfly Effect, Moon to Mars creator programme</div>
+    </div>
+    <div style="text-align:right">
+      <div>Strictly confidential</div>
+      <div>Questions, speak to the Butterfly Effect team</div>
+    </div>
+  </div>
+</footer>
+
+</div>
+</div>
+
+<script>
+/* ---------------- gate ---------------- */
+var PASSWORD = "HPxBE2026!";
+function unlock(){
+  var v = document.getElementById('pw').value;
+  if(v === PASSWORD){
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('site').classList.remove('hidden');
+    setTimeout(fillTrack, 220);
+  } else {
+    document.getElementById('err').textContent = "That password is not right. Check the message it came in, or ask the Butterfly Effect team.";
+  }
+}
+document.getElementById('enter').addEventListener('click', unlock);
+document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key === 'Enter') unlock(); });
+
+function fillTrack(){
+  var fill = document.getElementById('railFill');
+  if(fill) fill.style.width = '8%';
+}
+
+/* ---------------- sidebar ---------------- */
+var sidebar = document.getElementById('sidebar');
+var scrim = document.getElementById('scrim');
+var burger = document.getElementById('burger');
+var sbLinks = Array.prototype.slice.call(document.querySelectorAll('.sb-link'));
+
+function closeNav(){
+  sidebar.classList.remove('open');
+  scrim.classList.remove('on');
+  burger.setAttribute('aria-expanded','false');
+}
+burger.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  scrim.classList.toggle('on', open);
+  burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+scrim.addEventListener('click', closeNav);
+sbLinks.forEach(function(a){ a.addEventListener('click', closeNav); });
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeNav(); });
+
+/* active section tracking */
+var sections = sbLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+function spy(){
+  var pos = window.scrollY + 140, active = 0;
+  sections.forEach(function(sec,i){ if(sec && sec.offsetTop <= pos) active = i; });
+  if(window.innerHeight + window.scrollY >= document.body.scrollHeight - 60) active = sections.length - 1;
+  sbLinks.forEach(function(a,i){ a.classList.toggle('on', i === active); });
+}
+window.addEventListener('scroll', spy, {passive:true});
+window.addEventListener('resize', spy);
+
+/* offset anchor jumps so the sticky header does not cover headings */
+document.querySelectorAll('.sb-link').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var target = document.querySelector(a.getAttribute('href'));
+    if(!target) return;
+    e.preventDefault();
+    window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+  });
+});
+
+/* ---------------- timeline ---------------- */
+/* links: [label, url] — leave url empty and it renders as "to be added" */
+var GATES = [
+  {
+    d:"Thu 3 Sep", t:"Brief and roster locked", o:"hp", oc:"HP owns this", state:"live",
+    h:"The gate everything else depends on. We leave this stage with an approved brief and a final creator list, or the campaign moves out of October.",
+    p:["Creator brief approved as final, or returned with changes",
+       "Yes or no on each of the 15 new candidates",
+       "The two optional creators from round one resolved",
+       "Workstation models confirmed so shipping can be quoted"],
+    r:"Creators take two to three weeks to move once contacted, so every day this slips comes straight off the October window.",
+    links:[["Creator brief",""],["Full creator roster","https://docs.google.com/spreadsheets/d/1VzdW88EcWVBajvjaYJL2x1yIJxXt39KjLdBE9ijrmZE/edit?gid=2127329111#gid=2127329111"]]
+  },
+  {
+    d:"Mon 7 to Fri 11 Sep", t:"Outreach and terms", o:"be", oc:"Butterfly Effect owns this", state:"next",
+    h:"We take the approved roster to market, agree commercials, get contracts signed, and start each confirmed creator on their workstation selection.",
+    p:["Brief sent to every approved creator",
+       "Rates negotiated and confirmed against budget",
+       "Six to twelve month exclusivity agreed in contract",
+       "Brief responses collected and shared with you",
+       "Each confirmed creator specifies the workstation setup their workflow needs",
+       "Those specifications go back to HP for approval and costing into the budget"],
+    r:"Two things to be aware of. Some creators will decline or price out, which is why the approved list runs wider than the twelve we will actually use. More importantly, the workstation clock starts here, not later. Selection, HP approval, ordering, delivery and merging the cost into the budget realistically takes one to two weeks, and recording needs a further one to two weeks after the machine arrives. Nothing can be filmed before it does, so a creator confirmed in this stage is only just inside the window for end of September content.",
+    links:[["Finalised creator list",""]],
+    note:"Butterfly Effect runs this stage end to end. We approach every approved creator, negotiate rates against budget, agree exclusivity and get contracts signed, then take each confirmed creator through their workstation selection. HP approves the specifications and confirms costing. We bring responses, rates and any risks to the weekly call."
+  },
+  {
+    d:"w/c 14 Sep", t:"Workstations and workflow sessions", o:"both", oc:"HP and BE together", state:"next",
+    h:"Hardware reaches creators and HP walks each one through the product before anything is filmed.",
+    p:["Each creator selects their workstation",
+       "Units ship, with tracking shared here",
+       "Workflow and product session booked with HP's technical lead",
+       "Content approach agreed per creator across their three posts"],
+    r:"Nothing can be filmed until the workstation is on the creator's desk. If shipping has not started by 15 September, end of month content approval does not happen.",
+    links:[["Shipping tracker",""]]
+  },
+  {
+    d:"w/c 21 Sep", t:"Content approval, round one", o:"hp", oc:"HP owns this", state:"next",
+    h:"Concepts and first cuts come to you in small batches across the week rather than one large review.",
+    p:["Concepts submitted per creator",
+       "HP feedback within 48 hours of each submission",
+       "First cuts revised and resubmitted",
+       "Round one content signed off"],
+    r:"A 48 hour turnaround on feedback is what keeps October viable. Longer than that and go live slips week by week.",
+    links:[["Content review board",""],["Approved concepts by creator",""],["Feedback log",""]]
+  },
+  {
+    d:"Mon 28 to Wed 30 Sep", t:"Round one locked", o:"both", oc:"HP and BE together", state:"next",
+    h:"First posts approved, scheduled and ready to publish.",
+    p:["All round one content approved",
+       "Posting schedule agreed with each creator",
+       "ManyChat discount mechanic tested end to end",
+       "Tracking links built and checked"],
+    r:"The ManyChat mechanic needs a decision from HP well before this point, it cannot be built in the final week.",
+    links:[["Posting schedule",""],["ManyChat flow",""],["Tracking link sheet",""]]
+  },
+  {
+    d:"w/c 5 Oct", t:"Go live", o:"be", oc:"Butterfly Effect owns this", state:"next",
+    h:"Content publishes through October, ahead of the Black Friday buying window.",
+    p:["Post one live across the roster",
+       "Rounds two and three staggered through October",
+       "Performance and sentiment tracked from day one",
+       "Weekly summary posted to this page"],
+    r:"",
+    links:[["Performance dashboard","#reporting"]]
+  }
+];
+
+var nEl = document.getElementById('nodes'), dEl = document.getElementById('detail'), openGate = -1;
+
+GATES.forEach(function(g,i){
+  var b = document.createElement('button');
+  b.className = 'node ' + (g.state === 'live' ? 'live' : '');
+  b.setAttribute('aria-expanded','false');
+  b.innerHTML = '<span class="when">'+g.d+'</span><span class="dot"></span>'+
+                '<span class="lab">'+g.t+'</span><span class="own '+g.o+'">'+
+                (g.o === 'hp' ? 'HP' : g.o === 'be' ? 'BE' : 'Both')+'</span>';
+  b.addEventListener('click', function(){ toggleGate(i); });
+  nEl.appendChild(b);
+});
+
+function toggleGate(i){
+  var btns = nEl.querySelectorAll('.node');
+  if(openGate === i){
+    openGate = -1;
+    dEl.classList.remove('open');
+    btns.forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+    return;
+  }
+  openGate = i;
+  btns.forEach(function(b,j){ b.setAttribute('aria-expanded', j===i ? 'true':'false'); });
+  var g = GATES[i];
+
+  var linkHtml = g.links.map(function(l){
+    return l[1]
+      ? '<a class="linkrow" href="'+l[1]+'"'+(l[1].charAt(0)==='#'?'':' target="_blank" rel="noopener"')+'><span class="ic"></span>'+l[0]+
+        (l[1].charAt(0)==='#'?'':'<span class="soon">opens in a new tab</span>')+'</a>'
+      : '<span class="linkrow pending"><span class="ic"></span>'+l[0]+'<span class="soon">to be added</span></span>';
+  }).join('');
+
+  dEl.innerHTML =
+    '<div class="sp-head"><div><div class="st">Stage '+(i+1)+' of 6 &nbsp;&middot;&nbsp; '+g.d+'</div>'+
+      '<h3>'+g.t+'</h3></div><span class="owner '+g.o+'">'+g.oc+'</span></div>'+
+    '<p class="sp-lead">'+g.h+'</p>'+
+    '<div class="sp-body">'+
+      '<div><h4>What happens in this stage</h4><ul>'+
+        g.p.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ul>'+
+        (g.r ? '<div class="risk"><b>Watch out for:</b> '+g.r+'</div>' : '')+
+      '</div>'+
+      '<div>'+
+        (g.links.length ? '<h4>Documents</h4><div class="links">'+linkHtml+'</div>' : '')+
+        (g.note ? '<h4 style="margin-top:'+(g.links.length?'28px':'0')+'">Who runs this</h4><p class="ownnote">'+g.note+'</p>' : '')+
+      '</div>'+
+    '</div>'+
+    '<button class="sp-close" id="closeGate">Close this stage</button>';
+
+  dEl.classList.add('open');
+
+  var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setTimeout(function(){
+    var top = dEl.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: top, behavior: smooth ? 'smooth' : 'auto' });
+  }, 90);
+}
+
+dEl.addEventListener('click', function(e){
+  if(e.target && e.target.id === 'closeGate'){
+    var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var back = document.querySelector('.lifeline').getBoundingClientRect().top + window.scrollY - 110;
+    toggleGate(openGate);
+    window.scrollTo({ top: back, behavior: smooth ? 'smooth' : 'auto' });
+  }
+});
+
+/* ---------------- creators ---------------- */
+/* status: confirmed | approved | optional | new | declined */
+var C = [
+/* ---- round one, approved by HP ---- */
+{n:"John Saunders",r:"CNC machining and manufacturing",s:"PD&M",g:"m",st:"approved",subs:"To confirm",
+ yt:"", plats:"To confirm", news:false, sw:"CNC, Fusion 360",
+ safe:"Approved by HP in round one. Channel link, subscriber count and platform spread to be confirmed against our records before outreach."},
+
+{n:"Jeremy Fielding",r:"Mechanical engineering, CAD and prototyping",s:"PD&M",g:"m",st:"approved",subs:"109K",
+ yt:"https://www.youtube.com/@JeremyFieldingSr", plats:"Instagram, TikTok", news:false, sw:"CAD, mechanical design",
+ safe:"Strong engineering storyteller who builds a real machine from problem through design, iteration and fabrication, so the workstation sits inside the process rather than being reviewed. Current primary device and any competitor relationships to be vetted before contracting."},
+
+{n:"Will Gibbons",r:"Product visualisation and industrial design",s:"PD&M",g:"m",st:"approved",subs:"243K",
+ yt:"https://www.youtube.com/@willgibbons", plats:"Instagram, LinkedIn, own courses", news:false, sw:"Fusion 360, KeyShot",
+ safe:"Professional industrial design workflow with a natural concept to CAD to render story. Storytelling led rather than spec led, which fits the workflow first approach. Slightly more AEC leaning than core PD&M."},
+
+{n:"Stewart Hicks",r:"Architecture and design education",s:"AEC",g:"m",st:"approved",subs:"670K",
+ yt:"https://www.youtube.com/channel/UCYAm24PkejQR2xMgJgn7xwg", plats:"Instagram, X, podcast", news:false, sw:"Rhino, SketchUp, Revit, to confirm",
+ safe:"Associate professor and associate dean at the University of Illinois at Chicago, co-founder of Design With Company. Explores architecture through culture with real academic authority. Highly narrative educator, better suited to a story about turning complex ideas into visual output than to a hardware spec piece."},
+
+{n:"James Bruton",r:"Robotics and prototyping",s:"PD&M",g:"m",st:"approved",subs:"170K+",
+ yt:"https://www.youtube.com/@jamesbruton", plats:"Instagram, TikTok", news:false, sw:"Fusion 360",
+ safe:"Clear project narrative structure of challenge, CAD design, engineering iteration, build and payoff, so the workstation reads as a credible enabler throughout. Competitor history still to be vetted."},
+
+{n:"Jeff Geerling",r:"Hardware review and engineering",s:"PD&M",g:"m",st:"approved",subs:"1.05M",
+ yt:"https://www.youtube.com/@JeffGeerling", plats:"Two sister channels, blog, GitHub, X", news:true, sw:"Compute and workstation performance",
+ safe:"Genuinely relevant because he reviews hardware and compute rather than only CAD software. Runs Level2Jeff and Geerling Engineering alongside the main channel. Reviews multiple hardware brands, so the competitor position needs checking and an exclusivity window matters here more than most.",
+ flag:"Reviews multiple hardware brands"},
+
+{n:"Zack Nelson",r:"Durability testing, JerryRigEverything",s:"PD&M",g:"m",st:"approved",subs:"9.9M",
+ yt:"https://www.youtube.com/@JerryRigEverything", plats:"Instagram, X, own business", news:false, sw:"Device and compute durability",
+ safe:"Teardown and durability testing of tech products, directly relevant to hardware. Sits well above the typical budget scale for this roster, so worth confirming the fee before we go far down the road. Reviews multiple device brands, competitor check required.",
+ flag:"Above typical budget scale"},
+
+/* ---- round one, optional ---- */
+{n:"Kevin Kennedy",r:"Fusion 360 education, Product Design Online",s:"PD&M",g:"m",st:"optional",subs:"170K+",
+ yt:"https://www.youtube.com/@ProductDesignOnline", plats:"Own course platform", news:false, sw:"Fusion 360",
+ safe:"Runs the most popular Fusion 360 course online and is an Autodesk Expert Elite, which makes him credible with exactly the audience HP is trying to reach. Marked optional in round one, we would recommend promoting him to a yes."},
+
+{n:"CAD in Black",r:"CAD education",s:"PD&M",g:"m",st:"optional",subs:"To confirm",
+ yt:"", plats:"To confirm", news:false, sw:"CAD",
+ safe:"Marked optional in round one. Channel details to be confirmed before we approach."},
+
+/* ---- round one, declined ---- */
+{n:"Dami Lee",r:"Architecture and visualisation",s:"AEC",g:"f",st:"declined",subs:"~1M",
+ yt:"https://www.youtube.com/@DamiLeeArch", plats:"Instagram, TikTok", news:false, sw:"Architecture, rendering",
+ safe:"Declined by HP over a volume of negative comments that were not handled well. Noted and applied as a filter to every new candidate below, all of which have been checked for comment section health."},
+
+/* ---- round two, new candidates ---- */
+{n:"Jeff Bartels",r:"Civil infrastructure and Civil 3D",s:"AEC",g:"m",st:"new",subs:"71.7K",
+ yt:"https://www.youtube.com/@JeffBartelsCAD", plats:"LinkedIn, X, Civil Immersion blog", news:true, sw:"Civil 3D, Autodesk Construction Cloud",
+ safe:"The cleanest channel on the list. No brand partnerships of any kind anywhere in his catalogue, monetising only through his content and the Civil Immersion blog. Content is pure workflow education, modelling skewed corridors in Civil 3D, matching visual fidelity between Civil 3D and Construction Cloud, adding photo galleries to cloud projects. Comment sections are civil engineers asking technical questions. Below the 100K mark but the practitioner credibility is unmatched, and Civil 3D is core AEC infrastructure."},
+
+{n:"Too Tall Toby",r:"SOLIDWORKS and CAD speedrunning",s:"PD&M",g:"m",st:"new",subs:"82K",
+ yt:"https://www.youtube.com/@TooTallToby", plats:"Own site, Thinkific courses", news:false, sw:"SOLIDWORKS, Fusion 360",
+ safe:"Certified SOLIDWORKS Expert with no competing sponsors, monetising through his own CAD training courses and practice platform. Content is SOLIDWORKS tips, Fusion tutorials and live CAD speedrun competitions. Professional instructional tone, comment sections are CAD learners and working professionals. A precise fit for workstation positioning.",
+ flag:"Two channels, no Stories platform"},
+
+{n:"Clough42",r:"CNC machining and CAD workflows",s:"PD&M",g:"m",st:"new",subs:"234K",
+ yt:"https://www.youtube.com/@Clough42", plats:"Patreon", news:false, sw:"Fusion 360, CNC, PCB design",
+ safe:"Channel policy explicitly refuses mobile game and VPN promotions, which tells you how he treats his audience. Sponsors are MASSO CNC controllers and Precision Matthews, both aligned and non competing. Deeply technical, calm and workshop centred. Comment sections are experienced machinists, respectful and high signal.",
+ flag:"Two channels, no Stories platform"},
+
+{n:"Winston Moy",r:"Digital fabrication and CNC",s:"PD&M",g:"m",st:"new",subs:"92K",
+ yt:"https://www.youtube.com/@WinstonMakes", plats:"Instagram, X, Patreon, own site", news:false, sw:"Fusion 360, CNC",
+ safe:"Also produces videos for Carbide3D, a CNC manufacturer, and recent sponsors include Revopoint 3D scanners, both aligned rather than competing. Calm methodical expert tone, describes himself as a digital fabrication evangelist. Comment sections are fellow makers, clean sentiment. Low key but very credible."},
+
+{n:"Danny Lum",r:"Engineering builds and 3D printing",s:"PD&M",g:"m",st:"new",subs:"405K",
+ yt:"https://www.youtube.com/@dannylumcreative", plats:"Instagram, Patreon, Discord, second channel", news:false, sw:"Fusion 360, 3D printing",
+ safe:"Recent sponsors are SanDisk and Red Bull, neither competing. Engineering forward 3D printing builds, mini bowling lanes and AI powered turrets, fun on the surface but the full Fusion 360 design process is always shown. Family safe, enthusiastic maker audience, positive sentiment throughout."},
+
+{n:"Aaed Musa",r:"Robotics and mechanical engineering",s:"PD&M",g:"m",st:"new",subs:"274K",
+ yt:"https://www.youtube.com/@aaedmusa", plats:"Instagram, TikTok, X, Patreon, own site", news:false, sw:"SolidWorks, Fusion 360, Onshape",
+ safe:"Recent sponsors include Formlabs, Justway and Onshape, all aligned to the CAD and fabrication world rather than competing on hardware. Built his own SolidWorks add in, CadShift, which is a genuine practitioner signal. Young and enthusiastic tone, audience is aspiring engineers, sponsorships clearly disclosed."},
+
+{n:"PJ Chen",r:"Jewellery CAD and Rhino education",s:"PD&M",g:"f",st:"new",subs:"97.7K",
+ yt:"https://www.youtube.com/@PJChenJewelryDesign", plats:"Instagram, Facebook, LinkedIn, Thinkific", news:true, sw:"Rhino 3D, SubD",
+ safe:"One of the two cleanest profiles we have found across every round. No external sponsors at all, monetising entirely through her own Rhino 3D courses and community. Twenty five years of jewellery design experience and twenty years teaching it. Content is pure CAD workflow education, modelling, stone setting and file prep for casting and 3D printing. Zero controversy anywhere on the channel."},
+
+{n:"The Revit Kid",r:"Revit, BIM and architectural practice",s:"AEC",g:"m",st:"new",subs:"108K",
+ yt:"https://www.youtube.com/@TheRevitKid", plats:"X, Bluesky, Facebook, blog, BIM After Dark community", news:true, sw:"Revit, BIM",
+ safe:"A licensed architect running Revit and BIM tutorials, currently documenting a real home addition build on the channel. No competing tech sponsors, monetising through his own BIM After Dark community, courses and gear affiliate links. Calm expert tone, comment sections are working architects asking workflow questions. The practitioner educator archetype, with effectively zero brand risk."},
+
+{n:"Archi Hacks",r:"Architecture visualisation and process",s:"AEC",g:"m",st:"new",subs:"102K",
+ yt:"https://www.youtube.com/@ArchiHacks", plats:"Instagram, Facebook, X, LinkedIn, Reddit", news:true, sw:"Architectural visualisation, AI design tools",
+ safe:"Former OMA and BIG employee sharing architecture visualisation technique. Recent sponsors are niche AI design tools, non competing. Content is process led, built around sharing an end to end architectural design process. Educational and non controversial, audience is working design professionals, clean sentiment."},
+
+{n:"30X40 Design Workshop",r:"Architecture practice and residential design",s:"AEC",g:"m",st:"new",subs:"1.19M",
+ yt:"https://www.youtube.com/@30by40", plats:"Own courses, templates, book series", news:true, sw:"Revit, SketchUp, AutoCAD, to confirm",
+ safe:"An award winning architect running a practice from Maine, and the other of the two cleanest profiles we have found. No competing sponsors, monetising through his own courses, templates and the Architect and Entrepreneur books. Thoughtful and credible, audience is practising and aspiring architects. The gold standard for AEC practitioner educators.",
+ flag:"Two channels, no Stories platform"},
+
+{n:"BYoung Design",r:"Architecture practice and licensure",s:"AEC",g:"f",st:"new",subs:"21.8K",
+ yt:"https://www.youtube.com/@BYoungDesign", plats:"Instagram, own site, Kit", news:true, sw:"Architecture practice tools",
+ safe:"A licensed architect building a channel around architecture practice, licensure and the business of design, with a stated goal of inspiring a million people to become licensed architects. No competing sponsors, monetising through her own resources and newsletter. The smallest channel here but the strongest AEC woman practitioner educator available, and the audience is emerging professionals who become buyers."},
+
+{n:"CG Geek",r:"Blender, VFX and 3D rendering",s:"PD&M",g:"m",st:"new",subs:"1.15M",
+ yt:"https://www.youtube.com/@CGGeek", plats:"Instagram, X, Patreon, Discord, ArtStation", news:false, sw:"Blender, GPU rendering",
+ safe:"Has already run an HP sponsored video teaching Blender animation, which makes this a warm relationship rather than a cold approach, and the GPU heavy rendering workflow sits squarely in workstation territory. Flagging openly that recent sponsors include ASUS ProArt alongside NVIDIA Studio, so this is a competitor call for HP to make rather than one for us. Comment sections are highly engaged and technical with no toxicity.",
+ flag:"Recent ASUS ProArt sponsorship, HP to confirm"},
+
+{n:"Izzy Swan",r:"Woodworking, fabrication and invention",s:"PD&M",g:"m",st:"new",subs:"958K",
+ yt:"https://www.youtube.com/@izzyswan", plats:"Instagram, Swan Tool Group site", news:false, sw:"Fabrication and design, not CAD specific",
+ safe:"Monetises mainly through his own product line, Swan Tool Group, plus tool affiliates and an aligned table saw accessory sponsor. Inventive woodworking and fabrication with a genuinely original design approach. Running his own product line signals business maturity. Adjacent to core PD&M rather than inside it, so worth a view on whether the crossover works for you."},
+
+{n:"Caroline Dunn",r:"Electronics, IoT and maker engineering",s:"PD&M",g:"f",st:"new",subs:"40K",
+ yt:"https://www.youtube.com/@Caroline", plats:"Instagram, Facebook, Threads, own site, published author", news:false, sw:"Raspberry Pi, IoT, embedded",
+ safe:"An electrical engineer and marketer who has published a book on working in tech. Content is Raspberry Pi projects, smart home builds and maker tutorials. No competing tech sponsors visible. Calm and educational, audience is hobbyist engineers and students. Smaller reach, but the credibility and the gender balance both count for something here."},
+
+{n:"Nina Takesh",r:"Interior design and renovation",s:"AEC",g:"f",st:"new",subs:"139K",
+ yt:"https://www.youtube.com/@NinaTakesh", plats:"Instagram, TikTok, Pinterest, vlog channel, Substack", news:true, sw:"Interior design, not CAD specific",
+ safe:"Monetises through her own interior design course, wallpaper collection, furniture line and affiliates, with no competing tech sponsors. Founded the luxury brand Petit Tresor. Polished and professional, strong high end brand alignment. Sits adjacent to AEC rather than inside the BIM and infrastructure workflow, so include only if design led crossover appeals."},
+
+{n:"Julie Khuu",r:"Interior design and renovation",s:"AEC",g:"f",st:"new",subs:"583K",
+ yt:"https://www.youtube.com/@JulieKhuu", plats:"Instagram, TikTok, Facebook, Pinterest, own site", news:false, sw:"Interior design, not CAD specific",
+ safe:"Monetises through channel memberships, home affiliates and her own consultations, no competing tech sponsors. Eleven years of documented home renovation on the channel. Warm and instructional with a supportive community and positive sentiment. Like Nina, adjacent to AEC rather than core, offered as a reach and audience balance option."}
+];
+
+var F = {status:'all', sector:'all', gender:'all', news:'all', q:''};
+var grid = document.getElementById('grid'), empty = document.getElementById('empty'), count = document.getElementById('count');
+
+var LABEL = {confirmed:"Verbally agreed", approved:"Approved by HP", optional:"Optional, your call", "new":"New, for review", declined:"Declined"};
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function render(){
+  var list = C.filter(function(c){
+    if(F.status !== 'all' && c.st !== F.status) return false;
+    if(F.sector !== 'all' && c.s !== F.sector) return false;
+    if(F.gender !== 'all' && c.g !== F.gender) return false;
+    if(F.news === 'yes' && !c.news) return false;
+    if(F.q){
+      var hay = (c.n+' '+c.r+' '+c.sw+' '+c.safe+' '+c.s).toLowerCase();
+      if(hay.indexOf(F.q) === -1) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = list.map(function(c,i){
+    var id = C.indexOf(c);
+    return '<article class="card s-'+c.st+'">'+
+      '<div class="bar"></div>'+
+      '<div class="card-in">'+
+        '<div class="card-top"><h3>'+esc(c.n)+'</h3><span class="status s-'+c.st+'">'+LABEL[c.st]+'</span></div>'+
+        '<div class="role">'+esc(c.r)+'</div>'+
+        '<div class="pills">'+
+          '<span class="pill sector">'+esc(c.s)+'</span>'+
+          (c.news ? '<span class="pill news">Newsletter</span>' : '')+
+          (c.flag ? '<span class="pill warn">'+esc(c.flag)+'</span>' : '')+
+        '</div>'+
+        '<div class="stat">'+
+          '<div><div class="k">Subscribers</div><div class="v">'+esc(c.subs)+'</div></div>'+
+          '<div><div class="k">Software</div><div class="v" style="font-size:14px;line-height:1.3;padding-top:2px">'+esc(c.sw)+'</div></div>'+
+        '</div>'+
+        '<div class="safety"><span class="clip" id="clip'+id+'">'+esc(c.safe)+'</span>'+
+          '<button class="more" data-clip="'+id+'">Read full note</button></div>'+
+        '<div class="plats"><b>Also on:</b> '+esc(c.plats)+'</div>'+
+      '</div>'+
+      '<div class="card-foot">'+
+        (c.yt ? '<a class="yt" href="'+c.yt+'" target="_blank" rel="noopener">Open YouTube channel</a>'
+              : '<span class="yt" style="color:var(--ink-60);font-weight:400">Channel link to confirm</span>')+
+      '</div>'+
+    '</article>';
+  }).join('');
+
+  empty.classList.toggle('hidden', list.length > 0);
+  count.textContent = list.length + ' of ' + C.length + ' shown';
+}
+
+grid.addEventListener('click', function(e){
+  var m = e.target.closest('[data-clip]');
+  if(m){
+    var el = document.getElementById('clip'+m.getAttribute('data-clip'));
+    var open = el.classList.toggle('open');
+    m.textContent = open ? 'Show less' : 'Read full note';
+  }
+});
+
+document.querySelectorAll('.chips').forEach(function(group){
+  group.addEventListener('click', function(e){
+    var chip = e.target.closest('.chip');
+    if(!chip) return;
+    group.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('on'); });
+    chip.classList.add('on');
+    var key = group.getAttribute('data-f');
+    var map = {status:'status', sector:'sector', gender:'gender', news:'news'};
+    F[map[key]] = chip.getAttribute('data-v');
+    render();
+  });
+});
+document.getElementById('q').addEventListener('input', function(e){
+  F.q = e.target.value.toLowerCase().trim();
+  render();
+});
+
+/* ---------------- what we need from HP (static, decided in meetings) ---------------- */
+var NEEDS = [
+  ["Creator brief approved as final","Roster and brief call, Thu 3 Sep"],
+  ["Yes or no on the 15 new candidates in the roster above","Roster and brief call, Thu 3 Sep"],
+  ["The two optional creators from round one resolved","Roster and brief call, Thu 3 Sep"],
+  ["Workstation models creators can choose from as part of their fee","Weekly programme call, Tue 8 Sep"],
+  ["The technical contact who will run the workflow session with each creator","Weekly programme call, Tue 8 Sep"],
+  ["Sign off on the ManyChat discount, retargeting and direct email mechanic","Weekly programme call, Tue 8 Sep"],
+  ["Conversion and ManyChat lens discussion","Weekly programme call, Tue 8 Sep"],
+  ["Software ecosystem mapping validated against each creator","Hardware and logistics call, w/c 14 Sep"],
+  ["Boosted media budget and channel priority for Phase 1","Weekly programme call, Tue 22 Sep"]
+];
+var cEl = document.getElementById('checks');
+cEl.innerHTML = NEEDS.map(function(n){
+  return '<div class="need"><span class="ntick"></span><span class="ntext">'+n[0]+
+         '<span class="nwhen">Decided at: '+n[1]+'</span></span></div>';
+}).join('');
+
+render();
+spy();
+</script>
+</body>
+</html>
