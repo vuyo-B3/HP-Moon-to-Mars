@@ -285,6 +285,13 @@ header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdro
 .repbox .k{font-size:14px;font-weight:500;margin-bottom:6px}
 .repbox .v{font-size:13px;color:var(--ink-60)}
 
+/* ---------- who's who ---------- */
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line)}
+.person{background:var(--white);padding:20px 22px}
+.person .pn{font-size:16px;font-weight:500}
+.person .pr{font-size:14px;color:var(--ink-60);line-height:1.45;margin-top:5px}
+@media(max-width:820px){.people{grid-template-columns:1fr}}
+
 /* ---------- footer ---------- */
 footer{background:var(--ink);color:#B9BCC2;padding:44px 0;font-size:13px;margin-top:0}
 footer .fin{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
@@ -382,9 +389,11 @@ footer .stripes i{background:var(--white)}
   </div>
   <nav class="sb-nav" id="sbnav" aria-label="Sections">
     <a class="sb-link" href="#overview"><span class="tick"></span>Where things stand</a>
+    <a class="sb-link" href="#status"><span class="tick"></span>Signed off and open</a>
     <a class="sb-link" href="#phases"><span class="tick"></span>The three phases</a>
     <a class="sb-link" href="#timeline"><span class="tick"></span>Phase 1 timeline</a>
     <a class="sb-link" href="#roster"><span class="tick"></span>Creator roster</a>
+    <a class="sb-link" href="#who"><span class="tick"></span>Who's who at HP</a>
     <a class="sb-link" href="#meetings"><span class="tick"></span>How we work together</a>
     <a class="sb-link" href="#decisions"><span class="tick"></span>What we need from you</a>
     <a class="sb-link" href="#reporting"><span class="tick"></span>Reporting</a>
@@ -402,7 +411,7 @@ footer .stripes i{background:var(--white)}
     <button class="burger" id="burger" aria-label="Open navigation" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <div class="head-l"><span class="live-dot"></span>Phase 1 is live, first content targeted for the week of 5 October</div>
+    <div class="head-l"><span class="live-dot"></span>Phase 1 is live. Intel posts must be live before 31 October, first content the week of 5 October</div>
     <span class="stamp">Updated 1 Sep 2026</span>
   </div>
 </header>
@@ -411,24 +420,55 @@ footer .stripes i{background:var(--white)}
 <section class="wrap hero" id="overview">
   <div class="rule"></div>
   <h1>Everything you need to move this campaign forward</h1>
-  <p>Phase 1 is live. Below is where the roster stands, what is waiting on you, and the dates we are working back from to get first content live in the first week of October.</p>
+  <p>The brief is approved and Phase 1 is live. Below is where the roster stands, what is still open, and the dates we are working back from. The hardest date is Intel's, two to three Intel-aligned organic posts must be live before 31 October, when the Intel funding expires.</p>
 
   <div class="metrics">
     <div class="metric"><div class="n" id="m1">9</div><div class="l">Creators approved by HP</div></div>
-    <div class="metric"><div class="n" id="m2">6</div><div class="l">Verbally agreed, contracts pending</div></div>
+    <div class="metric"><div class="n">0<span>&nbsp;of 3</span></div><div class="l">Intel posts live by 31 Oct</div></div>
     <div class="metric"><div class="n" id="m3">15</div><div class="l">New candidates for review</div></div>
     <div class="metric"><div class="n">8<span>&ndash;12</span></div><div class="l">Target roster size</div></div>
   </div>
 
   <div class="waiting">
-    <h3>Decided on Thursday 3 September</h3>
+    <h3>Still open, and who closes it</h3>
     <ul>
-      <li>Sign off the creator brief so outreach can begin</li>
-      <li>Yes or no on the 15 new candidates below</li>
-      <li>The two optional creators from round one</li>
-      <li>Which workstation models creators can choose from, this sets the shipping date</li>
-      <li>Who at HP runs the workflow session with each creator</li>
+      <li>Destination link for creator content confirmed</li>
+      <li>Any store offer resolved with Cindy on the store side</li>
+      <li>Creator specs matched to machines by HP's category team</li>
+      <li>Intel versus AMD allocation decided, only Intel machines count toward the 31 October proof</li>
+      <li>Rolling roster approvals, one creator at a time so outreach can start</li>
     </ul>
+  </div>
+</section>
+
+<!-- signed off and open -->
+<section class="band band-soft" id="status">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>Signed off, and still open</h2>
+    <p class="lede">The single source of truth for this campaign. Anything in the left column is settled and does not get reopened. Anything on the right is what the calls exist to close.</p>
+    <div class="cols">
+      <div class="col bec">
+        <div class="ch">Signed off</div>
+        <ul>
+          <li>Creator brief approved on 1 September</li>
+          <li>Workstation giveaway made optional, not confirmed</li>
+          <li>Organic only for Phase 1, no paid media this phase</li>
+          <li>No new lead capture, HP already holds the target account lists</li>
+          <li>Weekly Tuesday cadence agreed</li>
+          <li>50k secured from Intel, funds expire 31 October</li>
+        </ul>
+      </div>
+      <div class="col hpc">
+        <div class="ch">Still open</div>
+        <ul>
+          <li>Destination link for creator content, and any offer attached to it</li>
+          <li>Store bundle or discount code, with Cindy and the store team</li>
+          <li>Machine allocation per creator, Intel or AMD, by HP's category team</li>
+          <li>Remaining roster, approved on a rolling basis</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -454,6 +494,7 @@ footer .stripes i{background:var(--white)}
       <p>Tech publishers, meme pages and newsletter placements extending the reach of the content that performs. Sourcing begins once Phase 1 results are in.</p>
     </div>
   </div>
+  <div class="howwework"><b>Phase 1 is organic.</b> No paid media and no new lead capture in this phase. Creator content carries an organic find out more link to the HP store, aimed at prosumers and small businesses, the same audience the AEC pilot landing page pulled. Any offer attached to that link sits with the store team, and any amplification goes through Edelman.</div>
 </section>
 
 <!-- timeline -->
@@ -525,6 +566,24 @@ footer .stripes i{background:var(--white)}
   </div>
 </section>
 
+<!-- who's who -->
+<section class="band" id="who">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>Who's who at HP</h2>
+    <p class="lede">Named owners on the HP side, so requests go to the right person and nothing stalls during the handover. Mafe goes on maternity leave in roughly two weeks and Christine picks up execution.</p>
+    <div class="people">
+      <div class="person"><div class="pn">Mafe Lopez</div><div class="pr">Campaign lead, until maternity leave in roughly two weeks</div></div>
+      <div class="person"><div class="pn">Christine</div><div class="pr">Taking over execution during Mafe's leave, the main day to day contact</div></div>
+      <div class="person"><div class="pn">Heather Res</div><div class="pr">Target accounts and the store relationship, executing against the account lists on LinkedIn</div></div>
+      <div class="person"><div class="pn">Cindy</div><div class="pr">Store side, owns any bundle or offer attached to the destination link</div></div>
+      <div class="person"><div class="pn">Monique</div><div class="pr">Category team, recommends the right machine per creator from their software and specs</div></div>
+      <div class="person"><div class="pn">Laura and Bri</div><div class="pr">Demo units, can lend machines where final product is not ready</div></div>
+      <div class="person"><div class="pn">Edelman</div><div class="pr">Handles the SOW and the media and SEO work, align before any change that affects amplification</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- meetings -->
 <section class="band band-soft" id="meetings">
   <div class="wrap">
@@ -537,28 +596,27 @@ footer .stripes i{background:var(--white)}
       <div class="meet next">
         <div class="meet-when">
           <div class="w">Thursday 3 September</div>
-          <div class="len">45 minutes</div>
-          <div class="who">HP: campaign lead and anyone with a view on the roster<br>BE: Elfried, Ellen, Vuyo</div>
+          <div class="len">30 minutes</div>
+          <div class="who">HP: Mafe, Heather and Christine<br>BE: Elfried, Ellen, Vuyo</div>
         </div>
         <div>
-          <h3>Roster and brief sign off</h3>
-          <p class="purpose">The gate everything else depends on. We leave this call with an approved brief and a final creator list, or the campaign moves out of October.</p>
+          <h3>Roster checkpoint</h3>
+          <p class="purpose">The brief is already approved, so this is now a roster call. We confirm the next batch of creators so outreach keeps moving, and hand over cleanly to Christine.</p>
           <div class="cols">
             <div class="col hpc">
               <div class="ch">What we need from HP</div>
               <ul>
-                <li>Brief approved as final, or changes given on the call</li>
-                <li>Yes or no on each of the 15 new candidates</li>
-                <li>The two optional creators resolved</li>
+                <li>Rolling yes or no on the next creators, no need to wait for the full list</li>
+                <li>Any changes to the roster balance across PD&amp;M and AEC</li>
+                <li>Christine introduced as the execution contact</li>
               </ul>
             </div>
             <div class="col bec">
               <div class="ch">What we bring</div>
               <ul>
                 <li>Full roster with brand safety notes, already on this page</li>
-                <li>Why each new candidate matches what you approved</li>
-                <li>The sector balance across PD&amp;M and AEC</li>
-                <li>Outreach plan ready to run the moment we have a yes</li>
+                <li>Roughly ten more names, so there are fifteen to play with</li>
+                <li>Outreach already moving on everyone approved so far</li>
               </ul>
             </div>
           </div>
@@ -568,21 +626,21 @@ footer .stripes i{background:var(--white)}
       <div class="meet">
         <div class="meet-when">
           <div class="w">Every Tuesday, from 8 September</div>
-          <div class="len">30 minutes, standing</div>
-          <div class="who">HP: campaign lead<br>BE: Ellen and Vuyo</div>
+          <div class="len">10 to 15 minutes, standing</div>
+          <div class="who">HP: Mafe, Heather and Christine<br>BE: Ellen and Vuyo</div>
         </div>
         <div>
           <h3>Weekly programme call</h3>
-          <p class="purpose">The rhythm call. Short, same time each week, and the place anything outstanding gets closed before it turns into a delay.</p>
+          <p class="purpose">The rhythm call. Short, same time each week, and the place anything outstanding gets closed before it turns into a delay. Sign off items are circulated a week in advance, so nothing is a surprise on the call.</p>
           <div class="cols">
             <div class="col hpc">
               <div class="ch">What we need from HP</div>
               <ul>
                 <li>Answers on anything raised in last week's summary</li>
-                <li>Workstation models confirmed, on the 8 September call</li>
+                <li>Machine allocation confirmed per creator, Intel or AMD</li>
                 <li>Technical contact named for the workflow sessions</li>
-                <li>ManyChat mechanic signed off</li>
-                <li>Conversion and ManyChat lens discussion</li>
+                <li>Destination link confirmed, the organic find out more page</li>
+                <li>Store conversation with Cindy on any bundle or offer</li>
               </ul>
             </div>
             <div class="col bec">
@@ -602,7 +660,7 @@ footer .stripes i{background:var(--white)}
         <div class="meet-when">
           <div class="w">Week of 15 September</div>
           <div class="len">30 minutes</div>
-          <div class="who">HP: campaign lead and technical contact<br>BE: Ellen and Vuyo</div>
+          <div class="who">HP: Heather, Christine and technical contact<br>BE: Ellen and Vuyo</div>
         </div>
         <div>
           <h3>Hardware and workflow sessions</h3>
@@ -632,7 +690,7 @@ footer .stripes i{background:var(--white)}
         <div class="meet-when">
           <div class="w">Mondays and Thursdays, week of 22 September</div>
           <div class="len">30 minutes</div>
-          <div class="who">HP: campaign lead and brand reviewer<br>BE: Ellen and Vuyo</div>
+          <div class="who">HP: Heather, Christine and brand reviewer<br>BE: Ellen and Vuyo</div>
         </div>
         <div>
           <h3>Content review, round one</h3>
@@ -662,7 +720,7 @@ footer .stripes i{background:var(--white)}
         <div class="meet-when">
           <div class="w">Week of 29 September</div>
           <div class="len">30 minutes</div>
-          <div class="who">HP: campaign lead<br>BE: Elfried, Ellen, Vuyo</div>
+          <div class="who">HP: Heather and Christine<br>BE: Elfried, Ellen, Vuyo</div>
         </div>
         <div>
           <h3>Go live readiness</h3>
@@ -672,7 +730,7 @@ footer .stripes i{background:var(--white)}
               <div class="ch">What we need from HP</div>
               <ul>
                 <li>Round one content approved in full</li>
-                <li>Boosted media budget and channel priority confirmed</li>
+                <li>Confirmation Phase 1 stays organic, any amplification goes through Edelman</li>
                 <li>Anyone who needs to see it before launch has seen it</li>
               </ul>
             </div>
@@ -680,7 +738,7 @@ footer .stripes i{background:var(--white)}
               <div class="ch">What we bring</div>
               <ul>
                 <li>Posting schedule across the roster</li>
-                <li>ManyChat mechanic tested end to end</li>
+                <li>Destination links tested end to end</li>
                 <li>Tracking links built and checked</li>
               </ul>
             </div>
@@ -692,7 +750,7 @@ footer .stripes i{background:var(--white)}
         <div class="meet-when">
           <div class="w">Weekly through October, then the week after close</div>
           <div class="len">30 minutes, then 60 for the recap</div>
-          <div class="who">HP: campaign lead and wider team for the recap<br>BE: Ellen and Vuyo</div>
+          <div class="who">HP: Heather, Christine and wider team for the recap<br>BE: Ellen and Vuyo</div>
         </div>
         <div>
           <h3>In market, and the recap</h3>
@@ -745,8 +803,8 @@ footer .stripes i{background:var(--white)}
     <div class="rep">
       <div class="repbox"><div class="k">Post URLs</div><div class="v">Every live post by creator and round, linked</div></div>
       <div class="repbox"><div class="k">Views and watch through</div><div class="v">Including drop off against the workflow story</div></div>
-      <div class="repbox"><div class="k">Link clicks and ManyChat</div><div class="v">Discount code interactions captured per creator</div></div>
-      <div class="repbox"><div class="k">Comment sentiment</div><div class="v">Tagged for buying intent, not volume</div></div>
+      <div class="repbox"><div class="k">Destination link clicks</div><div class="v">Clicks through to the HP find out more page, by creator</div></div>
+      <div class="repbox"><div class="k">Intel proof of execution</div><div class="v">Two to three Intel-guideline posts live before 31 October</div></div>
     </div>
   </div>
 </section>
@@ -833,13 +891,13 @@ document.querySelectorAll('.sb-link').forEach(function(a){
 /* links: [label, url] — leave url empty and it renders as "to be added" */
 var GATES = [
   {
-    d:"Thu 3 Sep", t:"Brief and roster locked", o:"hp", oc:"HP owns this", state:"live",
-    h:"The gate everything else depends on. We leave this stage with an approved brief and a final creator list, or the campaign moves out of October.",
-    p:["Creator brief approved as final, or returned with changes",
-       "Yes or no on each of the 15 new candidates",
-       "The two optional creators from round one resolved",
-       "Workstation models confirmed so shipping can be quoted"],
-    r:"Creators take two to three weeks to move once contacted, so every day this slips comes straight off the October window.",
+    d:"From 1 Sep", t:"Roster locked", o:"hp", oc:"HP owns this", state:"live",
+    h:"The brief is approved, with the workstation giveaway made optional. This stage is now purely about locking the roster. Creators are approved on a rolling basis, so outreach starts on each yes rather than waiting for the full list.",
+    p:["Brief approved on 1 September, giveaway optional not confirmed",
+       "Creators approved one at a time, outreach starts on each yes",
+       "Roughly ten more names added, fifteen to play with, eight to ten expected to convert",
+       "SOW closed with Edelman"],
+    r:"Creators take two to three weeks to move once contacted, so every day this slips comes straight off the October window, and off the 31 October Intel deadline first of all.",
     links:[["Creator brief",""],["Full creator roster","https://docs.google.com/spreadsheets/d/1VzdW88EcWVBajvjaYJL2x1yIJxXt39KjLdBE9ijrmZE/edit?gid=2127329111#gid=2127329111"]]
   },
   {
@@ -849,8 +907,10 @@ var GATES = [
        "Rates negotiated and confirmed against budget",
        "Six to twelve month exclusivity agreed in contract",
        "Brief responses collected and shared with you",
-       "Each confirmed creator specifies the workstation setup their workflow needs",
-       "Those specifications go back to HP for approval and costing into the budget"],
+       "Each confirmed creator confirms their software and the specs their workflow needs",
+       "Specs go to HP's category team, Monique, who recommends the machine",
+       "Intel or AMD decided per creator, only Intel machines count toward the 31 October proof",
+       "Mac users confirm they are genuinely willing to work on a Windows device"],
     r:"Two things to be aware of. Some creators will decline or price out, which is why the approved list runs wider than the twelve we will actually use. More importantly, the workstation clock starts here, not later. Selection, HP approval, ordering, delivery and merging the cost into the budget realistically takes one to two weeks, and recording needs a further one to two weeks after the machine arrives. Nothing can be filmed before it does, so a creator confirmed in this stage is only just inside the window for end of September content.",
     links:[["Finalised creator list",""]],
     note:"Butterfly Effect runs this stage end to end. We approach every approved creator, negotiate rates against budget, agree exclusivity and get contracts signed, then take each confirmed creator through their workstation selection. HP approves the specifications and confirms costing. We bring responses, rates and any risks to the weekly call."
@@ -858,11 +918,12 @@ var GATES = [
   {
     d:"w/c 14 Sep", t:"Workstations and workflow sessions", o:"both", oc:"HP and BE together", state:"next",
     h:"Hardware reaches creators and HP walks each one through the product before anything is filmed.",
-    p:["Each creator selects their workstation",
+    p:["Category team confirms the machine for each creator",
        "Units ship, with tracking shared here",
+       "Demo units lent by Laura and Bri where final product is not ready",
        "Workflow and product session booked with HP's technical lead",
-       "Content approach agreed per creator across their three posts"],
-    r:"Nothing can be filmed until the workstation is on the creator's desk. If shipping has not started by 15 September, end of month content approval does not happen.",
+       "Content approach agreed per creator across their posts"],
+    r:"Nothing can be filmed until a machine is on the creator's desk. The hero AEC product does not ship until November, so demo units cover the gap. If machines have not started moving by mid September, the 31 October Intel deadline is at risk.",
     links:[["Shipping tracker",""]]
   },
   {
@@ -880,19 +941,20 @@ var GATES = [
     h:"First posts approved, scheduled and ready to publish.",
     p:["All round one content approved",
        "Posting schedule agreed with each creator",
-       "ManyChat discount mechanic tested end to end",
+       "Destination link live and any store offer confirmed",
        "Tracking links built and checked"],
-    r:"The ManyChat mechanic needs a decision from HP well before this point, it cannot be built in the final week.",
-    links:[["Posting schedule",""],["ManyChat flow",""],["Tracking link sheet",""]]
+    r:"The destination link, and any offer attached to it, needs a decision from HP and the store team well before this point. It cannot be resolved in the final week.",
+    links:[["Posting schedule",""],["Destination and store offer",""],["Tracking link sheet",""]]
   },
   {
     d:"w/c 5 Oct", t:"Go live", o:"be", oc:"Butterfly Effect owns this", state:"next",
     h:"Content publishes through October, ahead of the Black Friday buying window.",
     p:["Post one live across the roster",
+       "Two to three Intel-aligned posts scheduled to land before 31 October",
        "Rounds two and three staggered through October",
        "Performance and sentiment tracked from day one",
        "Weekly summary posted to this page"],
-    r:"",
+    r:"The Intel funding expires on 31 October. The two to three Intel-guideline posts must be published before that date to count as proof of execution, and only Intel-assigned creators can fill that quota.",
     links:[["Performance dashboard","#reporting"]]
   }
 ];
@@ -1160,15 +1222,16 @@ document.getElementById('q').addEventListener('input', function(e){
 
 /* ---------------- what we need from HP (static, decided in meetings) ---------------- */
 var NEEDS = [
-  ["Creator brief approved as final","Roster and brief call, Thu 3 Sep"],
-  ["Yes or no on the 15 new candidates in the roster above","Roster and brief call, Thu 3 Sep"],
-  ["The two optional creators from round one resolved","Roster and brief call, Thu 3 Sep"],
-  ["Workstation models creators can choose from as part of their fee","Weekly programme call, Tue 8 Sep"],
+  ["Rolling yes or no on creators so outreach keeps moving","Roster checkpoint, Thu 3 Sep"],
+  ["Roughly ten more names added to the roster","Roster checkpoint, Thu 3 Sep"],
+  ["Christine confirmed as the execution contact for the handover","Roster checkpoint, Thu 3 Sep"],
+  ["Machine allocation per creator, Intel or AMD, by the category team","Weekly programme call, Tue 8 Sep"],
   ["The technical contact who will run the workflow session with each creator","Weekly programme call, Tue 8 Sep"],
-  ["Sign off on the ManyChat discount, retargeting and direct email mechanic","Weekly programme call, Tue 8 Sep"],
-  ["Conversion and ManyChat lens discussion","Weekly programme call, Tue 8 Sep"],
-  ["Software ecosystem mapping validated against each creator","Hardware and logistics call, w/c 14 Sep"],
-  ["Boosted media budget and channel priority for Phase 1","Weekly programme call, Tue 22 Sep"]
+  ["Destination link confirmed, the organic find out more page","Weekly programme call, Tue 8 Sep"],
+  ["Any store bundle or discount code, with Cindy and the store team","Weekly programme call, Tue 8 Sep"],
+  ["Intel social guidelines shared so posts can be built before 31 October","Weekly programme call, Tue 8 Sep"],
+  ["Software and specs confirmed against each creator","Hardware and logistics call, w/c 14 Sep"],
+  ["Mac users confirmed willing to work on a Windows device","Hardware and logistics call, w/c 14 Sep"]
 ];
 var cEl = document.getElementById('checks');
 cEl.innerHTML = NEEDS.map(function(n){
