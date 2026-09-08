@@ -95,6 +95,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .sig .v.tc{color:var(--ink60)}
 .sig .v.ok{color:var(--yes);font-weight:500}
 .sig .v.bad{color:var(--no);font-weight:500}
+.sig .v.warn{color:#C4562F;font-weight:500}
 .sig.wide{grid-column:1 / -1;border-right:none}
 
 .plats{display:flex;flex-wrap:wrap;gap:7px;padding:14px 24px;border-bottom:1px solid var(--line)}
@@ -179,21 +180,7 @@ kbd{font-family:var(--f);background:#fff;border:1px solid var(--line);border-bot
 </head>
 <body>
 
-<!-- gate, Butterfly Effect internal only, separate password from the HP hub -->
-<div id="gate">
-  <div class="gatecard">
-    <div class="lock">BUTTERFLY EFFECT INTERNAL</div>
-    <h1>Creator picks</h1>
-    <p>Internal review deck for the round two candidates. This is not the HP hub, it holds our own tiering and recommendations, so keep the password inside the Butterfly Effect team.</p>
-    <div class="gaterow">
-      <input type="password" id="gpw" placeholder="Internal password" autocomplete="current-password" aria-label="Password">
-      <button class="gbtn" id="genter">Open deck</button>
-    </div>
-    <div class="gerr" id="gerr" role="alert"></div>
-  </div>
-</div>
-
-<div id="site" class="hidden">
+<div id="site">
 
 <header>
   <div class="hin">
@@ -303,194 +290,27 @@ function hasNews(c){ return c.plats.some(function(p){ return p[0] === 'news'; })
 
 /* creators. country and US audience share pending the Orthogonal export */
 var C = [
-{n:"Jeff Bartels",h:"@JeffBartelsCAD",s:"AEC",tier:"core",subs:"71.7K",
- country:"To confirm",us:"To confirm",isv:"Civil 3D, Autodesk Construction Cloud",
- niche:"Civil infrastructure and Civil 3D",
- plats:[["youtube","YouTube",null],["linkedin","LinkedIn",null],["x","X",null],["news","Civil Immersion blog",null]],
- makes:"Pure workflow teaching, modelling skewed corridors in Civil 3D, matching visual fidelity between Civil 3D and Construction Cloud, adding photo galleries to cloud projects.",
- angle:"The AEC infrastructure anchor. Show a real corridor or civil model running at full weight on the workstation, aimed squarely at engineers doing public works.",
- safe:"Cleanest channel on the list. No brand partnerships anywhere in his catalogue, monetising only through content and the blog. Comment sections are civil engineers asking technical questions.",
- url:"https://www.youtube.com/@JeffBartelsCAD"},
-
-{n:"Too Tall Toby",h:"@TooTallToby",s:"PD&M",tier:"core",subs:"82K",
- country:"To confirm",us:"To confirm",isv:"SOLIDWORKS, Fusion 360",
- niche:"SOLIDWORKS and CAD speedrunning",
- plats:[["youtube","YouTube",null],["web","Thinkific courses",null]],
- makes:"SOLIDWORKS tips, Fusion tutorials and live CAD speedrun competitions where modelling speed is the whole event.",
- angle:"Speed as the proof point. His format already measures how fast a model gets built, so the machine becomes the variable rather than the subject.",
- safe:"Certified SOLIDWORKS Expert with no competing sponsors, monetising through his own training courses. Audience is CAD learners and working professionals.",
- url:"https://www.youtube.com/@TooTallToby"},
-
-{n:"Clough42",h:"@Clough42",s:"PD&M",tier:"core",subs:"234K",
- country:"To confirm",us:"To confirm",isv:"Fusion 360, CNC and CAM",
- niche:"CNC machining and CAD workflows",
- plats:[["youtube","YouTube",null],["patreon","Patreon",null]],
- makes:"CNC machining, 3D printing, PCB design and Fusion 360 workflows, filmed calm and long form from his workshop.",
- angle:"The full pipeline, design through to cut metal, with the workstation carrying the CAD and CAM end of a real build.",
- safe:"Channel policy explicitly refuses mobile game and VPN promotions. Sponsors are MASSO and Precision Matthews, aligned and non competing. Comment sections are experienced machinists.",
- url:"https://www.youtube.com/@Clough42"},
-
-{n:"Winston Moy",h:"@WinstonMakes",s:"PD&M",tier:"core",subs:"92K",
- country:"To confirm",us:"To confirm",isv:"Fusion 360, CNC",
- niche:"Digital fabrication and CNC",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["x","X",null],["patreon","Patreon",null],["web","Website",null]],
- makes:"CNC projects, Fusion 360 design and digital fabrication, methodical and low key with the process shown properly.",
- angle:"Digital fabrication end to end, a maker who explains why each step needs the compute it needs.",
- safe:"Also produces videos for Carbide3D, and recent sponsors include Revopoint scanners, both aligned rather than competing. Clean sentiment throughout.",
- url:"https://www.youtube.com/@WinstonMakes"},
-
-{n:"Danny Lum",h:"@dannylumcreative",s:"PD&M",tier:"core",subs:"405K",
- country:"To confirm",us:"To confirm",isv:"Fusion 360, 3D printing",
- niche:"Engineering builds and 3D printing",
- plats:[["youtube","YouTube",null],["patreon","Patreon",null],["discord","Discord",null],["web","Second channel",null]],
- makes:"Ambitious engineering builds, mini bowling lanes and AI powered turrets, fun on the surface with the full Fusion 360 process underneath.",
- angle:"The reach play in PD&M. Entertaining enough to travel, technical enough that the workstation genuinely earns its place in the edit.",
- safe:"Recent sponsors are SanDisk and Red Bull, neither competing. Family safe with an enthusiastic maker audience and positive sentiment.",
- url:"https://www.youtube.com/@dannylumcreative"},
-
-{n:"Aaed Musa",h:"@aaedmusa",s:"PD&M",tier:"core",subs:"274K",
- country:"To confirm",us:"To confirm",isv:"SOLIDWORKS, Fusion 360, Onshape",
- niche:"Robotics and mechanical engineering",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["x","X",null],["patreon","Patreon",null]],
- makes:"Robotics and mechanical builds with the CAD process always on screen. Built his own SolidWorks add in, CadShift.",
- angle:"Simulation and iteration. Robotics work hammers a machine, and his audience of aspiring engineers is exactly the next generation of buyers.",
- safe:"Recent sponsors include Formlabs, Justway and Onshape, all aligned to CAD and fabrication rather than competing on hardware. Disclosures are clear.",
- url:"https://www.youtube.com/@aaedmusa"},
-
-{n:"PJ Chen",h:"@PJChenJewelryDesign",s:"PD&M",tier:"core",subs:"97.7K",
- country:"To confirm",us:"To confirm",isv:"Rhino 3D, SubD",
- niche:"Jewellery CAD and Rhino education",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null],["linkedin","LinkedIn",null],["news","Newsletter",null]],
- makes:"Rhino 3D modelling, SubD, stone setting and file prep for casting and 3D printing. Pure workflow teaching, nothing else.",
- angle:"Precision at small scale. Proves the range is not only for large assemblies, and brings a woman practitioner into a roster that badly needs one.",
- safe:"One of the two cleanest profiles found across every round. No external sponsors at all, 25 years designing and 20 years teaching. Zero controversy anywhere.",
- url:"https://www.youtube.com/@PJChenJewelryDesign"},
-
-{n:"The Revit Kid",h:"@TheRevitKid",s:"AEC",tier:"core",subs:"108K",
- country:"To confirm",us:"To confirm",isv:"Revit, BIM",
- niche:"Revit, BIM and architectural practice",
- plats:[["youtube","YouTube",null],["x","X",null],["facebook","Facebook",null],["web","BIM After Dark",null],["news","Newsletter",null]],
- makes:"Revit and BIM tutorials from a licensed architect, currently documenting a real home addition build on the channel.",
- angle:"BIM under load. A live project running through Revit is the clearest demonstration of the AEC workflow HP wants to own.",
- safe:"No competing tech sponsors, monetising through his own community and courses. Comment sections are working architects. Effectively zero brand risk.",
- url:"https://www.youtube.com/@TheRevitKid"},
-
-{n:"Archi Hacks",h:"@ArchiHacks",s:"AEC",tier:"core",subs:"102K",
- country:"To confirm",us:"To confirm",isv:"Architectural visualisation, AI tools, to confirm",
- niche:"Architecture visualisation and process",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null],["x","X",null],["linkedin","LinkedIn",null],["news","Newsletter",null]],
- makes:"Architecture visualisation technique and end to end design process, from an ex OMA and BIG designer.",
- angle:"Rendering and visualisation, the GPU heavy end of AEC, aimed at practices deciding what to put on desks.",
- safe:"Recent sponsors are niche AI design tools, non competing. Educational and non controversial, audience is working design professionals.",
- url:"https://www.youtube.com/@ArchiHacks"},
-
-{n:"30X40 Design Workshop",h:"@30by40",s:"AEC",tier:"core",subs:"1.19M",
- country:"United States, Maine",us:"To confirm",isv:"Revit and SketchUp, to confirm",
- niche:"Architecture practice and residential design",
- plats:[["youtube","YouTube",null],["web","Courses and templates",null],["news","Newsletter",null]],
- makes:"Architectural process, residential design and the business of running a practice, from an award winning architect in Maine.",
- angle:"The credibility anchor for AEC. Largest reach on the list and the most trusted voice with practice owners, who are the people who actually buy.",
- safe:"The other of the two cleanest profiles. No competing sponsors, monetising through his own courses and books. The gold standard practitioner educator.",
- url:"https://www.youtube.com/@30by40"},
-
-{n:"BYoung Design",h:"@BYoungDesign",s:"AEC",tier:"core",subs:"21.8K",
- country:"To confirm",us:"To confirm",isv:"Architecture practice tools, to confirm",
- niche:"Architecture practice and licensure",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["web","Website",null],["news","Newsletter",null]],
- makes:"Architecture practice, licensure and the business of design, aimed at students and emerging architects.",
- angle:"The long game. Smallest channel here, but her audience becomes the specifying professionals of the next five years, and she balances the roster.",
- safe:"Licensed architect, no competing sponsors, monetising through her own resources. Positive, aspirational comment sections. Zero brand risk.",
- url:"https://www.youtube.com/@BYoungDesign"},
-
-{n:"CG Geek",h:"@CGGeek",s:"PD&M",tier:"flag",subs:"1.15M",
- country:"To confirm",us:"To confirm",isv:"Blender, GPU rendering",
- niche:"Blender, VFX and 3D rendering",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["x","X",null],["patreon","Patreon",null],["discord","Discord",null]],
- makes:"Blender VFX and 3D rendering tutorials, warm and nerdy, with GPU heavy render work at the centre.",
- angle:"The warmest door on the list. He has already made an HP sponsored Blender video, so the relationship exists and rendering is pure workstation territory.",
- safe:"Clean history and highly engaged technical comment sections. Flag for HP, recent sponsors include ASUS ProArt alongside NVIDIA Studio, so the competitor call is theirs.",
- url:"https://www.youtube.com/@CGGeek"},
-
-{n:"Izzy Swan",h:"@izzyswan",s:"PD&M",tier:"adj",subs:"958K",
- country:"To confirm",us:"To confirm",isv:"Fabrication, not CAD specific",
- niche:"Woodworking, fabrication and invention",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["web","Swan Tool Group",null]],
- makes:"Inventive woodworking and fabrication, original machines and jigs built from scratch.",
- angle:"Design to physical object, though lighter on CAD than the core group. Runs his own product line, which signals business maturity.",
- safe:"Monetises through his own tool brand plus an aligned table saw accessory sponsor. Positive, enthusiastic audience.",
- url:"https://www.youtube.com/@izzyswan"},
-
-{n:"Caroline Dunn",h:"@Caroline",s:"PD&M",tier:"adj",subs:"40K",
- country:"To confirm",us:"To confirm",isv:"Raspberry Pi, IoT, embedded",
- niche:"Electronics, IoT and maker engineering",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null],["web","Author, Winning in Tech",null]],
- makes:"Raspberry Pi projects, smart home and IoT builds, calm and educational.",
- angle:"Smaller reach, strong credibility. An electrical engineer and published author, and one of the few women in the technical group.",
- safe:"No competing tech sponsors visible. Audience is hobbyist engineers and students, positive sentiment.",
- url:"https://www.youtube.com/@Caroline"},
-
-{n:"Nina Takesh",h:"@NinaTakesh",s:"AEC",tier:"adj",subs:"139K",
- country:"To confirm",us:"To confirm",isv:"Interior design, not CAD specific",
- niche:"Interior design and renovation",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["pinterest","Pinterest",null],["news","Substack",null]],
- makes:"Interior design process, renovation showcases and design principles, polished and high end.",
- angle:"Design led crossover rather than core AEC. Strong for brand association, weaker on the BIM and infrastructure workflow HP asked for.",
- safe:"Monetises through her own course, wallpaper and furniture lines. Founded luxury brand Petit Tresor. No competing tech sponsors.",
- url:"https://www.youtube.com/@NinaTakesh"},
-
-{n:"Julie Khuu",h:"@JulieKhuu",s:"AEC",tier:"adj",subs:"583K",
- country:"To confirm",us:"To confirm",isv:"Interior design, not CAD specific",
- niche:"Interior design and renovation",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["facebook","Facebook",null],["pinterest","Pinterest",null]],
- makes:"Interior design, renovation walkthroughs and room transformations, eleven years documented on the channel.",
- angle:"Reach and audience balance. Adjacent to AEC rather than inside it, worth including only if design led crossover appeals to HP.",
- safe:"Channel memberships and affiliates, no competing tech sponsors. Warm, supportive community with positive sentiment.",
- url:"https://www.youtube.com/@JulieKhuu"},
-
-{n:"Ashlee Falco",h:"@ashleefalco",s:"PD&M",tier:"hold",subs:"123K",
- country:"To confirm",us:"To confirm",isv:"Craft machines, not core ISV",
- niche:"Craft machine reviews and fabrication",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["pinterest","Pinterest",null],["web","Celebration Warehouse",null]],
- makes:"Honest head to head craft machine testing, her line is no sponsored fluff, real verdicts.",
- angle:"Not recommended for this phase. The honest reviewer position carries weight, but her audience is crafters rather than professional buyers.",
- safe:"Clean, and runs her own cardstock business. Reviews multiple craft machine brands.",
- url:"https://www.youtube.com/@ashleefalco"},
-
-{n:"EmyLuDesigns",h:"@emyludesigns",s:"PD&M",tier:"hold",subs:"128K",
- country:"To confirm",us:"To confirm",isv:"Laser and CNC, craft",
- niche:"Laser cutting and CNC fabrication",
- plats:[["youtube","YouTube",null],["web","Linktree",null]],
- makes:"Laser cutting, CNC and maker fabrication tutorials for small business makers.",
- angle:"Not recommended. Process focused and clean, but the audience is craft and small business rather than professional workflow.",
- safe:"No visible competing tech sponsors, positive sentiment, family safe.",
- url:"https://www.youtube.com/@emyludesigns"},
-
-{n:"ZeldaCreates",h:"@Zelda_Creates",s:"PD&M",tier:"hold",subs:"86.8K",
- country:"To confirm",us:"To confirm",isv:"3D printing, consumer",
- niche:"3D printing projects",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null]],
- makes:"Creative and fun 3D printing projects with the design workflow shown.",
- angle:"Not recommended. Strong engagement for the size, but creative 3D printing rather than professional design work.",
- safe:"No visible competing sponsors, positive sentiment, family safe.",
- url:"https://www.youtube.com/@Zelda_Creates"},
-
-{n:"LilyRoseCraftroom",h:"@LilyRoseCraftroom",s:"PD&M",tier:"hold",subs:"68.6K",
- country:"To confirm",us:"To confirm",isv:"3D printing and Cricut, consumer",
- niche:"Craft machines and 3D printing",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null]],
- makes:"How to tutorials across 3D printing, laser engraving, sublimation and Cricut for small business makers.",
- angle:"Not recommended. Consumer craft rather than the professional workflow this phase targets.",
- safe:"No visible competing tech sponsors, warm tone, positive sentiment.",
- url:"https://www.youtube.com/@LilyRoseCraftroom"},
-
-{n:"Tiffany Gordon",h:"@TiffanyGordonCosplay",s:"PD&M",tier:"hold",subs:"55.4K",
- country:"To confirm",us:"To confirm",isv:"3D printing and CAD files, cosplay",
- niche:"Costume and prop fabrication",
- plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["facebook","Facebook",null],["twitch","Twitch",null],["patreon","Patreon",null],["discord","Discord",null]],
- makes:"Costume and prop builds using 3D printing, EVA foam, leather and sewing. Sells her own 3D CAD files.",
- angle:"Not recommended for this phase, though the multi platform spread is the strongest on the list at seven channels.",
- safe:"Very clean, extremely consistent output, supportive comment sections. Audience is the cosplay community.",
- url:"https://www.youtube.com/@TiffanyGordonCosplay"}
+{n:"Jeff Bartels", h:"@JeffBartelsCAD", s:"AEC", tier:"core", subs:"71.7K", country:"US", us:"Yes", isv:"Civil 3D, Autodesk Construction Cloud", niche:"Civil infrastructure / Civil 3D", plats:[["youtube", "YouTube"], ["linkedin", "LinkedIn"], ["x", "X"], ["news", "Civil Immersion blog"]], role:"Lead Storyteller (candidate)", funnel:"Consideration", device:"No sponsors of any kind - clean", multichannel:"Partial - LinkedIn + X, no Stories platform", newsletter:"Yes - Civil Immersion Blog", context:"Cleanest channel on the list. Zero brand partnerships anywhere in his catalogue, monetising only through content and the Civil Immersion blog. Pure workflow education: skewed corridors in Civil 3D, matching visual fidelity between Civil 3D and ACC, photo galleries in cloud projects. Comment sections are civil engineers asking technical questions. Below the 100K floor but practitioner credibility is unmatched.", url:"https://www.youtube.com/@JeffBartelsCAD"},
+{n:"Too Tall Toby", h:"@TooTallToby", s:"PD&M", tier:"core", subs:"82K", country:"US", us:"Yes", isv:"SOLIDWORKS, Fusion 360", niche:"SOLIDWORKS / CAD speedrunning", plats:[["youtube", "YouTube"], ["web", "Own site"], ["web", "Thinkific courses"]], role:"Lead Storyteller (candidate)", funnel:"Decision", device:"No competing sponsors - clean", multichannel:"Partial - courses only, no Stories platform", newsletter:"No", context:"Certified SOLIDWORKS Expert, no competing sponsors, monetising through his own CAD training courses and practice platform. SOLIDWORKS tips, Fusion tutorials and live CAD speedrun competitions. Comment sections are CAD learners and working professionals.", url:"https://www.youtube.com/@TooTallToby"},
+{n:"Clough42", h:"@Clough42", s:"PD&M", tier:"core", subs:"234K", country:"US", us:"Yes", isv:"Fusion 360, CNC, PCB design", niche:"CNC machining / CAD workflows", plats:[["youtube", "YouTube"], ["patreon", "Patreon"]], role:"Lead Storyteller (candidate)", funnel:"Consideration", device:"Aligned sponsors only - clean", multichannel:"Partial - Patreon only, no Stories platform", newsletter:"No", context:"Channel policy explicitly refuses mobile game and VPN promotions. Sponsors are MASSO CNC controllers and Precision Matthews, both aligned and non-competing. Deeply technical, calm, workshop-centred. Comment sections are experienced machinists, respectful and high signal.", url:"https://www.youtube.com/@Clough42"},
+{n:"Winston Moy", h:"@WinstonMakes", s:"PD&M", tier:"core", subs:"92K", country:"US", us:"Yes", isv:"Fusion 360, CNC", niche:"Digital fabrication / CNC", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["x", "X"], ["patreon", "Patreon"], ["web", "own site"]], role:"Supporting Creator", funnel:"Consideration", device:"Aligned sponsors only - clean", multichannel:"Yes - Instagram + X + Patreon", newsletter:"No", context:"Also produces videos for Carbide3D, a CNC manufacturer, and recent sponsors include Revopoint 3D scanners, both aligned rather than competing. Calm, methodical expert tone, self-described digital fabrication evangelist. Clean sentiment throughout.", url:"https://www.youtube.com/@WinstonMakes"},
+{n:"Danny Lum", h:"@dannylumcreative", s:"PD&M", tier:"core", subs:"405K", country:"US", us:"Yes", isv:"Fusion 360, 3D printing", niche:"Engineering builds / 3D printing", plats:[["youtube", "YouTube"], ["patreon", "Patreon"], ["discord", "Discord"], ["web", "own site"], ["youtube", "second channel"]], role:"Supporting Creator", funnel:"Consideration", device:"No competitor conflict - clean", multichannel:"Yes - Discord + Patreon + second channel", newsletter:"No", context:"Recent sponsors are SanDisk and Red Bull, neither competing. Engineering-forward 3D printing builds with the full Fusion 360 design process shown. Family safe, enthusiastic maker audience, positive sentiment throughout.", url:"https://www.youtube.com/@dannylumcreative"},
+{n:"Aaed Musa", h:"@aaedmusa", s:"PD&M", tier:"core", subs:"274K", country:"US", us:"Yes", isv:"SolidWorks, Fusion 360, Onshape", niche:"Robotics / mechanical engineering", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["x", "X"], ["patreon", "Patreon"], ["web", "own site"]], role:"Lead Storyteller (candidate)", funnel:"Consideration", device:"Aligned sponsors only - clean", multichannel:"Yes - Instagram + TikTok + X", newsletter:"No", context:"Recent sponsors include Formlabs, Justway and Onshape, all aligned to CAD and fabrication rather than competing on hardware. Built his own SolidWorks add-in, CadShift. Audience is aspiring engineers, sponsorships clearly disclosed.", url:"https://www.youtube.com/@aaedmusa"},
+{n:"PJ Chen", h:"@PJChenJewelryDesign", s:"PD&M", tier:"core", subs:"97.7K", country:"US", us:"Yes", isv:"Rhino 3D, SubD", niche:"Jewellery CAD / Rhino education", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["facebook", "Facebook"], ["linkedin", "LinkedIn"], ["web", "Thinkific"]], role:"Lead Storyteller (candidate)", funnel:"Consideration", device:"No sponsors of any kind - clean", multichannel:"Yes - Instagram + Facebook + LinkedIn", newsletter:"Yes - pjchendesign.com", context:"One of the two cleanest profiles found across every round. No external sponsors at all, monetising entirely through her own Rhino 3D courses and community. 25 years of jewellery design, 20 years teaching. Pure CAD workflow education. Zero controversy anywhere on the channel.", url:"https://www.youtube.com/@PJChenJewelryDesign"},
+{n:"The Revit Kid (Jeff)", h:"@TheRevitKid", s:"AEC", tier:"core", subs:"108K", country:"US", us:"Yes", isv:"Revit, BIM", niche:"Revit / BIM / architectural practice", plats:[["youtube", "YouTube"], ["x", "X"], ["web", "Bluesky"], ["facebook", "Facebook"], ["news", "blog"], ["web", "BIM After Dark"]], role:"Lead Storyteller (candidate)", funnel:"Decision", device:"No competing sponsors - clean", multichannel:"Yes - Facebook + X + Bluesky", newsletter:"Yes - BIM After Dark", context:"Licensed architect running Revit and BIM tutorials, currently documenting a real home addition build. No competing tech sponsors, monetising through his own BIM After Dark community, courses and gear affiliates. Comment sections are working architects asking workflow questions. The practitioner-educator archetype.", url:"https://www.youtube.com/@TheRevitKid"},
+{n:"Archi Hacks", h:"@ArchiHacks", s:"AEC", tier:"core", subs:"102K", country:"US", us:"Yes", isv:"Architectural visualisation, AI design tools", niche:"Architecture visualisation / process", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["facebook", "Facebook"], ["x", "X"], ["linkedin", "LinkedIn"], ["web", "Reddit"]], role:"Supporting Creator", funnel:"Consideration", device:"Non-competing sponsors - clean", multichannel:"Yes - Instagram + Facebook + LinkedIn", newsletter:"Yes - archihacks.com", context:"Ex-OMA and BIG, sharing architecture visualisation technique. Recent sponsors are niche AI design tools, non-competing. Process-led content built around an end-to-end architectural design process. Audience is working design professionals, clean sentiment.", url:"https://www.youtube.com/@ArchiHacks"},
+{n:"Eric Reinholdt (30X40 Design Workshop)", h:"@30by40", s:"AEC", tier:"core", subs:"1.19M", country:"US", us:"Yes", isv:"Revit, SketchUp, AutoCAD (to confirm)", niche:"Architecture practice / residential design", plats:[["youtube", "YouTube"], ["web", "Own courses"], ["web", "templates"], ["web", "book series"]], role:"Lead Storyteller (candidate)", funnel:"Decision", device:"No competing sponsors - clean", multichannel:"Partial - courses + books, no Stories platform", newsletter:"Yes - thirtybyforty.com", context:"Award-winning architect running a practice from Maine, the other of the two cleanest profiles found. No competing sponsors, monetising through his own courses, templates and the Architect + Entrepreneur books. The gold standard for AEC practitioner-educators.", url:"https://www.youtube.com/@30by40"},
+{n:"Bryn Young, AIA (BYoung Design)", h:"@BYoungDesign", s:"AEC", tier:"core", subs:"21.8K", country:"US", us:"Yes", isv:"Architecture practice tools", niche:"Architecture practice / licensure", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["web", "own site"], ["news", "Kit"]], role:"Supporting Creator", funnel:"Consideration", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + Kit", newsletter:"Yes - dci.byoungdesign.com", context:"Licensed architect building a channel around architecture practice, licensure and the business of design, with a stated goal of inspiring a million people to become licensed architects. No competing sponsors. Smallest channel here but the strongest AEC woman practitioner-educator available.", url:"https://www.youtube.com/@BYoungDesign"},
+{n:"Steve Lund (CG Geek)", h:"@CGGeek", s:"PD&M", tier:"flag", subs:"1.15M", country:"US", us:"Yes", isv:"Blender, GPU rendering", niche:"Blender / VFX / 3D rendering", plats:[["youtube", "YouTube"], ["patreon", "Patreon"], ["discord", "Discord"], ["x", "X"], ["instagram", "Instagram"], ["web", "ArtStation"]], role:"Lead Storyteller (existing relationship)", funnel:"Decision", device:"FLAG - prior HP sponsor, recent ASUS ProArt", multichannel:"Yes - Instagram + X + Discord", newsletter:"No", context:"Has already run an HP-sponsored video teaching Blender animation, making this a warm relationship rather than cold outreach, and GPU-heavy rendering sits squarely in workstation territory. FLAG: recent sponsors include ASUS ProArt alongside NVIDIA Studio - a competitor call for HP to make. Comment sections highly engaged and technical, no toxicity.", url:"https://www.youtube.com/@CGGeek"},
+{n:"Izzy Swan", h:"@izzyswan", s:"PD&M", tier:"adj", subs:"958K", country:"US", us:"Yes", isv:"Fabrication and design, not CAD specific", niche:"Woodworking / fabrication / invention", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["web", "Swan Tool Group site"]], role:"Supporting Creator", funnel:"Consideration", device:"Aligned sponsors only - clean", multichannel:"Yes - Instagram + own e-commerce", newsletter:"No", context:"Monetises mainly through his own product line, Swan Tool Group, plus tool affiliates and an aligned table saw accessory sponsor. Inventive woodworking and fabrication with an original design approach. Running his own product line signals business maturity. Adjacent to core PD&M rather than inside it.", url:"https://www.youtube.com/@izzyswan"},
+{n:"Caroline Dunn", h:"@Caroline", s:"PD&M", tier:"adj", subs:"40K", country:"US", us:"Yes", isv:"Raspberry Pi, IoT, embedded", niche:"Electronics / IoT / maker engineering", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["facebook", "Facebook"], ["web", "Threads"], ["web", "own site"], ["web", "author"]], role:"Supporting Creator", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + Facebook + Threads", newsletter:"No", context:"Electrical engineer, marketer and published author. Raspberry Pi projects, smart home builds and maker tutorials. No competing tech sponsors visible. Audience is hobbyist engineers and students. Smaller reach, but credibility and gender balance both count.", url:"https://www.youtube.com/@Caroline"},
+{n:"Nina Takesh", h:"@NinaTakesh", s:"AEC", tier:"adj", subs:"139K", country:"US", us:"Yes", isv:"Interior design, not CAD specific", niche:"Interior design / renovation", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["pinterest", "Pinterest"], ["web", "vlog channel"], ["news", "Substack"]], role:"Supporting Creator", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + TikTok + Pinterest", newsletter:"Yes - ninatakesh.substack.com", context:"Monetises through her own interior design course, wallpaper collection, furniture line and affiliates, no competing tech sponsors. Founded luxury brand Petit Tresor. Polished and professional with strong high-end brand alignment. Adjacent to AEC rather than inside the BIM and infrastructure workflow.", url:"https://www.youtube.com/@NinaTakesh"},
+{n:"Julie Khuu", h:"@JulieKhuu", s:"AEC", tier:"adj", subs:"583K", country:"US", us:"Yes", isv:"Interior design, not CAD specific", niche:"Interior design / renovation", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["facebook", "Facebook"], ["pinterest", "Pinterest"], ["web", "own site"]], role:"Supporting Creator", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + TikTok + Facebook", newsletter:"No", context:"Monetises through channel memberships, home affiliates and her own consultations, no competing tech sponsors. Eleven years of documented home renovation. Warm and instructional with a supportive community. Adjacent to AEC rather than core, offered as a reach and balance option.", url:"https://www.youtube.com/@JulieKhuu"},
+{n:"Ashlee Falco", h:"@ashleefalco", s:"PD&M", tier:"hold", subs:"123K", country:"US", us:"Yes", isv:"Inkscape, laser and craft machines", niche:"Craft machine reviews / fabrication", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["pinterest", "Pinterest"], ["web", "Celebration Warehouse"]], role:"Not recommended - audience mismatch", funnel:"Awareness", device:"Reviews multiple craft machine brands", multichannel:"Yes - Instagram + TikTok + Pinterest", newsletter:"No", context:"Clean, with an honest-reviewer position: tests every craft machine so her audience does not have to, no sponsored fluff. Also runs her own cardstock business. FLAG: audience is crafters and small-business makers rather than professional design or engineering buyers. Sourced but not recommended for this phase.", url:"https://www.youtube.com/@ashleefalco"},
+{n:"EmyLuDesigns", h:"@emyludesigns", s:"PD&M", tier:"hold", subs:"128K", country:"US", us:"Yes", isv:"Laser and CNC craft tools", niche:"Laser cutting / CNC fabrication", plats:[["youtube", "YouTube"], ["web", "Linktree"], ["web", "multi-platform"]], role:"Not recommended - audience mismatch", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Unknown - needs confirmation", newsletter:"No", context:"Clean, process-focused fabrication tutorials with no competing tech sponsors and positive sentiment. FLAG: audience is crafters and small-business makers rather than the professional workflow buyer this phase targets. Sourced but not recommended.", url:"https://www.youtube.com/@emyludesigns"},
+{n:"ZeldaCreates", h:"@Zelda_Creates", s:"PD&M", tier:"hold", subs:"86.8K", country:"US", us:"Yes", isv:"3D printing", niche:"3D printing projects", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["web", "Linktree"]], role:"Not recommended - audience mismatch", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + TikTok", newsletter:"No", context:"Clean channel with strong engagement for its size and no competing sponsors. FLAG: creative and fun 3D printing rather than professional design workflow. Sourced but not recommended for this phase.", url:"https://www.youtube.com/@Zelda_Creates"},
+{n:"Michelle (LilyRoseCraftroom)", h:"@LilyRoseCraftroom", s:"PD&M", tier:"hold", subs:"68.6K", country:"US (California)", us:"Yes", isv:"3D printing, laser, sublimation, Cricut", niche:"Craft machines / 3D printing", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["facebook", "Facebook"]], role:"Not recommended - audience mismatch", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + Facebook", newsletter:"No", context:"Clean, warm and approachable how-to tutorials for small-business makers, no competing tech sponsors. FLAG: consumer craft rather than professional workflow. Sourced but not recommended.", url:"https://www.youtube.com/@LilyRoseCraftroom"},
+{n:"Tiffany Gordon", h:"@TiffanyGordonCosplay", s:"PD&M", tier:"hold", subs:"55.4K", country:"US", us:"Yes", isv:"3D CAD files, 3D printing, EVA foam", niche:"Costume and prop fabrication", plats:[["youtube", "YouTube"], ["instagram", "Instagram"], ["tiktok", "TikTok"], ["facebook", "Facebook"], ["x", "X"], ["twitch", "Twitch"], ["patreon", "Patreon"], ["discord", "Discord"], ["youtube", "second channel"]], role:"Not recommended - audience mismatch", funnel:"Awareness", device:"No competing sponsors - clean", multichannel:"Yes - Instagram + TikTok + Facebook", newsletter:"No", context:"Very clean, sells her own 3D CAD files and posts extremely consistently across eight platforms with supportive comment sections. FLAG: audience is the cosplay community rather than professional design or engineering. Sourced but not recommended for this phase.", url:"https://www.youtube.com/@TiffanyGordonCosplay"}
 ];
 
 var TIER = {core:["CORE FIT","core"], flag:["CORE FIT, FLAGGED","flag"], adj:["ADJACENT OPTION","adj"], hold:["NOT RECOMMENDED","hold"]};
@@ -501,11 +321,16 @@ function cardHtml(c){
   var t = TIER[c.tier];
   var primary = c.plats[0];
   var extra = c.plats.slice(1);
-  var min = meetsMin(c);
-  var news = hasNews(c);
   var extraHtml = extra.length
-    ? extra.map(function(p){ return '<span class="plat">'+icon(p[0])+p[1]+(p[2]?' <b>'+p[2]+'</b>':'')+'</span>'; }).join('')
+    ? extra.map(function(p){ return '<span class="plat">'+icon(p[0])+p[1]+'</span>'; }).join('')
     : '<span class="plat">None</span>';
+  function cls(v){
+    if(/^yes/i.test(v)) return ' ok';
+    if(/^partial/i.test(v)) return ' warn';
+    if(/^(no|unknown|to confirm)/i.test(v)) return ' tc';
+    return '';
+  }
+  var devWarn = /(asus|dell|lenovo|apple|nvidia|competitor|flag|caution)/i.test(c.device) && !/^no\b/i.test(c.device) ? ' warn' : '';
   return '<div class="wash y"></div><div class="wash n"></div>'+
     '<div class="badge y">YES</div><div class="badge n">PASS</div>'+
     '<div class="top"><div class="stripe"><i></i><i></i><i></i></div>'+
@@ -515,22 +340,24 @@ function cardHtml(c){
     '<div class="stats">'+
       '<div class="stat"><div class="k">YOUTUBE SUBS</div><div class="v">'+c.subs+'</div></div>'+
       '<div class="stat"><div class="k">PLATFORMS</div><div class="v">'+c.plats.length+'</div></div>'+
-      '<div class="stat"><div class="k">NEWSLETTER</div><div class="v sm '+(news?'yes':'no')+'">'+(news?'Yes':'No')+'</div></div>'+
+      '<div class="stat"><div class="k">US AUDIENCE</div><div class="v sm ok">'+c.us+'</div></div>'+
     '</div>'+
     '<div class="signals">'+
-      '<div class="sig"><div class="k">COUNTRY BASE</div><div class="v'+(/confirm/i.test(c.country)?' tc':'')+'">'+c.country+'</div></div>'+
-      '<div class="sig"><div class="k">US AUDIENCE</div><div class="v'+(/confirm/i.test(c.us)?' tc':'')+'">'+c.us+'</div></div>'+
-      '<div class="sig wide"><div class="k">SOFTWARE / ISV MAPPING</div><div class="v'+(/confirm|not (core|cad)|consumer|craft|cosplay/i.test(c.isv)?' tc':'')+'">'+c.isv+'</div></div>'+
-      '<div class="sig wide"><div class="k">MEETS MULTICHANNEL MIN, 2+ INCL STORIES</div><div class="v '+(min?'ok':'bad')+'">'+(min?'Yes':'No, no Stories capable platform')+'</div></div>'+
+      '<div class="sig"><div class="k">COUNTRY BASE</div><div class="v">'+c.country+'</div></div>'+
+      '<div class="sig"><div class="k">FUNNEL STAGE</div><div class="v">'+c.funnel+'</div></div>'+
+      '<div class="sig wide"><div class="k">RECOMMENDED ROLE</div><div class="v">'+c.role+'</div></div>'+
+      '<div class="sig wide"><div class="k">SOFTWARE / ISV MAPPING</div><div class="v">'+c.isv+'</div></div>'+
+      '<div class="sig wide"><div class="k">MEETS MULTICHANNEL MIN, 2+ INCL STORIES</div><div class="v'+cls(c.multichannel)+'">'+c.multichannel+'</div></div>'+
+      '<div class="sig wide"><div class="k">HAS NEWSLETTER</div><div class="v'+cls(c.newsletter)+'">'+c.newsletter+'</div></div>'+
+      '<div class="sig wide"><div class="k">DEVICE / BRAND FLAG</div><div class="v'+devWarn+'">'+c.device+'</div></div>'+
     '</div>'+
     '<div class="plats">'+
       '<span class="plat primary">'+icon(primary[0])+'<b>Primary</b> '+primary[1]+'</span>'+
       extraHtml+
     '</div>'+
     '<div class="body">'+
-      '<div class="blk"><h3>WHAT THEY MAKE</h3><p>'+c.makes+'</p></div>'+
-      '<div class="blk angle"><h3>OUR ANGLE FOR HP</h3><p>'+c.angle+'</p></div>'+
-      '<div class="blk"><h3>BRAND SAFETY</h3><p class="safety">'+c.safe+'</p></div>'+
+      '<div class="blk"><h3>PERSONA / DISCIPLINE</h3><p>'+c.niche+'</p></div>'+
+      '<div class="blk angle"><h3>CONTEXT & RELEVANCE TO HP</h3><p>'+c.context+'</p></div>'+
     '</div>'+
     '<div class="chan"><a href="'+c.url+'" target="_blank" rel="noopener">Open YouTube channel</a></div>';
 }
@@ -677,19 +504,8 @@ document.getElementById('bCopy').addEventListener('click', function(){
   });
 });
 
-/* gate */
-var PW = "BEreview2026!";
-function unlock(){
-  if(document.getElementById('gpw').value === PW){
-    document.getElementById('gate').classList.add('hidden');
-    document.getElementById('site').classList.remove('hidden');
-    render();
-  } else {
-    document.getElementById('gerr').textContent = "That password is not right. Ask the Butterfly Effect team.";
-  }
-}
-document.getElementById('genter').addEventListener('click', unlock);
-document.getElementById('gpw').addEventListener('keydown', function(e){ if(e.key==='Enter') unlock(); });
+/* no gate, deck opens directly */
+render();
 </script>
 </body>
 </html>
