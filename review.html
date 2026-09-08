@@ -43,6 +43,8 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .hin .div{width:1px;height:24px;background:var(--line)}
 .hin .t{font-size:13px;color:var(--ink60);line-height:1.25}
 .hin .t b{display:block;color:var(--ink);font-weight:500}
+.hin .back{font-size:13px;color:var(--ink60);border:1px solid var(--line);padding:7px 12px;border-radius:4px;white-space:nowrap}
+.hin .back:hover{border-color:var(--blue);color:var(--blue);text-decoration:none}
 .tally{margin-left:auto;display:flex;gap:8px;font-size:12px;font-weight:500}
 .tally span{padding:5px 11px;border-radius:3px;background:var(--surface);color:var(--ink60)}
 .tally .y{background:#E5F3EC;color:var(--yes)}
@@ -184,6 +186,8 @@ kbd{font-family:var(--f);background:#fff;border:1px solid var(--line);border-bot
 
 <header>
   <div class="hin">
+    <a href="/" class="back">&larr; Hub</a>
+    <span class="div"></span>
     <svg width="34" height="34" viewBox="0 0 42 42" aria-label="HP">
       <circle cx="21" cy="21" r="19.5" fill="none" stroke="#2148D4" stroke-width="3"/>
       <text x="21" y="28" text-anchor="middle" font-family="Inter Tight, Arial" font-size="19" font-style="italic" font-weight="600" fill="#2148D4">hp</text>
@@ -222,6 +226,7 @@ kbd{font-family:var(--f);background:#fff;border:1px solid var(--line);border-bot
   <div class="acts">
     <button class="pill" id="bCopy">Copy summary</button>
     <button class="pill alt" id="bAgain">Start over</button>
+    <a class="pill alt" href="/" style="text-decoration:none">Back to hub</a>
   </div>
 </section>
 
