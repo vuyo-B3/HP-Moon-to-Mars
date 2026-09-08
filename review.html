@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Moon to Mars, creator picks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2148D4; --blue-dk:#1A3AAB; --tint:#EEF1FC;
+  --ink:#2D3037; --ink60:#6B6E75; --line:#D8D8D8;
+  --surface:#F3F3F3; --section:#E8E8E8;
+  --yes:#1E8E5A; --no:#D8443C; --maybe:#578292;
+  --f:"Inter Tight","Archivo","Helvetica Neue",Arial,sans-serif;
+  --slant:-20deg;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);color:var(--ink);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;font-size:inherit;color:inherit;border:none;background:none;cursor:pointer}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* gate */
+#gate{position:fixed;inset:0;background:var(--surface);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}
+.gatecard{max-width:430px;width:100%;background:#fff;border:1px solid var(--line);padding:34px}
+.gatecard .lock{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--no);margin-bottom:14px}
+.gatecard h1{font-size:26px;font-weight:600;letter-spacing:-.02em;margin-bottom:8px}
+.gatecard p{color:var(--ink60);font-size:14px;margin-bottom:22px}
+.gaterow{display:flex;gap:10px}
+#gpw{flex:1;font-family:inherit;font-size:15px;color:var(--ink);padding:12px 14px;border:1px solid var(--line);border-radius:4px}
+#gpw:focus{outline:none;border-color:var(--blue)}
+.gbtn{background:var(--ink);color:#fff;padding:12px 22px;border-radius:4px;font-weight:500;white-space:nowrap}
+.gbtn:hover{background:#000}
+.gerr{color:var(--no);font-size:13px;margin-top:12px;min-height:18px}
+
+/* header */
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.hin{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px}
+.hin .div{width:1px;height:24px;background:var(--line)}
+.hin .t{font-size:13px;color:var(--ink60);line-height:1.25}
+.hin .t b{display:block;color:var(--ink);font-weight:500}
+.tally{margin-left:auto;display:flex;gap:8px;font-size:12px;font-weight:500}
+.tally span{padding:5px 11px;border-radius:3px;background:var(--surface);color:var(--ink60)}
+.tally .y{background:#E5F3EC;color:var(--yes)}
+.tally .m{background:#EAF1F3;color:var(--maybe)}
+.tally .n{background:#FBEBEA;color:var(--no)}
+
+/* stage */
+.stage{max-width:1080px;margin:0 auto;padding:34px 24px 10px}
+.bar{height:3px;background:var(--section);margin-bottom:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .3s ease}
+.count{font-size:12px;color:var(--ink60);margin-bottom:26px;display:flex;justify-content:space-between}
+
+.deck{position:relative;height:720px;max-width:620px;margin:0 auto}
+
+/* card */
+.card{
+  position:absolute;inset:0;background:#fff;border:1px solid var(--line);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:transform .28s cubic-bezier(.22,.75,.3,1),opacity .28s ease;
+  will-change:transform;
+}
+.card.drag{transition:none}
+.card.gone{transition:transform .42s cubic-bezier(.3,.8,.4,1),opacity .42s ease}
+.top{background:var(--ink);color:#fff;padding:22px 26px 20px;position:relative;overflow:hidden}
+.top .stripe{position:absolute;right:-30px;top:-20px;display:flex;gap:8px;opacity:.16}
+.top .stripe i{display:block;width:16px;height:150px;background:#fff;transform:skewX(var(--slant))}
+.tier{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.2px;padding:4px 9px;margin-bottom:12px}
+.tier.core{background:var(--blue)}
+.tier.flag{background:#C4562F}
+.tier.adj{background:var(--maybe)}
+.tier.hold{background:#5A5F6B}
+.card h2{font-size:29px;font-weight:600;line-height:1.1;letter-spacing:-.02em}
+.handle{font-size:13px;color:#AEB4C4;margin-top:5px}
+.sector{position:absolute;right:26px;top:24px;font-size:11px;font-weight:600;letter-spacing:.6px;border:1px solid rgba(255,255,255,.4);padding:5px 10px}
+
+.stats{display:flex;border-bottom:1px solid var(--line)}
+.stat{flex:1;padding:16px 20px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .k{font-size:10px;letter-spacing:.8px;color:var(--ink60);font-weight:500}
+.stat .v{font-size:24px;font-weight:600;letter-spacing:-.02em;margin-top:2px}
+.stat .v.sm{font-size:15px;font-weight:500;padding-top:6px;line-height:1.3}
+.stat .v.yes{color:var(--yes)} .stat .v.no{color:var(--no)}
+
+/* signals */
+.signals{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.sig{padding:12px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sig:nth-child(2n){border-right:none}
+.sig .k{font-size:10px;letter-spacing:.8px;color:var(--ink60);font-weight:500;margin-bottom:3px}
+.sig .v{font-size:13px;line-height:1.4}
+.sig .v.tc{color:var(--ink60)}
+.sig .v.ok{color:var(--yes);font-weight:500}
+.sig .v.bad{color:var(--no);font-weight:500}
+.sig.wide{grid-column:1 / -1;border-right:none}
+
+.plats{display:flex;flex-wrap:wrap;gap:7px;padding:14px 24px;border-bottom:1px solid var(--line)}
+.plat{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink60);background:var(--surface);border:1px solid var(--line);padding:5px 10px;border-radius:3px}
+.plat.primary{background:var(--tint);border-color:#C9D4F7;color:var(--blue-dk)}
+.plat svg{width:13px;height:13px;fill:var(--ink60);flex:none}
+.plat.primary svg{fill:var(--blue)}
+.plat b{color:var(--ink);font-weight:500}
+
+.body{padding:18px 24px;flex:1;overflow-y:auto}
+.blk{margin-bottom:15px}
+.blk:last-child{margin-bottom:0}
+.blk h3{font-size:10px;letter-spacing:1px;font-weight:600;color:var(--blue);margin-bottom:6px}
+.blk p{font-size:14px;line-height:1.55}
+.blk.angle{background:var(--tint);border-left:3px solid var(--blue);padding:13px 15px}
+.blk.angle h3{color:var(--blue-dk)}
+.safety{font-size:13px;color:var(--ink60);line-height:1.5}
+.chan{padding:13px 24px;border-top:1px solid var(--line);background:var(--surface);font-size:13px}
+
+/* verdict wash */
+.wash{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .1s linear}
+.wash.y{background:rgba(30,142,90,.16)}
+.wash.n{background:rgba(216,68,60,.16)}
+.badge{position:absolute;top:110px;font-size:34px;font-weight:600;letter-spacing:2px;padding:8px 18px;border:4px solid;opacity:0;transform:rotate(-12deg)}
+.badge.y{left:26px;color:var(--yes);border-color:var(--yes)}
+.badge.n{right:26px;color:var(--no);border-color:var(--no);transform:rotate(12deg)}
+
+/* controls */
+.ctrl{display:flex;justify-content:center;align-items:center;gap:14px;padding:26px 24px 10px}
+.btn{width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .12s ease,border-color .12s ease,background .12s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn.no:hover{border-color:var(--no);background:#FBEBEA;color:var(--no)}
+.btn.yes:hover{border-color:var(--yes);background:#E5F3EC;color:var(--yes)}
+.btn.maybe{width:50px;height:50px;font-size:15px}
+.btn.maybe:hover{border-color:var(--maybe);background:#EAF1F3;color:var(--maybe)}
+.btn.undo{width:44px;height:44px;font-size:14px;color:var(--ink60)}
+.keys{text-align:center;font-size:12px;color:var(--ink60);padding-bottom:34px}
+kbd{font-family:var(--f);background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:3px;padding:1px 6px;font-size:11px;margin:0 2px}
+
+/* results */
+.done{max-width:1080px;margin:0 auto;padding:40px 24px 80px}
+.done h2{font-size:32px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.done .sub{color:var(--ink60);margin-bottom:28px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
+.col{background:#fff;border:1px solid var(--line)}
+.col h3{font-size:13px;font-weight:600;padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.col.y h3{color:var(--yes)} .col.m h3{color:var(--maybe)} .col.n h3{color:var(--no)}
+.col ul{list-style:none;padding:8px 0}
+.col li{padding:8px 18px;font-size:14px;display:flex;justify-content:space-between;gap:10px}
+.col li span{color:var(--ink60);font-size:12px}
+.col .none{padding:16px 18px;color:var(--line);font-size:13px}
+.acts{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:var(--ink);color:#fff;padding:12px 22px;border-radius:3px;font-weight:500;font-size:14px}
+.pill.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.pill:hover{opacity:.9}
+
+/* method */
+.method{background:#fff;border-top:1px solid var(--line);padding:56px 0}
+.mwrap{max-width:820px;margin:0 auto;padding:0 24px}
+.rule{width:56px;height:3px;background:var(--blue);transform:skewX(var(--slant));margin-bottom:20px}
+.method h2{font-size:28px;font-weight:600;letter-spacing:-.02em;margin-bottom:18px}
+.method h3{font-size:17px;font-weight:600;margin:28px 0 8px}
+.method p{margin-bottom:12px;font-size:15px}
+.method ul{margin:0 0 12px 18px;font-size:15px}
+.method li{margin-bottom:6px}
+.method .note{background:var(--surface);border-left:3px solid var(--maybe);padding:16px 18px;font-size:14px;color:var(--ink60);margin:18px 0}
+.defs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.def{background:var(--surface);padding:16px 18px}
+.def b{display:block;font-size:18px;color:var(--blue);margin-bottom:4px}
+.def span{font-size:14px;color:var(--ink60)}
+
+.hidden{display:none!important}
+@media (max-width:720px){
+  .deck{height:760px}
+  .cols{grid-template-columns:1fr}
+  .defs{grid-template-columns:1fr}
+  .stats{flex-wrap:wrap}
+  .stat{min-width:50%;border-bottom:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- gate, Butterfly Effect internal only, separate password from the HP hub -->
+<div id="gate">
+  <div class="gatecard">
+    <div class="lock">BUTTERFLY EFFECT INTERNAL</div>
+    <h1>Creator picks</h1>
+    <p>Internal review deck for the round two candidates. This is not the HP hub, it holds our own tiering and recommendations, so keep the password inside the Butterfly Effect team.</p>
+    <div class="gaterow">
+      <input type="password" id="gpw" placeholder="Internal password" autocomplete="current-password" aria-label="Password">
+      <button class="gbtn" id="genter">Open deck</button>
+    </div>
+    <div class="gerr" id="gerr" role="alert"></div>
+  </div>
+</div>
+
+<div id="site" class="hidden">
+
+<header>
+  <div class="hin">
+    <svg width="34" height="34" viewBox="0 0 42 42" aria-label="HP">
+      <circle cx="21" cy="21" r="19.5" fill="none" stroke="#2148D4" stroke-width="3"/>
+      <text x="21" y="28" text-anchor="middle" font-family="Inter Tight, Arial" font-size="19" font-style="italic" font-weight="600" fill="#2148D4">hp</text>
+    </svg>
+    <span class="div"></span>
+    <span class="t"><b>Moon to Mars, creator picks</b>Round two candidates, internal review</span>
+    <span class="tally">
+      <span class="y" id="tY">0 yes</span>
+      <span class="m" id="tM">0 maybe</span>
+      <span class="n" id="tN">0 no</span>
+    </span>
+  </div>
+</header>
+
+<section class="stage" id="stage">
+  <div class="bar"><i id="prog"></i></div>
+  <div class="count"><span id="cLeft">0 of 0 reviewed</span><span id="cRight"></span></div>
+  <div class="deck" id="deck"></div>
+  <div class="ctrl">
+    <button class="btn undo" id="bUndo" title="Undo last">&#8630;</button>
+    <button class="btn no" id="bNo" title="Pass">&#10005;</button>
+    <button class="btn maybe" id="bMaybe" title="Maybe">?</button>
+    <button class="btn yes" id="bYes" title="Shortlist">&#10003;</button>
+  </div>
+  <div class="keys">Drag the card, or use <kbd>&larr;</kbd> pass <kbd>&uarr;</kbd> maybe <kbd>&rarr;</kbd> shortlist</div>
+</section>
+
+<section class="done hidden" id="done">
+  <h2>That is all 21</h2>
+  <p class="sub">Copy the summary and drop it into the Asana board or the Thursday internal call.</p>
+  <div class="cols">
+    <div class="col y"><h3>Shortlist <span id="nY">0</span></h3><ul id="lY"></ul></div>
+    <div class="col m"><h3>Maybe <span id="nM">0</span></h3><ul id="lM"></ul></div>
+    <div class="col n"><h3>Passed <span id="nN">0</span></h3><ul id="lN"></ul></div>
+  </div>
+  <div class="acts">
+    <button class="pill" id="bCopy">Copy summary</button>
+    <button class="pill alt" id="bAgain">Start over</button>
+  </div>
+</section>
+
+<section class="method">
+  <div class="mwrap">
+    <div class="rule"></div>
+    <h2>What we did to build this list</h2>
+
+    <p>HP approved seven creators out of the first list and rejected the rest without telling us why. Rather than wait for that feedback we worked backwards from the profiles they said yes to, found the pattern, and sourced against it.</p>
+
+    <h3>The two audiences we are sourcing for</h3>
+    <div class="defs">
+      <div class="def"><b>PD&amp;M</b><span>Product Design and Manufacturing. Mechanical services, factory design, machine creation, prototyping a physical product.</span></div>
+      <div class="def"><b>AEC</b><span>Architecture, Engineering and Construction. Designing and managing large structures, public works, building information modelling.</span></div>
+    </div>
+
+    <h3>The pattern in what HP approved</h3>
+    <p>Every approved creator is a practitioner educator who demonstrates their own work rather than reviewing other people's. They teach a named professional workflow, they sit mostly between 100K and 1M subscribers, and their comment sections are calm and technical.</p>
+    <p>Dami Lee was the one rejection with a reason attached, cut over negative comments that were not handled well. That tells us HP is auditing community health rather than reach alone, so every candidate here was checked on that specifically.</p>
+
+    <h3>How each candidate was checked</h3>
+    <ul>
+      <li>Competitor conflict, no Apple, Dell or Lenovo work in the last six months</li>
+      <li>Sponsor history, whether existing partners sit aligned or competing</li>
+      <li>Comment section health, tone and how the creator handles criticism</li>
+      <li>Posting consistency and whether performance holds on branded content</li>
+      <li>Channel spread, and whether they meet the two platform minimum</li>
+      <li>Software mapped to HP's own ISV list, Revit, SOLIDWORKS, Fusion, Rhino, Civil 3D</li>
+    </ul>
+
+    <h3>How the 21 break down</h3>
+    <p>Twelve are core fit, meaning they match the approved pattern closely and we would put them in front of HP with confidence. Four sit adjacent, credible and clean but a step outside the core workflow audience, offered as reach and balance options. Five are consumer craft creators, sourced and vetted but not recommended for this phase, included so HP can see the full search rather than a filtered slice.</p>
+
+    <div class="note">Two things worth raising with HP. Four of the strongest candidates run only one or two channels with nothing Stories capable, because the deepest practitioner educators tend to live on one platform and teach. And CG Geek has run an HP sponsored video before, which makes him the warmest lead on the list, but he has a recent ASUS ProArt relationship, so that call belongs to HP rather than us.</div>
+
+    <h3>Still to add</h3>
+    <p>Per channel follower counts, engagement, country base and US audience share are not confirmed yet. The fields are built into the cards and will populate from the Orthogonal export.</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+/* platform glyphs */
+var ICON = {
+  youtube:'<svg viewBox="0 0 24 24"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.9 12 4.9 12 4.9s-7 0-8.9.5A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg>',
+  instagram:'<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg>',
+  tiktok:'<svg viewBox="0 0 24 24"><path d="M16.6 2h-3v14.1a2.6 2.6 0 1 1-2.6-2.6c.2 0 .4 0 .6.1v-3a5.6 5.6 0 1 0 5 5.5V8.6a6.9 6.9 0 0 0 4 1.3v-3a4 4 0 0 1-4-4z"/></svg>',
+  x:'<svg viewBox="0 0 24 24"><path d="M17.5 3h3l-6.6 7.5L21.7 21h-6l-4.7-6.1L5.6 21h-3l7-8-6.9-10h6.1l4.3 5.6zm-1 16h1.7L7.6 4.7H5.8z"/></svg>',
+  linkedin:'<svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1a4.2 4.2 0 0 1 3.8-2c4 0 4.8 2.6 4.8 6.1V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg>',
+  facebook:'<svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>',
+  pinterest:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.6 19.3 9.6 9.6 0 0 1 0-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.5 1.8-2.5.9 0 1.3.6 1.3 1.4 0 .9-.6 2.2-.9 3.4a1.5 1.5 0 0 0 1.5 1.8c1.8 0 3.2-1.9 3.2-4.7a4 4 0 0 0-4.3-4.2 4.5 4.5 0 0 0-4.7 4.5 4 4 0 0 0 .8 2.4.3.3 0 0 1 .1.3l-.3 1.1c0 .2-.1.2-.3.1-1.3-.6-2-2.4-2-3.9 0-3.2 2.3-6.1 6.7-6.1a5.9 5.9 0 0 1 6.2 5.8c0 3.5-2.2 6.3-5.2 6.3a2.7 2.7 0 0 1-2.3-1.2l-.6 2.4a11 11 0 0 1-1.3 2.7A10 10 0 1 0 12 2z"/></svg>',
+  twitch:'<svg viewBox="0 0 24 24"><path d="M4 2 2.5 5.8v14.4h4.9V23h2.7l2.7-2.8h4L21.5 16V2zm15.7 13.2-2.8 2.8h-4.4L10 20.6v-2.6H6.2V3.7h13.5zM14.6 7.3h1.7v5h-1.7zm-4.6 0h1.7v5H10z"/></svg>',
+  patreon:'<svg viewBox="0 0 24 24"><path d="M15.4 2.9A6.6 6.6 0 1 0 15.4 16 6.6 6.6 0 0 0 15.4 2.9zM2 21.1h3.3V2.9H2z"/></svg>',
+  discord:'<svg viewBox="0 0 24 24"><path d="M19.6 5.6A16 16 0 0 0 15.7 4.4l-.2.4a15 15 0 0 1 3.4 1.7 15 15 0 0 0-13.8 0 15 15 0 0 1 3.4-1.7l-.2-.4A16 16 0 0 0 4.4 5.6 20 20 0 0 0 2 19.2a16 16 0 0 0 4.8 2.4l1-1.7a10 10 0 0 1-1.6-.8l.4-.3a11.4 11.4 0 0 0 10.8 0l.4.3a10 10 0 0 1-1.6.8l1 1.7A16 16 0 0 0 22 19.2a20 20 0 0 0-2.4-13.6zM8.7 15.7a1.9 1.9 0 0 1 0-3.7 1.9 1.9 0 0 1 0 3.7zm6.6 0a1.9 1.9 0 0 1 0-3.7 1.9 1.9 0 0 1 0 3.7z"/></svg>',
+  web:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm7.9 9h-3.4a15.4 15.4 0 0 0-1.4-6 8 8 0 0 1 4.8 6zM12 4c.9 1.3 1.9 3.6 2.1 7H9.9C10.1 7.6 11.1 5.3 12 4zM4.1 11a8 8 0 0 1 4.8-6 15.4 15.4 0 0 0-1.4 6zm0 2h3.4a15.4 15.4 0 0 0 1.4 6 8 8 0 0 1-4.8-6zM12 20c-.9-1.3-1.9-3.6-2.1-7h4.2c-.2 3.4-1.2 5.7-2.1 7zm3.1-1a15.4 15.4 0 0 0 1.4-6h3.4a8 8 0 0 1-4.8 6z"/></svg>',
+  news:'<svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.2-8 4.6-8-4.6V6l8 4.6L20 6z"/></svg>'
+};
+function icon(k){ return ICON[k] || ICON.web; }
+
+/* platforms that carry a Stories format, used for the multichannel minimum */
+var STORIES = {instagram:1, facebook:1, tiktok:1};
+function hasStories(c){ return c.plats.some(function(p){ return STORIES[p[0]]; }); }
+function meetsMin(c){ return c.plats.length >= 2 && hasStories(c); }
+function hasNews(c){ return c.plats.some(function(p){ return p[0] === 'news'; }); }
+
+/* creators. country and US audience share pending the Orthogonal export */
+var C = [
+{n:"Jeff Bartels",h:"@JeffBartelsCAD",s:"AEC",tier:"core",subs:"71.7K",
+ country:"To confirm",us:"To confirm",isv:"Civil 3D, Autodesk Construction Cloud",
+ niche:"Civil infrastructure and Civil 3D",
+ plats:[["youtube","YouTube",null],["linkedin","LinkedIn",null],["x","X",null],["news","Civil Immersion blog",null]],
+ makes:"Pure workflow teaching, modelling skewed corridors in Civil 3D, matching visual fidelity between Civil 3D and Construction Cloud, adding photo galleries to cloud projects.",
+ angle:"The AEC infrastructure anchor. Show a real corridor or civil model running at full weight on the workstation, aimed squarely at engineers doing public works.",
+ safe:"Cleanest channel on the list. No brand partnerships anywhere in his catalogue, monetising only through content and the blog. Comment sections are civil engineers asking technical questions.",
+ url:"https://www.youtube.com/@JeffBartelsCAD"},
+
+{n:"Too Tall Toby",h:"@TooTallToby",s:"PD&M",tier:"core",subs:"82K",
+ country:"To confirm",us:"To confirm",isv:"SOLIDWORKS, Fusion 360",
+ niche:"SOLIDWORKS and CAD speedrunning",
+ plats:[["youtube","YouTube",null],["web","Thinkific courses",null]],
+ makes:"SOLIDWORKS tips, Fusion tutorials and live CAD speedrun competitions where modelling speed is the whole event.",
+ angle:"Speed as the proof point. His format already measures how fast a model gets built, so the machine becomes the variable rather than the subject.",
+ safe:"Certified SOLIDWORKS Expert with no competing sponsors, monetising through his own training courses. Audience is CAD learners and working professionals.",
+ url:"https://www.youtube.com/@TooTallToby"},
+
+{n:"Clough42",h:"@Clough42",s:"PD&M",tier:"core",subs:"234K",
+ country:"To confirm",us:"To confirm",isv:"Fusion 360, CNC and CAM",
+ niche:"CNC machining and CAD workflows",
+ plats:[["youtube","YouTube",null],["patreon","Patreon",null]],
+ makes:"CNC machining, 3D printing, PCB design and Fusion 360 workflows, filmed calm and long form from his workshop.",
+ angle:"The full pipeline, design through to cut metal, with the workstation carrying the CAD and CAM end of a real build.",
+ safe:"Channel policy explicitly refuses mobile game and VPN promotions. Sponsors are MASSO and Precision Matthews, aligned and non competing. Comment sections are experienced machinists.",
+ url:"https://www.youtube.com/@Clough42"},
+
+{n:"Winston Moy",h:"@WinstonMakes",s:"PD&M",tier:"core",subs:"92K",
+ country:"To confirm",us:"To confirm",isv:"Fusion 360, CNC",
+ niche:"Digital fabrication and CNC",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["x","X",null],["patreon","Patreon",null],["web","Website",null]],
+ makes:"CNC projects, Fusion 360 design and digital fabrication, methodical and low key with the process shown properly.",
+ angle:"Digital fabrication end to end, a maker who explains why each step needs the compute it needs.",
+ safe:"Also produces videos for Carbide3D, and recent sponsors include Revopoint scanners, both aligned rather than competing. Clean sentiment throughout.",
+ url:"https://www.youtube.com/@WinstonMakes"},
+
+{n:"Danny Lum",h:"@dannylumcreative",s:"PD&M",tier:"core",subs:"405K",
+ country:"To confirm",us:"To confirm",isv:"Fusion 360, 3D printing",
+ niche:"Engineering builds and 3D printing",
+ plats:[["youtube","YouTube",null],["patreon","Patreon",null],["discord","Discord",null],["web","Second channel",null]],
+ makes:"Ambitious engineering builds, mini bowling lanes and AI powered turrets, fun on the surface with the full Fusion 360 process underneath.",
+ angle:"The reach play in PD&M. Entertaining enough to travel, technical enough that the workstation genuinely earns its place in the edit.",
+ safe:"Recent sponsors are SanDisk and Red Bull, neither competing. Family safe with an enthusiastic maker audience and positive sentiment.",
+ url:"https://www.youtube.com/@dannylumcreative"},
+
+{n:"Aaed Musa",h:"@aaedmusa",s:"PD&M",tier:"core",subs:"274K",
+ country:"To confirm",us:"To confirm",isv:"SOLIDWORKS, Fusion 360, Onshape",
+ niche:"Robotics and mechanical engineering",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["x","X",null],["patreon","Patreon",null]],
+ makes:"Robotics and mechanical builds with the CAD process always on screen. Built his own SolidWorks add in, CadShift.",
+ angle:"Simulation and iteration. Robotics work hammers a machine, and his audience of aspiring engineers is exactly the next generation of buyers.",
+ safe:"Recent sponsors include Formlabs, Justway and Onshape, all aligned to CAD and fabrication rather than competing on hardware. Disclosures are clear.",
+ url:"https://www.youtube.com/@aaedmusa"},
+
+{n:"PJ Chen",h:"@PJChenJewelryDesign",s:"PD&M",tier:"core",subs:"97.7K",
+ country:"To confirm",us:"To confirm",isv:"Rhino 3D, SubD",
+ niche:"Jewellery CAD and Rhino education",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null],["linkedin","LinkedIn",null],["news","Newsletter",null]],
+ makes:"Rhino 3D modelling, SubD, stone setting and file prep for casting and 3D printing. Pure workflow teaching, nothing else.",
+ angle:"Precision at small scale. Proves the range is not only for large assemblies, and brings a woman practitioner into a roster that badly needs one.",
+ safe:"One of the two cleanest profiles found across every round. No external sponsors at all, 25 years designing and 20 years teaching. Zero controversy anywhere.",
+ url:"https://www.youtube.com/@PJChenJewelryDesign"},
+
+{n:"The Revit Kid",h:"@TheRevitKid",s:"AEC",tier:"core",subs:"108K",
+ country:"To confirm",us:"To confirm",isv:"Revit, BIM",
+ niche:"Revit, BIM and architectural practice",
+ plats:[["youtube","YouTube",null],["x","X",null],["facebook","Facebook",null],["web","BIM After Dark",null],["news","Newsletter",null]],
+ makes:"Revit and BIM tutorials from a licensed architect, currently documenting a real home addition build on the channel.",
+ angle:"BIM under load. A live project running through Revit is the clearest demonstration of the AEC workflow HP wants to own.",
+ safe:"No competing tech sponsors, monetising through his own community and courses. Comment sections are working architects. Effectively zero brand risk.",
+ url:"https://www.youtube.com/@TheRevitKid"},
+
+{n:"Archi Hacks",h:"@ArchiHacks",s:"AEC",tier:"core",subs:"102K",
+ country:"To confirm",us:"To confirm",isv:"Architectural visualisation, AI tools, to confirm",
+ niche:"Architecture visualisation and process",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null],["x","X",null],["linkedin","LinkedIn",null],["news","Newsletter",null]],
+ makes:"Architecture visualisation technique and end to end design process, from an ex OMA and BIG designer.",
+ angle:"Rendering and visualisation, the GPU heavy end of AEC, aimed at practices deciding what to put on desks.",
+ safe:"Recent sponsors are niche AI design tools, non competing. Educational and non controversial, audience is working design professionals.",
+ url:"https://www.youtube.com/@ArchiHacks"},
+
+{n:"30X40 Design Workshop",h:"@30by40",s:"AEC",tier:"core",subs:"1.19M",
+ country:"United States, Maine",us:"To confirm",isv:"Revit and SketchUp, to confirm",
+ niche:"Architecture practice and residential design",
+ plats:[["youtube","YouTube",null],["web","Courses and templates",null],["news","Newsletter",null]],
+ makes:"Architectural process, residential design and the business of running a practice, from an award winning architect in Maine.",
+ angle:"The credibility anchor for AEC. Largest reach on the list and the most trusted voice with practice owners, who are the people who actually buy.",
+ safe:"The other of the two cleanest profiles. No competing sponsors, monetising through his own courses and books. The gold standard practitioner educator.",
+ url:"https://www.youtube.com/@30by40"},
+
+{n:"BYoung Design",h:"@BYoungDesign",s:"AEC",tier:"core",subs:"21.8K",
+ country:"To confirm",us:"To confirm",isv:"Architecture practice tools, to confirm",
+ niche:"Architecture practice and licensure",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["web","Website",null],["news","Newsletter",null]],
+ makes:"Architecture practice, licensure and the business of design, aimed at students and emerging architects.",
+ angle:"The long game. Smallest channel here, but her audience becomes the specifying professionals of the next five years, and she balances the roster.",
+ safe:"Licensed architect, no competing sponsors, monetising through her own resources. Positive, aspirational comment sections. Zero brand risk.",
+ url:"https://www.youtube.com/@BYoungDesign"},
+
+{n:"CG Geek",h:"@CGGeek",s:"PD&M",tier:"flag",subs:"1.15M",
+ country:"To confirm",us:"To confirm",isv:"Blender, GPU rendering",
+ niche:"Blender, VFX and 3D rendering",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["x","X",null],["patreon","Patreon",null],["discord","Discord",null]],
+ makes:"Blender VFX and 3D rendering tutorials, warm and nerdy, with GPU heavy render work at the centre.",
+ angle:"The warmest door on the list. He has already made an HP sponsored Blender video, so the relationship exists and rendering is pure workstation territory.",
+ safe:"Clean history and highly engaged technical comment sections. Flag for HP, recent sponsors include ASUS ProArt alongside NVIDIA Studio, so the competitor call is theirs.",
+ url:"https://www.youtube.com/@CGGeek"},
+
+{n:"Izzy Swan",h:"@izzyswan",s:"PD&M",tier:"adj",subs:"958K",
+ country:"To confirm",us:"To confirm",isv:"Fabrication, not CAD specific",
+ niche:"Woodworking, fabrication and invention",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["web","Swan Tool Group",null]],
+ makes:"Inventive woodworking and fabrication, original machines and jigs built from scratch.",
+ angle:"Design to physical object, though lighter on CAD than the core group. Runs his own product line, which signals business maturity.",
+ safe:"Monetises through his own tool brand plus an aligned table saw accessory sponsor. Positive, enthusiastic audience.",
+ url:"https://www.youtube.com/@izzyswan"},
+
+{n:"Caroline Dunn",h:"@Caroline",s:"PD&M",tier:"adj",subs:"40K",
+ country:"To confirm",us:"To confirm",isv:"Raspberry Pi, IoT, embedded",
+ niche:"Electronics, IoT and maker engineering",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null],["web","Author, Winning in Tech",null]],
+ makes:"Raspberry Pi projects, smart home and IoT builds, calm and educational.",
+ angle:"Smaller reach, strong credibility. An electrical engineer and published author, and one of the few women in the technical group.",
+ safe:"No competing tech sponsors visible. Audience is hobbyist engineers and students, positive sentiment.",
+ url:"https://www.youtube.com/@Caroline"},
+
+{n:"Nina Takesh",h:"@NinaTakesh",s:"AEC",tier:"adj",subs:"139K",
+ country:"To confirm",us:"To confirm",isv:"Interior design, not CAD specific",
+ niche:"Interior design and renovation",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["pinterest","Pinterest",null],["news","Substack",null]],
+ makes:"Interior design process, renovation showcases and design principles, polished and high end.",
+ angle:"Design led crossover rather than core AEC. Strong for brand association, weaker on the BIM and infrastructure workflow HP asked for.",
+ safe:"Monetises through her own course, wallpaper and furniture lines. Founded luxury brand Petit Tresor. No competing tech sponsors.",
+ url:"https://www.youtube.com/@NinaTakesh"},
+
+{n:"Julie Khuu",h:"@JulieKhuu",s:"AEC",tier:"adj",subs:"583K",
+ country:"To confirm",us:"To confirm",isv:"Interior design, not CAD specific",
+ niche:"Interior design and renovation",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["facebook","Facebook",null],["pinterest","Pinterest",null]],
+ makes:"Interior design, renovation walkthroughs and room transformations, eleven years documented on the channel.",
+ angle:"Reach and audience balance. Adjacent to AEC rather than inside it, worth including only if design led crossover appeals to HP.",
+ safe:"Channel memberships and affiliates, no competing tech sponsors. Warm, supportive community with positive sentiment.",
+ url:"https://www.youtube.com/@JulieKhuu"},
+
+{n:"Ashlee Falco",h:"@ashleefalco",s:"PD&M",tier:"hold",subs:"123K",
+ country:"To confirm",us:"To confirm",isv:"Craft machines, not core ISV",
+ niche:"Craft machine reviews and fabrication",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["pinterest","Pinterest",null],["web","Celebration Warehouse",null]],
+ makes:"Honest head to head craft machine testing, her line is no sponsored fluff, real verdicts.",
+ angle:"Not recommended for this phase. The honest reviewer position carries weight, but her audience is crafters rather than professional buyers.",
+ safe:"Clean, and runs her own cardstock business. Reviews multiple craft machine brands.",
+ url:"https://www.youtube.com/@ashleefalco"},
+
+{n:"EmyLuDesigns",h:"@emyludesigns",s:"PD&M",tier:"hold",subs:"128K",
+ country:"To confirm",us:"To confirm",isv:"Laser and CNC, craft",
+ niche:"Laser cutting and CNC fabrication",
+ plats:[["youtube","YouTube",null],["web","Linktree",null]],
+ makes:"Laser cutting, CNC and maker fabrication tutorials for small business makers.",
+ angle:"Not recommended. Process focused and clean, but the audience is craft and small business rather than professional workflow.",
+ safe:"No visible competing tech sponsors, positive sentiment, family safe.",
+ url:"https://www.youtube.com/@emyludesigns"},
+
+{n:"ZeldaCreates",h:"@Zelda_Creates",s:"PD&M",tier:"hold",subs:"86.8K",
+ country:"To confirm",us:"To confirm",isv:"3D printing, consumer",
+ niche:"3D printing projects",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null]],
+ makes:"Creative and fun 3D printing projects with the design workflow shown.",
+ angle:"Not recommended. Strong engagement for the size, but creative 3D printing rather than professional design work.",
+ safe:"No visible competing sponsors, positive sentiment, family safe.",
+ url:"https://www.youtube.com/@Zelda_Creates"},
+
+{n:"LilyRoseCraftroom",h:"@LilyRoseCraftroom",s:"PD&M",tier:"hold",subs:"68.6K",
+ country:"To confirm",us:"To confirm",isv:"3D printing and Cricut, consumer",
+ niche:"Craft machines and 3D printing",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["facebook","Facebook",null]],
+ makes:"How to tutorials across 3D printing, laser engraving, sublimation and Cricut for small business makers.",
+ angle:"Not recommended. Consumer craft rather than the professional workflow this phase targets.",
+ safe:"No visible competing tech sponsors, warm tone, positive sentiment.",
+ url:"https://www.youtube.com/@LilyRoseCraftroom"},
+
+{n:"Tiffany Gordon",h:"@TiffanyGordonCosplay",s:"PD&M",tier:"hold",subs:"55.4K",
+ country:"To confirm",us:"To confirm",isv:"3D printing and CAD files, cosplay",
+ niche:"Costume and prop fabrication",
+ plats:[["youtube","YouTube",null],["instagram","Instagram",null],["tiktok","TikTok",null],["facebook","Facebook",null],["twitch","Twitch",null],["patreon","Patreon",null],["discord","Discord",null]],
+ makes:"Costume and prop builds using 3D printing, EVA foam, leather and sewing. Sells her own 3D CAD files.",
+ angle:"Not recommended for this phase, though the multi platform spread is the strongest on the list at seven channels.",
+ safe:"Very clean, extremely consistent output, supportive comment sections. Audience is the cosplay community.",
+ url:"https://www.youtube.com/@TiffanyGordonCosplay"}
+];
+
+var TIER = {core:["CORE FIT","core"], flag:["CORE FIT, FLAGGED","flag"], adj:["ADJACENT OPTION","adj"], hold:["NOT RECOMMENDED","hold"]};
+
+var i = 0, picks = [], deck = document.getElementById('deck');
+
+function cardHtml(c){
+  var t = TIER[c.tier];
+  var primary = c.plats[0];
+  var extra = c.plats.slice(1);
+  var min = meetsMin(c);
+  var news = hasNews(c);
+  var extraHtml = extra.length
+    ? extra.map(function(p){ return '<span class="plat">'+icon(p[0])+p[1]+(p[2]?' <b>'+p[2]+'</b>':'')+'</span>'; }).join('')
+    : '<span class="plat">None</span>';
+  return '<div class="wash y"></div><div class="wash n"></div>'+
+    '<div class="badge y">YES</div><div class="badge n">PASS</div>'+
+    '<div class="top"><div class="stripe"><i></i><i></i><i></i></div>'+
+      '<span class="sector">'+c.s+'</span>'+
+      '<span class="tier '+t[1]+'">'+t[0]+'</span>'+
+      '<h2>'+c.n+'</h2><div class="handle">'+c.h+'</div></div>'+
+    '<div class="stats">'+
+      '<div class="stat"><div class="k">YOUTUBE SUBS</div><div class="v">'+c.subs+'</div></div>'+
+      '<div class="stat"><div class="k">PLATFORMS</div><div class="v">'+c.plats.length+'</div></div>'+
+      '<div class="stat"><div class="k">NEWSLETTER</div><div class="v sm '+(news?'yes':'no')+'">'+(news?'Yes':'No')+'</div></div>'+
+    '</div>'+
+    '<div class="signals">'+
+      '<div class="sig"><div class="k">COUNTRY BASE</div><div class="v'+(/confirm/i.test(c.country)?' tc':'')+'">'+c.country+'</div></div>'+
+      '<div class="sig"><div class="k">US AUDIENCE</div><div class="v'+(/confirm/i.test(c.us)?' tc':'')+'">'+c.us+'</div></div>'+
+      '<div class="sig wide"><div class="k">SOFTWARE / ISV MAPPING</div><div class="v'+(/confirm|not (core|cad)|consumer|craft|cosplay/i.test(c.isv)?' tc':'')+'">'+c.isv+'</div></div>'+
+      '<div class="sig wide"><div class="k">MEETS MULTICHANNEL MIN, 2+ INCL STORIES</div><div class="v '+(min?'ok':'bad')+'">'+(min?'Yes':'No, no Stories capable platform')+'</div></div>'+
+    '</div>'+
+    '<div class="plats">'+
+      '<span class="plat primary">'+icon(primary[0])+'<b>Primary</b> '+primary[1]+'</span>'+
+      extraHtml+
+    '</div>'+
+    '<div class="body">'+
+      '<div class="blk"><h3>WHAT THEY MAKE</h3><p>'+c.makes+'</p></div>'+
+      '<div class="blk angle"><h3>OUR ANGLE FOR HP</h3><p>'+c.angle+'</p></div>'+
+      '<div class="blk"><h3>BRAND SAFETY</h3><p class="safety">'+c.safe+'</p></div>'+
+    '</div>'+
+    '<div class="chan"><a href="'+c.url+'" target="_blank" rel="noopener">Open YouTube channel</a></div>';
+}
+
+function render(){
+  deck.innerHTML = '';
+  if(i >= C.length){ finish(); return; }
+  if(i+1 < C.length){
+    var back = document.createElement('div');
+    back.className = 'card';
+    back.style.transform = 'scale(.97) translateY(10px)';
+    back.style.opacity = '.55';
+    back.innerHTML = cardHtml(C[i+1]);
+    deck.appendChild(back);
+  }
+  var el = document.createElement('div');
+  el.className = 'card';
+  el.innerHTML = cardHtml(C[i]);
+  deck.appendChild(el);
+  drag(el);
+  update();
+}
+
+function update(){
+  document.getElementById('prog').style.width = (i / C.length * 100) + '%';
+  document.getElementById('cLeft').textContent = i + ' of ' + C.length + ' reviewed';
+  document.getElementById('cRight').textContent = i < C.length ? C[i].s + ' candidate' : '';
+  var y = picks.filter(function(p){return p.v==='y';}).length;
+  var m = picks.filter(function(p){return p.v==='m';}).length;
+  var n = picks.filter(function(p){return p.v==='n';}).length;
+  document.getElementById('tY').textContent = y + ' yes';
+  document.getElementById('tM').textContent = m + ' maybe';
+  document.getElementById('tN').textContent = n + ' no';
+}
+
+function choose(v){
+  if(i >= C.length) return;
+  var el = deck.lastChild;
+  if(el){
+    el.classList.add('gone');
+    var x = v==='y' ? 700 : v==='n' ? -700 : 0;
+    var yy = v==='m' ? -700 : 0;
+    el.style.transform = 'translate('+x+'px,'+yy+'px) rotate('+(x/26)+'deg)';
+    el.style.opacity = '0';
+  }
+  picks.push({ n: C[i].n, s: C[i].s, v: v });
+  i++;
+  setTimeout(render, 200);
+}
+
+function undo(){
+  if(!picks.length) return;
+  picks.pop(); i--; render();
+}
+
+/* drag */
+function drag(el){
+  var sx=0, sy=0, dx=0, dy=0, on=false;
+  var wy = el.querySelector('.wash.y'), wn = el.querySelector('.wash.n');
+  var by = el.querySelector('.badge.y'), bn = el.querySelector('.badge.n');
+  function start(e){
+    if(e.target.closest('a')) return;
+    on=true; el.classList.add('drag');
+    var p = e.touches ? e.touches[0] : e;
+    sx=p.clientX; sy=p.clientY;
+  }
+  function move(e){
+    if(!on) return;
+    var p = e.touches ? e.touches[0] : e;
+    dx = p.clientX-sx; dy = p.clientY-sy;
+    el.style.transform = 'translate('+dx+'px,'+dy+'px) rotate('+(dx/26)+'deg)';
+    var r = Math.min(Math.abs(dx)/140, 1);
+    wy.style.opacity = dx>0 ? r : 0;
+    wn.style.opacity = dx<0 ? r : 0;
+    by.style.opacity = dx>0 ? r : 0;
+    bn.style.opacity = dx<0 ? r : 0;
+    if(e.cancelable) e.preventDefault();
+  }
+  function end(){
+    if(!on) return;
+    on=false; el.classList.remove('drag');
+    if(Math.abs(dx) > 120){ choose(dx>0 ? 'y' : 'n'); }
+    else if(dy < -140){ choose('m'); }
+    else {
+      el.style.transform=''; wy.style.opacity=0; wn.style.opacity=0;
+      by.style.opacity=0; bn.style.opacity=0;
+    }
+    dx=0; dy=0;
+  }
+  el.addEventListener('mousedown',start);
+  window.addEventListener('mousemove',move);
+  window.addEventListener('mouseup',end);
+  el.addEventListener('touchstart',start,{passive:true});
+  window.addEventListener('touchmove',move,{passive:false});
+  window.addEventListener('touchend',end);
+}
+
+/* results */
+function finish(){
+  document.getElementById('stage').classList.add('hidden');
+  var d = document.getElementById('done');
+  d.classList.remove('hidden');
+  [['y','lY','nY'],['m','lM','nM'],['n','lN','nN']].forEach(function(g){
+    var set = picks.filter(function(p){ return p.v===g[0]; });
+    document.getElementById(g[2]).textContent = set.length;
+    var ul = document.getElementById(g[1]);
+    ul.innerHTML = set.length
+      ? set.map(function(p){ return '<li>'+p.n+'<span>'+p.s+'</span></li>'; }).join('')
+      : '<li class="none">Nothing here</li>';
+  });
+}
+
+document.getElementById('bYes').addEventListener('click', function(){ choose('y'); });
+document.getElementById('bNo').addEventListener('click', function(){ choose('n'); });
+document.getElementById('bMaybe').addEventListener('click', function(){ choose('m'); });
+document.getElementById('bUndo').addEventListener('click', undo);
+document.addEventListener('keydown', function(e){
+  if(document.getElementById('site').classList.contains('hidden')) return;
+  if(e.key==='ArrowRight') choose('y');
+  if(e.key==='ArrowLeft') choose('n');
+  if(e.key==='ArrowUp') choose('m');
+  if(e.key==='Backspace'){ e.preventDefault(); undo(); }
+});
+document.getElementById('bAgain').addEventListener('click', function(){
+  i=0; picks=[];
+  document.getElementById('done').classList.add('hidden');
+  document.getElementById('stage').classList.remove('hidden');
+  render();
+});
+document.getElementById('bCopy').addEventListener('click', function(){
+  var lines = ['Moon to Mars, creator picks', ''];
+  [['y','SHORTLIST'],['m','MAYBE'],['n','PASSED']].forEach(function(g){
+    var set = picks.filter(function(p){ return p.v===g[0]; });
+    lines.push(g[1] + ' (' + set.length + ')');
+    set.forEach(function(p){ lines.push('  - ' + p.n + ', ' + p.s); });
+    lines.push('');
+  });
+  var txt = lines.join('\n');
+  navigator.clipboard.writeText(txt).then(function(){
+    var b = document.getElementById('bCopy');
+    b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy summary'; }, 1600);
+  }).catch(function(){
+    window.prompt('Copy this:', txt);
+  });
+});
+
+/* gate */
+var PW = "BEreview2026!";
+function unlock(){
+  if(document.getElementById('gpw').value === PW){
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('site').classList.remove('hidden');
+    render();
+  } else {
+    document.getElementById('gerr').textContent = "That password is not right. Ask the Butterfly Effect team.";
+  }
+}
+document.getElementById('genter').addEventListener('click', unlock);
+document.getElementById('gpw').addEventListener('keydown', function(e){ if(e.key==='Enter') unlock(); });
+</script>
+</body>
+</html>
