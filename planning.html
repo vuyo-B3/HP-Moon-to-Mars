@@ -14,13 +14,15 @@
   --ink:#2D3037; --ink60:#6B6E75; --line:#D8D8D8;
   --surface:#F3F3F3; --section:#E8E8E8; --white:#FFFFFF;
   --coral:#E8483F; --storm:#578292; --green:#1E8E5A;
+  --start:#1E8E5A; --start-t:#E7F3ED;
+  --middle:#2148D4; --middle-t:#EAEFFC;
+  --end:#E8483F; --end-t:#FBEBEA;
   --f:"Forma DJR UI","Archivo","Helvetica Neue",Arial,sans-serif;
   --slant:-20deg;
   --ease-out:cubic-bezier(.23,1,.32,1);
   --ease-in-out:cubic-bezier(.77,0,.175,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{font-family:var(--f);color:var(--ink);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased}
 button{font-family:inherit;font-size:inherit;color:inherit;border:none;background:none;cursor:pointer}
 a{color:var(--blue);text-decoration:none}
@@ -42,87 +44,95 @@ a:hover{text-decoration:underline}
 .gerr{color:var(--coral);font-size:13px;margin-top:12px;min-height:18px}
 
 /* header */
-header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-.hin{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.hin .back{font-size:13px;color:var(--ink60);border:1px solid var(--line);padding:7px 12px;border-radius:4px;white-space:nowrap}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.hin{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hin .back{font-size:13px;color:var(--ink60);border:1px solid var(--line);padding:7px 12px;border-radius:4px;white-space:nowrap;transition:border-color .15s ease,color .15s ease,transform .12s var(--ease-out)}
 .hin .back:hover{border-color:var(--blue);color:var(--blue);text-decoration:none}
+.hin .back:active{transform:scale(.97)}
 .hin .div{width:1px;height:24px;background:var(--line)}
 .hin .t{font-size:13px;color:var(--ink60);line-height:1.25}
 .hin .t b{display:block;color:var(--ink);font-weight:600;font-size:15px}
 .hin .stamp{margin-left:auto;font-size:12px;color:var(--ink60);white-space:nowrap}
 
-/* intro */
-.intro{max-width:1240px;margin:0 auto;padding:30px 24px 6px}
-.rule{width:56px;height:3px;background:var(--blue);transform:skewX(var(--slant));margin-bottom:18px}
-.intro h2{font-size:30px;font-weight:600;letter-spacing:-.02em;margin-bottom:8px}
-.intro .lede{color:var(--ink60);max-width:64ch;font-size:15px}
+/* intro + legend */
+.top{max-width:1280px;margin:0 auto;padding:26px 24px 4px}
+.rule{width:56px;height:3px;background:var(--blue);transform:skewX(var(--slant));margin-bottom:16px}
+.top h2{font-size:28px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.top .lede{color:var(--ink60);max-width:70ch;font-size:15px}
+.legend{max-width:1280px;margin:0 auto;padding:16px 24px 6px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.lg{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
+.lg .sw{width:14px;height:14px;border-radius:3px;flex:none}
+.sw.start{background:var(--start)} .sw.middle{background:var(--middle)} .sw.end{background:var(--end)}
+.lg.today .sw{width:3px;height:16px;background:var(--blue);border-radius:0}
+.legend .hint{margin-left:auto;font-size:12px;color:var(--ink60)}
 
-/* phase summary */
-.phases{max-width:1240px;margin:0 auto;padding:22px 24px 6px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.pcard{background:#fff;border:1px solid var(--line);border-top:4px solid var(--line);padding:18px 20px}
-.pcard.start{border-top-color:var(--green)}
-.pcard.middle{border-top-color:var(--blue)}
-.pcard.end{border-top-color:var(--coral)}
-.pcard .pk{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--ink60)}
-.pcard h3{font-size:18px;font-weight:600;margin:4px 0 6px}
-.pcard p{font-size:13px;color:var(--ink60);line-height:1.5}
+/* timeline */
+.tl-wrap{max-width:1280px;margin:0 auto;padding:12px 24px 60px;overflow-x:auto}
+.tl{position:relative;min-width:940px}
 
-/* legend / filter */
-.legend{max-width:1240px;margin:0 auto;padding:20px 24px 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.legend .lbl{font-size:12px;color:var(--ink60);margin-right:2px}
-.owner-chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;padding:7px 12px;border:1px solid var(--line);border-radius:20px;background:#fff;transition:border-color .15s ease,background .15s ease,transform .12s var(--ease-out)}
-.owner-chip:active{transform:scale(.96)}
-.owner-chip .dot{width:10px;height:10px;border-radius:50%;flex:none}
-.owner-chip[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:#fff}
-.owner-chip[aria-pressed=true] .dot{box-shadow:0 0 0 2px #fff inset}
-.dot.be{background:var(--ink)} .dot.ellen{background:var(--green)} .dot.hp{background:var(--coral)} .dot.creators{background:var(--blue)} .dot.chris{background:var(--storm)}
-.clearf{font-size:13px;color:var(--blue);margin-left:4px}
-.clearf.hidden{display:none}
+.months,.weeks,.lane,.band-row{display:grid;grid-template-columns:repeat(7,1fr)}
+.months{margin-bottom:0}
+.mo{font-size:12px;font-weight:600;color:var(--ink60);padding:0 0 6px 4px;border-left:1px solid var(--line)}
+.mo:first-child{border-left:none;padding-left:0}
+.weeks{position:sticky;top:60px;z-index:6;background:var(--surface)}
+.wk{padding:8px 8px 10px;border-left:1px solid var(--line)}
+.wk:first-child{border-left:none}
+.wk .wn{font-size:11px;font-weight:600;color:var(--ink60);letter-spacing:.4px}
+.wk .wr{font-size:13px;font-weight:500;margin-top:1px}
+.wk.now{background:var(--tint)}
+.wk.now .wn{color:var(--blue)}
+.wk.now .wr::after{content:" · this week";font-size:11px;color:var(--blue);font-weight:400}
 
-/* board */
-.board-wrap{max-width:1240px;margin:0 auto;padding:14px 24px 60px;overflow-x:auto}
-.board{display:flex;gap:16px;min-width:min-content;align-items:flex-start}
-.col{flex:0 0 264px;display:flex;flex-direction:column;gap:12px}
-.colhead{background:#fff;border:1px solid var(--line);border-left:4px solid var(--line);padding:12px 14px;position:sticky;top:64px}
-.colhead.start{border-left-color:var(--green)}
-.colhead.middle{border-left-color:var(--blue)}
-.colhead.end{border-left-color:var(--coral)}
-.colhead .phase{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink60)}
-.colhead .wk{font-size:16px;font-weight:600;margin-top:2px}
-.colhead .note{font-size:12px;color:var(--ink60);margin-top:2px}
-.colhead.now{border-color:var(--blue);border-left-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
-.colhead.now .phase::after{content:" · this week";color:var(--blue)}
+/* column gridlines behind everything */
+.grid-lines{position:absolute;left:0;right:0;top:34px;bottom:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(to right, transparent 0, transparent calc(100%/7 - 1px), var(--line) calc(100%/7 - 1px), var(--line) calc(100%/7))}
 
-/* tile */
-.tile{background:#fff;border:1px solid var(--line);border-left:4px solid var(--owner,var(--ink));cursor:pointer;transition:box-shadow .15s ease,transform .15s var(--ease-out),opacity .15s ease}
-.tile:hover{box-shadow:0 4px 14px rgba(45,48,55,.1);transform:translateY(-1px)}
-.tile:active{transform:scale(.99)}
-.tile-top{padding:13px 15px 11px}
-.tile h4{font-size:14px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
-.tile .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
-.tag{font-size:10px;font-weight:600;letter-spacing:.4px;padding:3px 8px;border-radius:3px;color:#fff}
-.tag.be{background:var(--ink)} .tag.ellen{background:var(--green)} .tag.hp{background:var(--coral)} .tag.creators{background:var(--blue)} .tag.chris{background:var(--storm)}
-.tile .when{font-size:11px;color:var(--ink60);margin-top:9px;display:flex;align-items:center;gap:6px}
-.tile .when::before{content:"";width:7px;height:12px;background:var(--owner,var(--ink));transform:skewX(var(--slant));flex:none}
-.detail{max-height:0;overflow:hidden;transition:max-height .3s var(--ease-out)}
-.tile.open .detail{max-height:420px}
-.detail-in{padding:0 15px 14px;border-top:1px solid var(--line);margin-top:2px;padding-top:12px}
-.detail-in .dk{font-size:10px;font-weight:600;letter-spacing:.8px;color:var(--ink60);margin-bottom:3px}
-.detail-in .dv{font-size:13px;line-height:1.5;margin-bottom:10px}
-.detail-in .dv:last-child{margin-bottom:0}
-.tile .chev{float:right;color:var(--ink60);font-size:12px;transition:transform .25s ease}
-.tile.open .chev{transform:rotate(180deg)}
+/* phase band */
+.band-row{margin:14px 0 8px;position:relative;z-index:2}
+.band{font-size:12px;font-weight:600;letter-spacing:.6px;color:#fff;padding:7px 12px;border-radius:4px;display:flex;align-items:baseline;gap:8px}
+.band .bsub{font-weight:400;opacity:.85;font-size:11px}
+.band.start{background:var(--start)} .band.middle{background:var(--middle)} .band.end{background:var(--end)}
 
-/* dimming when a filter is active */
-.board.filtered .tile{opacity:.28}
-.board.filtered .tile.match{opacity:1}
+/* lanes and bars */
+.lane{position:relative;z-index:2;margin-bottom:8px}
+.bar{grid-row:1;text-align:left;background:#fff;border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:5px;padding:9px 12px;min-height:52px;display:flex;flex-direction:column;justify-content:center;gap:3px;margin:0 4px;transition:box-shadow .15s ease,transform .12s var(--ease-out)}
+.bar:hover{box-shadow:0 4px 14px rgba(45,48,55,.12);transform:translateY(-1px)}
+.bar:active{transform:scale(.99)}
+.bar.start{border-left-color:var(--start);background:var(--start-t)}
+.bar.middle{border-left-color:var(--middle);background:var(--middle-t)}
+.bar.end{border-left-color:var(--end);background:var(--end-t)}
+.bar .bt{font-size:13.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:var(--ink)}
+.bar .bm{font-size:11.5px;color:var(--ink60);line-height:1.3}
+.bar .bm b{font-weight:600;color:var(--ink)}
 
-.foot{max-width:1240px;margin:0 auto;padding:0 24px 50px;font-size:12px;color:var(--ink60)}
+/* today line */
+.today{position:absolute;top:34px;bottom:0;width:2px;background:var(--blue);z-index:5;pointer-events:none}
+.today .pin{position:absolute;top:-2px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;white-space:nowrap}
 
-@media (max-width:760px){
-  .phases{grid-template-columns:1fr}
-  .colhead{position:static}
+/* detail drawer */
+.scrim{position:fixed;inset:0;background:rgba(45,48,55,.4);opacity:0;pointer-events:none;z-index:40;transition:opacity .3s ease}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(500px,94vw);background:#fff;z-index:50;
+  transform:translateX(100%);transition:transform .35s var(--ease-out);display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(45,48,55,.14)}
+.drawer.open{transform:none}
+.dr-top{padding:22px 26px;border-bottom:1px solid var(--line)}
+.dr-phase{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.dr-phase.start{color:var(--start)} .dr-phase.middle{color:var(--middle)} .dr-phase.end{color:var(--end)}
+.dr-top h3{font-size:23px;font-weight:600;letter-spacing:-.02em;margin:6px 0 10px;line-height:1.15}
+.dr-tags{display:flex;flex-wrap:wrap;gap:6px}
+.dr-tag{font-size:11px;font-weight:600;padding:4px 9px;border-radius:3px;background:var(--section);color:var(--ink)}
+.dr-body{padding:24px 26px;overflow-y:auto;flex:1}
+.dr-k{font-size:11px;font-weight:600;letter-spacing:.8px;color:var(--ink60);margin-bottom:4px}
+.dr-v{font-size:15px;line-height:1.6;margin-bottom:20px}
+.dr-close{position:absolute;top:20px;right:22px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink60);background:#fff;transition:border-color .15s ease,transform .12s var(--ease-out)}
+.dr-close:hover{border-color:var(--ink);color:var(--ink)}
+.dr-close:active{transform:scale(.94)}
+
+.foot{max-width:1280px;margin:0 auto;padding:0 24px 50px;font-size:12px;color:var(--ink60)}
+
+@media (max-width:640px){
   .hin .stamp{margin-left:0;width:100%}
+  .top h2{font-size:23px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -153,171 +163,179 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
       <circle cx="21" cy="21" r="19.5" fill="none" stroke="#2148D4" stroke-width="3"/>
       <text x="21" y="28" text-anchor="middle" font-family="Archivo, Arial" font-size="19" font-style="italic" font-weight="600" fill="#2148D4">hp</text>
     </svg>
-    <span class="t"><b>BE planning</b>Week by week, start to finish</span>
+    <span class="t"><b>BE planning</b>Campaign timeline, start to finish</span>
     <span class="stamp">Updated 24 Sep 2026</span>
   </div>
 </header>
 
-<section class="intro">
+<section class="top">
   <div class="rule"></div>
-  <h2>Campaign logistics, start to finish</h2>
-  <p class="lede">The plan laid out by week. Each tile is one thing that needs to happen, who owns it, and when. Filter by owner to see only what is yours. Start is now, the middle runs through October, the end lands in early November.</p>
+  <h2>What lands in what week</h2>
+  <p class="lede">The whole campaign on one line. The blue marker is where we are now. Every task sits under the week it is due, colour coded by phase. Click any task for the full detail.</p>
 </section>
 
-<section class="phases">
-  <div class="pcard start"><div class="pk">START</div><h3>Now, to end September</h3><p>Confirm creators against costs, get the brief and workstation emails out, and place the order with HP.</p></div>
-  <div class="pcard middle"><div class="pk">MIDDLE</div><h3>October</h3><p>HP product talks, creators submit ideas, then the two long form videos land across the month.</p></div>
-  <div class="pcard end"><div class="pk">END</div><h3>Early November</h3><p>The short ad and the end of campaign video, both coordinated by Chris Benns.</p></div>
+<section class="legend">
+  <span class="lg"><span class="sw start"></span>Start, now to end September</span>
+  <span class="lg"><span class="sw middle"></span>Middle, October</span>
+  <span class="lg"><span class="sw end"></span>End, early November</span>
+  <span class="lg today"><span class="sw"></span>Today</span>
+  <span class="hint">Click a task to open the detail</span>
 </section>
 
-<section class="legend" id="legend">
-  <span class="lbl">Filter by owner:</span>
-  <button class="owner-chip" data-owner="be" aria-pressed="false"><span class="dot be"></span>Butterfly Effect</button>
-  <button class="owner-chip" data-owner="ellen" aria-pressed="false"><span class="dot ellen"></span>Ellen</button>
-  <button class="owner-chip" data-owner="creators" aria-pressed="false"><span class="dot creators"></span>Creators</button>
-  <button class="owner-chip" data-owner="chris" aria-pressed="false"><span class="dot chris"></span>Chris Benns</button>
-  <button class="owner-chip" data-owner="hp" aria-pressed="false"><span class="dot hp"></span>HP</button>
-  <button class="clearf hidden" id="clearf">Clear filter</button>
-</section>
-
-<div class="board-wrap">
-  <div class="board" id="board"></div>
+<div class="tl-wrap">
+  <div class="tl" id="tl"></div>
 </div>
 
-<div class="foot">Confidential. Butterfly Effect and HP, Moon to Mars creator programme. Click any tile for the detail.</div>
+<div class="foot">Confidential. Butterfly Effect and HP, Moon to Mars creator programme.</div>
 
 </div>
+
+<!-- detail drawer -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <button class="dr-close" id="drClose" aria-label="Close">&#10005;</button>
+  <div class="dr-top">
+    <div class="dr-phase" id="drPhase"></div>
+    <h3 id="drTitle"></h3>
+    <div class="dr-tags" id="drTags"></div>
+  </div>
+  <div class="dr-body">
+    <div class="dr-k">WHAT NEEDS TO HAPPEN</div><div class="dr-v" id="drWhat"></div>
+    <div class="dr-k">WHO IS INVOLVED</div><div class="dr-v" id="drWho"></div>
+    <div class="dr-k">WHEN</div><div class="dr-v" id="drWhen"></div>
+  </div>
+</aside>
 
 <script>
-/* owner colours map to the css vars */
-var OWNER = {
-  be:{label:"Butterfly Effect", cls:"be", c:"#2D3037"},
-  ellen:{label:"Ellen", cls:"ellen", c:"#1E8E5A"},
-  hp:{label:"HP", cls:"hp", c:"#E8483F"},
-  creators:{label:"Creators", cls:"creators", c:"#2148D4"},
-  chris:{label:"Chris Benns", cls:"chris", c:"#578292"}
-};
-
-/* the week columns, left to right */
-var WEEKS = [
-  {phase:"start",  wk:"Week of 22 Sep", note:"This week", now:true},
-  {phase:"start",  wk:"Week of 29 Sep", note:"Next week"},
-  {phase:"middle", wk:"Week of 5 Oct",  note:""},
-  {phase:"middle", wk:"Week of 12 Oct", note:"2nd week of October"},
-  {phase:"middle", wk:"Week of 19 Oct", note:"3rd week of October"},
-  {phase:"middle", wk:"Week of 26 Oct", note:"4th week of October"},
-  {phase:"end",    wk:"Week of 2 Nov",  note:"1st week of November"}
+/* week columns, left to right. today sits in W39 */
+var COLS = [
+  {wn:"W39", wr:"21 – 27 Sep", mo:"September", now:true},
+  {wn:"W40", wr:"28 Sep – 4 Oct", mo:""},
+  {wn:"W41", wr:"5 – 11 Oct", mo:"October"},
+  {wn:"W42", wr:"12 – 18 Oct", mo:""},
+  {wn:"W43", wr:"19 – 25 Oct", mo:""},
+  {wn:"W44", wr:"26 Oct – 1 Nov", mo:""},
+  {wn:"W45", wr:"2 – 8 Nov", mo:"November"}
 ];
 
-/* tiles. w = week index, owners drive colour and filtering */
-var TILES = [
-  {w:0, title:"Confirm creators against costs", owners:["be"], when:"Today, Thu 24 Sep",
-   what:"Lock the confirmed creators against their costs, as a team on the BE side. HP not involved in this one.",
-   who:"Butterfly Effect"},
+/* month header spans: [label, startCol(1-indexed), spanCount] */
+var MONTHS = [["September",1,2],["October",3,4],["November",7,1]];
 
-  {w:0, title:"Send creator brief email", owners:["ellen"], when:"This week",
+var PHASES = [
+  {key:"start",  label:"START",  sub:"now to end September", from:1, to:3},
+  {key:"middle", label:"MIDDLE", sub:"October",              from:3, to:7},
+  {key:"end",    label:"END",    sub:"early November",       from:7, to:8}
+];
+
+/* col = week index 0..6. due = short label for the bar, when = full for the drawer */
+var TASKS = [
+  {phase:"start", col:0, title:"Confirm creators against costs", tags:["Butterfly Effect"], due:"Today", when:"Today, Thursday 24 September",
+   what:"Lock the confirmed creators against their costs, as a team on the BE side. HP is not involved in this one.",
+   who:"Butterfly Effect"},
+  {phase:"start", col:0, title:"Send creator brief email", tags:["Ellen"], due:"This week", when:"This week",
    what:"Brief the creators on the deliverables, the dates, the context and the AI native angle, and ask them for their video ideas.",
    who:"Ellen"},
-
-  {w:0, title:"Send workstation spec email", owners:["ellen"], when:"This week",
+  {phase:"start", col:0, title:"Send workstation spec email", tags:["Ellen"], due:"This week", when:"This week",
    what:"Ask the delivery questions, where units ship from and the specs needed, so the order can be placed with HP next week.",
    who:"Ellen"},
-
-  {w:1, title:"Send workstation order to HP", owners:["hp","be","chris"], when:"Next week, Tue 29 Sep",
+  {phase:"start", col:1, title:"Send workstation order to HP", tags:["HP","BE","Chris Benns"], due:"Tue 29 Sep", when:"Next week, Tuesday 29 September",
    what:"Send HP the workstation order for the confirmed creators, together with the confirmed creator list, the assets each creator will deliver over the campaign, and Chris Benns creative work.",
    who:"HP category team, Butterfly Effect and Chris Benns"},
 
-  {w:2, title:"Creators talk with the HP team", owners:["hp","creators"], when:"Week of 5 Oct",
+  {phase:"middle", col:2, title:"Creators talk with the HP team", tags:["HP","Creators"], due:"w/c 5 Oct", when:"Week of 5 October",
    what:"AEC and PD&M creators talk with the actual HP team and ask their product questions. Brief them on context, this part can start now.",
    who:"HP team and creators, BE coordinates"},
-
-  {w:2, title:"Chris Benns ad narrative", owners:["chris"], when:"Week of 5 Oct",
+  {phase:"middle", col:2, title:"Chris Benns ad narrative", tags:["Chris Benns"], due:"w/c 5 Oct", when:"Week of 5 October",
    what:"Chris Benns sets the ad narrative, for each creator individually and for the campaign as a whole.",
    who:"Chris Benns"},
-
-  {w:3, title:"Creators submit video ideas", owners:["creators"], when:"2nd week of October",
+  {phase:"middle", col:3, title:"Creators submit video ideas", tags:["Creators"], due:"w/c 12 Oct", when:"Week of 12 October",
    what:"Creators submit their video ideas, while the workstations are on their way to them.",
    who:"Creators, BE reviews"},
-
-  {w:4, title:"Long form video 1 due", owners:["creators"], when:"3rd week of October",
+  {phase:"middle", col:4, title:"Long form video 1 due", tags:["Creators"], due:"w/c 19 Oct", when:"Week of 19 October",
    what:"First long form video, 8 to 12 minutes.",
    who:"Creators"},
-
-  {w:5, title:"Long form video 2 due", owners:["creators"], when:"4th week of October",
+  {phase:"middle", col:5, title:"Long form video 2 due", tags:["Creators"], due:"by 31 Oct", when:"By 31 October",
    what:"Second long form video, 8 to 12 minutes.",
    who:"Creators"},
 
-  {w:6, title:"Short ad due", owners:["creators","chris"], when:"1st week of November",
+  {phase:"end", col:6, title:"Short ad due", tags:["Creators","Chris Benns"], due:"w/c 2 Nov", when:"Week of 2 November",
    what:"Short ad, 1 to 3 minutes, 16:9, coordinated by Chris Benns.",
    who:"Creators, coordinated by Chris Benns"},
-
-  {w:6, title:"End of campaign video", owners:["chris"], when:"After the videos land",
+  {phase:"end", col:6, title:"End of campaign video", tags:["Chris Benns"], due:"after videos", when:"After the videos land",
    what:"End of campaign video, 16:9, assembled by Chris Benns. The ad and this video work hand in hand.",
    who:"Chris Benns"}
 ];
 
-var board = document.getElementById('board');
-
-function tileHtml(t){
-  var primary = OWNER[t.owners[0]];
-  var tags = t.owners.map(function(o){ return '<span class="tag '+OWNER[o].cls+'">'+OWNER[o].label+'</span>'; }).join('');
-  return '<article class="tile" data-owners="'+t.owners.join(' ')+'" style="--owner:'+primary.c+'">'+
-    '<div class="tile-top">'+
-      '<span class="chev">&#9662;</span>'+
-      '<h4>'+t.title+'</h4>'+
-      '<div class="tags">'+tags+'</div>'+
-      '<div class="when">'+t.when+'</div>'+
-    '</div>'+
-    '<div class="detail"><div class="detail-in">'+
-      '<div class="dk">WHAT</div><div class="dv">'+t.what+'</div>'+
-      '<div class="dk">WHO</div><div class="dv">'+t.who+'</div>'+
-      '<div class="dk">WHEN</div><div class="dv">'+t.when+'</div>'+
-    '</div></div>'+
-  '</article>';
-}
+var tl = document.getElementById('tl');
 
 function render(){
-  board.innerHTML = WEEKS.map(function(wk, i){
-    var tiles = TILES.filter(function(t){ return t.w === i; }).map(tileHtml).join('');
-    return '<div class="col">'+
-      '<div class="colhead '+wk.phase+(wk.now?' now':'')+'">'+
-        '<div class="phase">'+wk.phase+'</div>'+
-        '<div class="wk">'+wk.wk+'</div>'+
-        (wk.note ? '<div class="note">'+wk.note+'</div>' : '')+
-      '</div>'+ tiles +
-    '</div>';
-  }).join('');
+  var html = '';
+
+  /* month header */
+  html += '<div class="months">';
+  MONTHS.forEach(function(m){ html += '<div class="mo" style="grid-column:'+m[1]+' / span '+m[2]+'">'+m[0]+'</div>'; });
+  html += '</div>';
+
+  /* gridlines behind */
+  html += '<div class="grid-lines"></div>';
+
+  /* week header */
+  html += '<div class="weeks">';
+  COLS.forEach(function(c){
+    html += '<div class="wk'+(c.now?' now':'')+'"><div class="wn">'+c.wn+'</div><div class="wr">'+c.wr+'</div></div>';
+  });
+  html += '</div>';
+
+  /* phases, each a band then its task lanes */
+  PHASES.forEach(function(p){
+    html += '<div class="band-row"><div class="band '+p.key+'" style="grid-column:'+p.from+' / '+p.to+'">'+p.label+' <span class="bsub">'+p.sub+'</span></div></div>';
+    TASKS.filter(function(t){ return t.phase === p.key; }).forEach(function(t){
+      var idx = TASKS.indexOf(t);
+      var meta = '<b>'+t.tags[0]+'</b>'+(t.tags.length>1?' +'+(t.tags.length-1):'')+' · '+t.due;
+      html += '<div class="lane"><button class="bar '+t.phase+'" style="grid-column:'+(t.col+1)+'" data-i="'+idx+'">'+
+        '<span class="bt">'+t.title+'</span>'+
+        '<span class="bm">'+meta+'</span>'+
+      '</button></div>';
+    });
+  });
+
+  /* today marker, mid week in W39 (col 0 of 7) */
+  var pos = ((3.5/7) / 7) * 100; /* ~half through the first of seven columns */
+  html += '<div class="today" style="left:'+pos.toFixed(2)+'%"><span class="pin">Today, 24 Sep</span></div>';
+
+  tl.innerHTML = html;
 }
 
-/* click a tile to expand */
-board.addEventListener('click', function(e){
-  var tile = e.target.closest('.tile');
-  if(tile) tile.classList.toggle('open');
-});
-
-/* owner filter */
-var activeOwner = null;
-var clearBtn = document.getElementById('clearf');
-document.getElementById('legend').addEventListener('click', function(e){
-  var chip = e.target.closest('.owner-chip');
-  if(!chip) return;
-  var owner = chip.getAttribute('data-owner');
-  if(activeOwner === owner){ activeOwner = null; } else { activeOwner = owner; }
-  applyFilter();
-});
-clearBtn.addEventListener('click', function(){ activeOwner = null; applyFilter(); });
-
-function applyFilter(){
-  document.querySelectorAll('.owner-chip').forEach(function(c){
-    c.setAttribute('aria-pressed', c.getAttribute('data-owner') === activeOwner ? 'true' : 'false');
-  });
-  board.classList.toggle('filtered', !!activeOwner);
-  clearBtn.classList.toggle('hidden', !activeOwner);
-  document.querySelectorAll('.tile').forEach(function(t){
-    var owns = t.getAttribute('data-owners').split(' ');
-    t.classList.toggle('match', !!activeOwner && owns.indexOf(activeOwner) !== -1);
-  });
+/* detail drawer */
+var scrim = document.getElementById('scrim');
+var drawer = document.getElementById('drawer');
+function openTask(i){
+  var t = TASKS[i];
+  var pcls = t.phase;
+  var plabel = pcls === 'start' ? 'Start' : pcls === 'middle' ? 'Middle' : 'End';
+  document.getElementById('drPhase').textContent = plabel + ' phase';
+  document.getElementById('drPhase').className = 'dr-phase ' + pcls;
+  document.getElementById('drTitle').textContent = t.title;
+  document.getElementById('drTags').innerHTML = t.tags.map(function(x){ return '<span class="dr-tag">'+x+'</span>'; }).join('');
+  document.getElementById('drWhat').textContent = t.what;
+  document.getElementById('drWho').textContent = t.who;
+  document.getElementById('drWhen').textContent = t.when;
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden','false');
+  scrim.classList.add('on');
 }
+function closeDrawer(){
+  drawer.classList.remove('open');
+  drawer.setAttribute('aria-hidden','true');
+  scrim.classList.remove('on');
+}
+tl.addEventListener('click', function(e){
+  var bar = e.target.closest('.bar');
+  if(bar) openTask(parseInt(bar.getAttribute('data-i'), 10));
+});
+scrim.addEventListener('click', closeDrawer);
+document.getElementById('drClose').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
 
 /* gate */
 var PW = "BE-HP2026!";
