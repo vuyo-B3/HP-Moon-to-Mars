@@ -16,6 +16,8 @@
   --yes:#1E8E5A; --no:#D8443C; --maybe:#578292;
   --f:"Inter Tight","Archivo","Helvetica Neue",Arial,sans-serif;
   --slant:-20deg;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--f);color:var(--ink);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -63,7 +65,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .card{
   position:absolute;inset:0;background:#fff;border:1px solid var(--line);
   display:flex;flex-direction:column;overflow:hidden;
-  transition:transform .28s cubic-bezier(.22,.75,.3,1),opacity .28s ease;
+  transition:transform .28s var(--ease-out),opacity .28s var(--ease-out);
   will-change:transform;
 }
 .card.drag{transition:none}
@@ -127,8 +129,9 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 
 /* controls */
 .ctrl{display:flex;justify-content:center;align-items:center;gap:14px;padding:26px 24px 10px}
-.btn{width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .12s ease,border-color .12s ease,background .12s ease}
+.btn{width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .12s var(--ease-out),border-color .12s ease,background .12s ease}
 .btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.94)}
 .btn.no:hover{border-color:var(--no);background:#FBEBEA;color:var(--no)}
 .btn.yes:hover{border-color:var(--yes);background:#E5F3EC;color:var(--yes)}
 .btn.maybe{width:50px;height:50px;font-size:15px}
@@ -150,9 +153,10 @@ kbd{font-family:var(--f);background:#fff;border:1px solid var(--line);border-bot
 .col li span{color:var(--ink60);font-size:12px}
 .col .none{padding:16px 18px;color:var(--line);font-size:13px}
 .acts{display:flex;gap:10px;flex-wrap:wrap}
-.pill{background:var(--ink);color:#fff;padding:12px 22px;border-radius:3px;font-weight:500;font-size:14px}
+.pill{background:var(--ink);color:#fff;padding:12px 22px;border-radius:3px;font-weight:500;font-size:14px;transition:opacity .15s ease,transform .12s var(--ease-out)}
 .pill.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .pill:hover{opacity:.9}
+.pill:active{transform:scale(.97)}
 
 /* method */
 .method{background:#fff;border-top:1px solid var(--line);padding:56px 0}
