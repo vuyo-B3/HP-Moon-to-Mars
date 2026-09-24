@@ -63,7 +63,6 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .lg{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
 .lg .sw{width:14px;height:14px;border-radius:3px;flex:none}
 .sw.start{background:var(--start)} .sw.middle{background:var(--middle)} .sw.end{background:var(--end)}
-.lg.today .sw{width:3px;height:16px;background:var(--blue);border-radius:0}
 .legend .hint{margin-left:auto;font-size:12px;color:var(--ink60)}
 
 /* timeline */
@@ -104,10 +103,6 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .bar .bt{font-size:13.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:var(--ink)}
 .bar .bm{font-size:11.5px;color:var(--ink60);line-height:1.3}
 .bar .bm b{font-weight:600;color:var(--ink)}
-
-/* today line */
-.today{position:absolute;top:34px;bottom:0;width:2px;background:var(--blue);z-index:5;pointer-events:none}
-.today .pin{position:absolute;top:-2px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;white-space:nowrap}
 
 /* detail drawer */
 .scrim{position:fixed;inset:0;background:rgba(45,48,55,.4);opacity:0;pointer-events:none;z-index:40;transition:opacity .3s ease}
@@ -171,14 +166,13 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 <section class="top">
   <div class="rule"></div>
   <h2>What lands in what week</h2>
-  <p class="lede">The whole campaign on one line. The blue marker is where we are now. Every task sits under the week it is due, colour coded by phase. Click any task for the full detail.</p>
+  <p class="lede">The whole campaign on one line. Every task sits under the week it is due, colour coded by phase. Click any task for the full detail.</p>
 </section>
 
 <section class="legend">
   <span class="lg"><span class="sw start"></span>Start, now to end September</span>
   <span class="lg"><span class="sw middle"></span>Middle, October</span>
   <span class="lg"><span class="sw end"></span>End, early November</span>
-  <span class="lg today"><span class="sw"></span>Today</span>
   <span class="hint">Click a task to open the detail</span>
 </section>
 
@@ -209,7 +203,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 <script>
 /* week columns, left to right. today sits in W39 */
 var COLS = [
-  {wn:"W39", wr:"21 – 27 Sep", mo:"September", now:true},
+  {wn:"W39", wr:"21 – 27 Sep", mo:"September"},
   {wn:"W40", wr:"28 Sep – 4 Oct", mo:""},
   {wn:"W41", wr:"5 – 11 Oct", mo:"October"},
   {wn:"W42", wr:"12 – 18 Oct", mo:""},
@@ -232,34 +226,31 @@ var TASKS = [
   {phase:"start", col:0, title:"Confirm creators against costs", tags:["Butterfly Effect"], due:"Today", when:"Today, Thursday 24 September",
    what:"Lock the confirmed creators against their costs, as a team on the BE side. HP is not involved in this one.",
    who:"Butterfly Effect"},
-  {phase:"start", col:0, title:"Send creator brief email", tags:["Ellen"], due:"This week", when:"This week",
-   what:"Brief the creators on the deliverables, the dates, the context and the AI native angle, and ask them for their video ideas.",
-   who:"Ellen"},
-  {phase:"start", col:0, title:"Send workstation spec email", tags:["Ellen"], due:"This week", when:"This week",
-   what:"Ask the delivery questions, where units ship from and the specs needed, so the order can be placed with HP next week.",
+  {phase:"start", col:0, title:"Send creator brief + workstation spec email", tags:["Ellen"], due:"This week", when:"This week",
+   what:"One email to the creators with everything they need: the deliverables and dates, the context and the AI native angle, a request for their video ideas, and the workstation spec questions, where units ship from and the specs needed, so HP can place the order next week.",
    who:"Ellen"},
   {phase:"start", col:1, title:"Send workstation order to HP", tags:["HP","BE","Chris Benns"], due:"Tue 29 Sep", when:"Next week, Tuesday 29 September",
    what:"Send HP the workstation order for the confirmed creators, together with the confirmed creator list, the assets each creator will deliver over the campaign, and Chris Benns creative work.",
    who:"HP category team, Butterfly Effect and Chris Benns"},
 
-  {phase:"middle", col:2, title:"Creators talk with the HP team", tags:["HP","Creators"], due:"w/c 5 Oct", when:"Week of 5 October",
-   what:"AEC and PD&M creators talk with the actual HP team and ask their product questions. Brief them on context, this part can start now.",
+  {phase:"middle", col:2, title:"Creators talk with HP team (AEC / PD&M)", tags:["HP","Creators"], due:"w/c 5 Oct", when:"Week of 5 October",
+   what:"The AEC and PD&M creators talk with the HP team and ask their product questions. Brief them on context, this part can start now.",
    who:"HP team and creators, BE coordinates"},
-  {phase:"middle", col:2, title:"Chris Benns ad narrative", tags:["Chris Benns"], due:"w/c 5 Oct", when:"Week of 5 October",
-   what:"Chris Benns sets the ad narrative, for each creator individually and for the campaign as a whole.",
+  {phase:"middle", col:2, title:"Chris Benns ad narrative communicated to creators", tags:["Chris Benns"], due:"w/c 5 Oct", when:"Week of 5 October",
+   what:"Chris Benns sets the ad narrative, for each creator individually and for the campaign as a whole, then it is communicated to the creators.",
    who:"Chris Benns"},
-  {phase:"middle", col:3, title:"Creators submit video ideas", tags:["Creators"], due:"w/c 12 Oct", when:"Week of 12 October",
-   what:"Creators submit their video ideas, while the workstations are on their way to them.",
+  {phase:"middle", col:3, title:"Creators submit initial video ideas", tags:["Creators"], due:"w/c 12 Oct", when:"Week of 12 October",
+   what:"Creators submit their initial video ideas, while the workstations are on their way to them.",
    who:"Creators, BE reviews"},
-  {phase:"middle", col:4, title:"Long form video 1 due", tags:["Creators"], due:"w/c 19 Oct", when:"Week of 19 October",
+  {phase:"middle", col:4, title:"Long form video 1 due", tags:["Creators"], due:"w/c 19 Oct", when:"Week of 19 to 25 October",
    what:"First long form video, 8 to 12 minutes.",
    who:"Creators"},
-  {phase:"middle", col:5, title:"Long form video 2 due", tags:["Creators"], due:"by 31 Oct", when:"By 31 October",
+  {phase:"middle", col:5, title:"Long form video 2 due", tags:["Creators"], due:"w/c 26 Oct", when:"Week of 26 October to 1 November",
    what:"Second long form video, 8 to 12 minutes.",
    who:"Creators"},
 
-  {phase:"end", col:6, title:"Short ad due", tags:["Creators","Chris Benns"], due:"w/c 2 Nov", when:"Week of 2 November",
-   what:"Short ad, 1 to 3 minutes, 16:9, coordinated by Chris Benns.",
+  {phase:"end", col:6, title:"Creators individual ad due", tags:["Creators","Chris Benns"], due:"w/c 2 Nov", when:"Week of 2 November",
+   what:"Each creator's own short ad, 1 to 3 minutes, 16:9, coordinated by Chris Benns.",
    who:"Creators, coordinated by Chris Benns"},
   {phase:"end", col:6, title:"End of campaign video", tags:["Chris Benns"], due:"after videos", when:"After the videos land",
    what:"End of campaign video, 16:9, assembled by Chris Benns. The ad and this video work hand in hand.",
@@ -298,10 +289,6 @@ function render(){
       '</button></div>';
     });
   });
-
-  /* today marker, mid week in W39 (col 0 of 7) */
-  var pos = ((3.5/7) / 7) * 100; /* ~half through the first of seven columns */
-  html += '<div class="today" style="left:'+pos.toFixed(2)+'%"><span class="pin">Today, 24 Sep</span></div>';
 
   tl.innerHTML = html;
 }
