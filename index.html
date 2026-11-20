@@ -38,7 +38,8 @@ button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;border
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 
 /* ---------- sidebar ---------- */
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:256px;z-index:50;background:var(--white);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:26px 0 20px}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:256px;z-index:50;background:var(--white);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:26px 0 20px;transform:translateX(-100%);transition:transform .25s var(--ease-out);box-shadow:0 0 40px rgba(0,0,0,.12)}
+.sidebar.open{transform:translateX(0)}
 .sb-logo{padding:0 24px 24px;border-bottom:1px solid var(--line)}
 .sb-nav{padding:16px 14px;flex:1;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
 .sb-link{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:11px 12px;font-size:15px;color:var(--ink);border-radius:3px;transition:background .15s ease,color .15s ease,transform .12s var(--ease-out);position:relative}
@@ -48,7 +49,7 @@ button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;border
 .sb-link.on{color:var(--blue);font-weight:500;background:var(--blue-tint)}
 .sb-link.on .tick{background:var(--blue)}
 .sb-foot{padding:18px 24px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-60);line-height:1.45}
-.shell{margin-left:256px}
+.shell{margin-left:0}
 
 /* ---------- logo ---------- */
 .logo{display:flex;align-items:center;gap:14px}
@@ -116,7 +117,7 @@ header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdro
 .head-l{display:flex;align-items:center;gap:12px;font-size:14px}
 .live-dot{width:8px;height:14px;background:var(--blue);transform:skewX(var(--slant));flex:none}
 .stamp{margin-left:auto;font-size:13px;color:var(--ink-60);white-space:nowrap}
-.burger{display:none;width:24px;height:16px;position:relative;flex:none}
+.burger{display:block;width:24px;height:16px;position:relative;flex:none}
 .burger span{position:absolute;left:0;width:100%;height:2px;background:var(--ink);transition:transform .2s ease,opacity .2s ease}
 .burger span:nth-child(1){top:0}.burger span:nth-child(2){top:7px}.burger span:nth-child(3){top:14px}
 
@@ -290,7 +291,7 @@ footer .stripes i{background:var(--white)}
   <div class="gate-mid">
     <div class="gate-card">
       <div class="eyebrow"><span class="stripes"><i></i><i></i><i></i><i></i></span>HP, Moon to Mars</div>
-      <h1>Space to your workspace</h1>
+      <h1>From space to your workspace</h1>
       <p>The creator programme dashboard for HP and Butterfly Effect. Live roster, timeline, documents and open items for the campaign. Enter the password you were sent to continue.</p>
       <div class="gate-row">
         <input type="password" id="pw" placeholder="Password" autocomplete="current-password" aria-label="Password">
@@ -326,7 +327,7 @@ footer .stripes i{background:var(--white)}
     <a class="sb-link" href="#meetings"><span class="tick"></span>How we work together</a>
     <a class="sb-link" href="#needs"><span class="tick"></span>What we need from you</a>
   </nav>
-  <div class="sb-foot">Confidential, HP and Butterfly Effect only.<br>Updated 3 Nov 2026.</div>
+  <div class="sb-foot">Confidential, HP and Butterfly Effect only.<br>Updated 20 Nov 2026.</div>
 </aside>
 <div class="scrim" id="scrim"></div>
 
@@ -335,8 +336,8 @@ footer .stripes i{background:var(--white)}
 <header>
   <div class="head-in">
     <button class="burger" id="burger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-    <div class="head-l"><span class="live-dot"></span>Live and moving. Contracts cleared, workstations ordered, first posts go live in January.</div>
-    <span class="stamp">Updated 3 Nov 2026</span>
+    <div class="head-l"><span class="live-dot"></span>Live and moving. Contracts issued with six month exclusivity, four of six creators confirmed, go live January.</div>
+    <span class="stamp">Updated 20 Nov 2026</span>
   </div>
 </header>
 
@@ -344,19 +345,19 @@ footer .stripes i{background:var(--white)}
 <section class="wrap hero" id="overview">
   <div class="rule"></div>
   <h1>Everything you need to move this campaign forward</h1>
-  <p>Where the roster stands, the rebaselined week by week timeline, the documents to work from, and the open items on each side. Contracting is cleared, so the campaign is live and moving.</p>
+  <p>Where the roster stands, the rebaselined week by week timeline, the documents to work from, and the open items on each side. Contracts are out with creators and their agents, and the campaign is moving.</p>
 
   <div class="metrics">
-    <div class="metric"><div class="n">6</div><div class="l">Creators contracted this week</div></div>
-    <div class="metric"><div class="n" style="font-size:22px;padding-top:6px">Ordered</div><div class="l">Workstations</div></div>
+    <div class="metric"><div class="n">4<span> of 6</span></div><div class="l">Creators confirmed</div></div>
+    <div class="metric"><div class="n" style="font-size:22px;padding-top:6px">Issued</div><div class="l">Contracts</div></div>
     <div class="metric"><div class="n" style="font-size:22px;padding-top:6px">January</div><div class="l">Go live</div></div>
     <div class="metric"><div class="n" style="font-size:22px;padding-top:6px">February</div><div class="l">Campaign close</div></div>
   </div>
 
   <div class="blocker cleared">
     <span class="tagline">NOW MOVING</span>
-    <h3>Contracting cleared, dates rebaselined</h3>
-    <p>The campaign was held by contracting from July through to late October. <b>That is now cleared and we are moving.</b> Workstations are ordered, and all dates below have been rebaselined accordingly, with first posts going live in January.</p>
+    <h3>Contracts out, roster four of six, platform agreed</h3>
+    <p>Creator contracts are out with creators and their agents, carrying six month exclusivity. <b>The roster is four of six confirmed</b>, with one AEC and potentially one PD&amp;M still being sourced. The creative platform is agreed, from space to your workspace. All dates below are rebaselined to this week.</p>
   </div>
 </section>
 
@@ -394,48 +395,48 @@ footer .stripes i{background:var(--white)}
     <div class="stages">
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">1</span><span class="sdate">w/c 2 Nov</span><span class="owner be">BE</span></div>
+        <div class="stage-side"><span class="snum">1</span><span class="sdate">w/c 23 Nov</span><span class="owner be">BE</span></div>
         <div class="stage-main">
-          <h3>Contracts and creator confirmation</h3>
-          <p>Contracts signed, six creators confirmed, specs collected and workstations mapped, orders placed. All creator contracts signed by 10 November.</p>
+          <h3>Contracting and roster</h3>
+          <p>Contracts signed and countersigned, remaining creators sourced, addresses and specs to HP.</p>
         </div>
       </div>
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">2</span><span class="sdate">9 to 27 Nov</span><span class="owner both">Both</span></div>
+        <div class="stage-side"><span class="snum">2</span><span class="sdate">w/c 30 Nov</span><span class="owner be">BE</span></div>
         <div class="stage-main">
-          <h3>Hardware in transit and content ideation</h3>
-          <p>Workstations in transit. Content drafting and scripting begins, so creators are productive while hardware ships.</p>
+          <h3>Creative direction and briefing</h3>
+          <p>Creative direction presented to client, editor onboarded, capture requirements and creator briefs issued.</p>
         </div>
       </div>
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">3</span><span class="sdate">30 Nov to 11 Dec</span><span class="owner hp">HP</span></div>
+        <div class="stage-side"><span class="snum">3</span><span class="sdate">w/c 7 Dec</span><span class="owner hp">HP</span></div>
         <div class="stage-main">
-          <h3>Workstations land and HP session</h3>
-          <p>Machines arrive with creators. The HP technical team runs the onboarding and workflow session.</p>
+          <h3>Hardware delivery</h3>
+          <p>Workstations ship and arrive with creators, followed by the HP technical session.</p>
         </div>
       </div>
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">4</span><span class="sdate">w/c 14 Dec</span><span class="owner creators">Creators</span></div>
+        <div class="stage-side"><span class="snum">4</span><span class="sdate">7 to 18 Dec</span><span class="owner both">Both</span></div>
         <div class="stage-main">
-          <h3>Post 1 drafts</h3>
-          <p>First drafts submitted ahead of the holiday break.</p>
-          <div class="stage-watch"><b>Watch out for:</b> this deadline protects the January go live. If drafts slip, the whole tail moves.</div>
+          <h3>Content ideation and first drafts</h3>
+          <p>Creators ideate and produce their first drafts.</p>
+          <div class="stage-watch"><b>Watch out for:</b> drafts must land before the holiday, or approvals do not restart until January.</div>
         </div>
       </div>
 
       <div class="stage holiday">
         <div class="stage-side"><span class="snum">5</span><span class="sdate">21 Dec to 1 Jan</span><span class="owner hold">On hold</span></div>
         <div class="stage-main">
-          <h3>Holiday period</h3>
-          <p>Limited creator availability. No approvals or production.</p>
+          <h3>Holiday</h3>
+          <p>Limited creator availability.</p>
         </div>
       </div>
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">6</span><span class="sdate">4 to 22 Jan</span><span class="owner both">Both</span></div>
+        <div class="stage-side"><span class="snum">6</span><span class="sdate">4 to 29 Jan</span><span class="owner both">Both</span></div>
         <div class="stage-main">
           <h3>Approvals and go live</h3>
           <p>Post 1 approved and live, post 2 approvals, post 2 produced and live.</p>
@@ -443,7 +444,7 @@ footer .stripes i{background:var(--white)}
       </div>
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">7</span><span class="sdate">25 Jan to 12 Feb</span><span class="owner be">BE</span></div>
+        <div class="stage-side"><span class="snum">7</span><span class="sdate">1 to 12 Feb</span><span class="owner be">BE</span></div>
         <div class="stage-main">
           <h3>All content live and paid assets</h3>
           <p>All posts live. Paid assets edited with HP branding, then shared with HP.</p>
@@ -451,7 +452,7 @@ footer .stripes i{background:var(--white)}
       </div>
 
       <div class="stage">
-        <div class="stage-side"><span class="snum">8</span><span class="sdate">15 to 19 Feb</span><span class="owner be">BE</span></div>
+        <div class="stage-side"><span class="snum">8</span><span class="sdate">15 to 26 Feb</span><span class="owner be">BE</span></div>
         <div class="stage-main">
           <h3>Campaign film and reporting</h3>
           <p>Campaign overview video delivered, plus the full campaign report with performance and sentiment.</p>
@@ -699,9 +700,9 @@ footer .stripes i{background:var(--white)}
     </div>
 
     <div class="coming">
-      <div class="crow"><div class="cw">w/c 2 Nov</div><div class="ct">Contracts signed and the six creators confirmed, specs collected and workstation orders placed.</div></div>
-      <div class="crow"><div class="cw">w/c 9 Nov</div><div class="ct">Workstations in transit, content drafting and scripting begins so creators are productive while hardware ships.</div></div>
-      <div class="crow"><div class="cw">w/c 30 Nov</div><div class="ct">Machines land with creators and the HP onboarding and workflow session runs.</div></div>
+      <div class="crow"><div class="cw">w/c 23 Nov</div><div class="ct">Contracts countersigned, remaining creators sourced, addresses and specs to HP.</div></div>
+      <div class="crow"><div class="cw">w/c 30 Nov</div><div class="ct">Creative direction presented, editor onboarded, capture requirements and creator briefs issued.</div></div>
+      <div class="crow"><div class="cw">w/c 7 Dec</div><div class="ct">Workstations ship and arrive with creators, and the HP technical session runs.</div></div>
     </div>
 
     <div class="howwework"><b>One decision, one record.</b> Approvals given on the weekly call are treated as final and written up straight after. The full set of topics between now and February lives in the campaign timeline, and we take the dates from there.</div>
@@ -716,10 +717,11 @@ footer .stripes i{background:var(--white)}
     <p class="lede">The open items on the HP side now that contracting is cleared and we are moving into hardware and content.</p>
 
     <div class="checks">
-      <div class="need"><span class="ntick"></span><span class="ntext">Confirm workstation delivery dates<span class="nowner">So we can firm up the December onboarding and first content</span></span></div>
-      <div class="need"><span class="ntick"></span><span class="ntext">Technical contact for the December session<span class="nowner">To run onboarding and the workflow session with creators</span></span></div>
-      <div class="need"><span class="ntick"></span><span class="ntext">Destination link and any store offer<span class="nowner">The find out more link creators point to, and any offer attached</span></span></div>
-      <div class="need"><span class="ntick"></span><span class="ntext">Intel and AMD allocation per creator<span class="nowner">Which creators run Intel, and which run AMD</span></span></div>
+      <div class="need"><span class="ntick"></span><span class="ntext">Workstation ship dates<span class="nowner">So we can firm up the December delivery and technical session</span></span></div>
+      <div class="need"><span class="ntick"></span><span class="ntext">Technical contact for the December session<span class="nowner">To run the session with creators once machines land</span></span></div>
+      <div class="need"><span class="ntick"></span><span class="ntext">Destination links and UTM structure<span class="nowner">The find out more links creators point to, and how they are tagged</span></span></div>
+      <div class="need"><span class="ntick"></span><span class="ntext">AMD brand guidelines<span class="nowner">To apply to the static ads and highlight reels</span></span></div>
+      <div class="need"><span class="ntick"></span><span class="ntext">Confirmation on TikTok TV placements<span class="nowner">Whether these are in scope for distribution</span></span></div>
     </div>
   </div>
 </section>
