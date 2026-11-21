@@ -74,42 +74,45 @@ h3{font-size:20px}
 .stripes i:nth-child(3){opacity:.44}
 .stripes i:nth-child(4){opacity:.2}
 
-/* ---------- gate ---------- */
-/* ---------- gate, cinematic slideshow ---------- */
-#gate{position:fixed;inset:0;background:#0C0D10;z-index:100;display:flex;flex-direction:column;overflow:hidden;color:var(--white)}
+/* ---------- gate (plain password) ---------- */
+#gate{position:fixed;inset:0;background:var(--white);z-index:100;display:flex;flex-direction:column}
+#gate .gate-top{padding:28px 32px}
+#gate .gate-mid{flex:1;display:flex;align-items:center;padding:0 32px}
+.gate-card{max-width:440px;width:100%}
+.gate-card .stripes{margin-bottom:28px}
+.gate-card h1{font-size:38px;margin-bottom:14px;font-weight:500;letter-spacing:-0.02em}
+.gate-card p{color:var(--ink-60);margin-bottom:28px}
+.gate-row{display:flex;gap:10px}
+input[type=password],input[type=search]{font-family:inherit;font-size:16px;color:var(--ink);border:1px solid var(--line);background:var(--white);padding:13px 15px;border-radius:4px;width:100%}
+input[type=password]:focus,input[type=search]:focus{border-color:var(--blue);outline:none}
+.btn{background:var(--ink);color:var(--white);padding:13px 26px;border-radius:4px;font-weight:500;white-space:nowrap;transition:background .18s ease,transform .12s var(--ease-out)}
+.btn:hover{background:#000}
+.btn:active{transform:scale(.97)}
+.gate-err{color:var(--bloom);font-size:14px;margin-top:14px;min-height:20px}
+#gate .gate-foot{padding:24px 32px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-60)}
+
+/* ---------- cinematic landing (after login) ---------- */
+.landing{position:relative;height:100vh;min-height:560px;display:flex;align-items:center;overflow:hidden;background:#0C0D10;color:var(--white)}
 .slides{position:absolute;inset:0;z-index:0}
-.slides .s{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;animation:gateslide 35s infinite}
+.slides .s{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;animation:slideshow 35s infinite}
 .slides .s:nth-child(1){background-image:url(img/gate-1.jpg);animation-delay:0s}
 .slides .s:nth-child(2){background-image:url(img/gate-2.jpg);animation-delay:7s}
 .slides .s:nth-child(3){background-image:url(img/gate-3.jpg);animation-delay:14s}
 .slides .s:nth-child(4){background-image:url(img/gate-4.jpg);animation-delay:21s}
 .slides .s:nth-child(5){background-image:url(img/gate-5.jpg);animation-delay:28s}
-@keyframes gateslide{0%{opacity:0;transform:scale(1.04)}3%{opacity:1}17%{opacity:1}20%{opacity:0}100%{opacity:0;transform:scale(1.11)}}
-#gate .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,13,16,.5) 0%,rgba(12,13,16,.2) 38%,rgba(12,13,16,.82) 100%)}
-#gate .gate-top,#gate .gate-mid,#gate .gate-foot{position:relative;z-index:2}
-#gate .gate-top{padding:30px 40px}
-#gate .gate-mid{flex:1;display:flex;align-items:center;padding:0 40px}
-.gate-card{max-width:640px;width:100%}
-.gate-card .eyebrow{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.78);margin-bottom:20px;display:flex;align-items:center;gap:12px}
-.gate-card .eyebrow .stripes{height:15px}
-.gate-card .stripes i{background:var(--white)}
-.gate-card h1{font-size:58px;line-height:1.02;margin-bottom:20px;font-weight:600;letter-spacing:-0.03em;max-width:15ch}
-.gate-card p{color:rgba(255,255,255,.8);margin-bottom:26px;max-width:52ch;font-size:16px}
-.gate-row{display:flex;gap:10px;max-width:440px}
-input[type=password],input[type=search]{font-family:inherit;font-size:16px;color:var(--ink);border:1px solid var(--line);background:var(--white);padding:13px 15px;border-radius:4px;width:100%}
-input[type=password]:focus,input[type=search]:focus{border-color:var(--blue);outline:none}
-#gate input[type=password]{color:var(--white);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.12);padding:14px 16px;border-radius:5px;backdrop-filter:blur(6px)}
-#gate input[type=password]::placeholder{color:rgba(255,255,255,.62)}
-#gate input[type=password]:focus{border-color:var(--white);background:rgba(255,255,255,.18)}
-.btn{background:var(--ink);color:var(--white);padding:13px 26px;border-radius:4px;font-weight:500;white-space:nowrap;transition:background .18s ease,transform .12s var(--ease-out)}
-.btn:hover{background:#000}
-.btn:active{transform:scale(.97)}
-#gate .btn{background:var(--blue)}
-#gate .btn:hover{background:var(--blue-dark)}
-.gate-err{color:#FF8A82;font-size:14px;margin-top:14px;min-height:20px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
-#gate .gate-foot{padding:22px 40px;border-top:1px solid rgba(255,255,255,.14);font-size:13px;color:rgba(255,255,255,.68)}
+@keyframes slideshow{0%{opacity:0;transform:scale(1.04)}3%{opacity:1}17%{opacity:1}20%{opacity:0}100%{opacity:0;transform:scale(1.11)}}
+.land-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,13,16,.45) 0%,rgba(12,13,16,.2) 40%,rgba(12,13,16,.85) 100%)}
+.land-in{position:relative;z-index:2;max-width:1060px;margin:0 auto;padding:0 44px;width:100%}
+.land-in .eyebrow{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.land-in .eyebrow .stripes{height:15px}
+.land-in .eyebrow .stripes i{background:var(--white)}
+.land-in h1{font-size:64px;line-height:1.02;margin-bottom:18px;font-weight:600;letter-spacing:-0.03em;max-width:15ch}
+.land-in p{color:rgba(255,255,255,.82);margin-bottom:30px;max-width:52ch;font-size:17px}
+.land-cta{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:var(--white);padding:14px 26px;border-radius:5px;font-weight:500;transition:background .18s ease,transform .12s var(--ease-out)}
+.land-cta:hover{background:var(--blue-dark);text-decoration:none}
+.land-cta:active{transform:scale(.97)}
 @media (prefers-reduced-motion:reduce){.slides .s{animation:none}.slides .s:nth-child(1){opacity:1}}
-@media (max-width:620px){.gate-card h1{font-size:38px}#gate .gate-top,#gate .gate-mid,#gate .gate-foot{padding-left:22px;padding-right:22px}.gate-row{flex-direction:column;max-width:360px}}
+@media (max-width:620px){.land-in h1{font-size:40px}.land-in{padding:0 22px}}
 
 /* ---------- header ---------- */
 header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
@@ -278,20 +281,18 @@ footer .stripes i{background:var(--white)}
 
 <!-- ============ PASSWORD GATE ============ -->
 <div id="gate">
-  <div class="slides"><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span></div>
-  <div class="scrim"></div>
   <div class="gate-top">
     <div class="logo">
       <svg width="42" height="42" viewBox="0 0 42 42" aria-label="HP">
-        <circle cx="21" cy="21" r="19.5" fill="none" stroke="#FFFFFF" stroke-width="3"/>
-        <text x="21" y="28" text-anchor="middle" font-family="Archivo, Helvetica, Arial, sans-serif" font-size="19" font-style="italic" font-weight="500" fill="#FFFFFF">hp</text>
+        <circle cx="21" cy="21" r="19.5" fill="none" stroke="#2148D4" stroke-width="3"/>
+        <text x="21" y="28" text-anchor="middle" font-family="Archivo, Helvetica, Arial, sans-serif" font-size="19" font-style="italic" font-weight="500" fill="#2148D4">hp</text>
       </svg>
     </div>
   </div>
   <div class="gate-mid">
     <div class="gate-card">
-      <div class="eyebrow"><span class="stripes"><i></i><i></i><i></i><i></i></span>HP, Moon to Mars</div>
-      <h1>From space to your workspace</h1>
+      <div class="stripes"><i></i><i></i><i></i><i></i></div>
+      <h1>Moon to Mars</h1>
       <p>The creator programme dashboard for HP and Butterfly Effect. Live roster, timeline, documents and open items for the campaign. Enter the password you were sent to continue.</p>
       <div class="gate-row">
         <input type="password" id="pw" placeholder="Password" autocomplete="current-password" aria-label="Password">
@@ -340,6 +341,18 @@ footer .stripes i{background:var(--white)}
     <span class="stamp">Updated 20 Nov 2026</span>
   </div>
 </header>
+
+<!-- cinematic landing -->
+<section class="landing">
+  <div class="slides"><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span></div>
+  <div class="land-shade"></div>
+  <div class="land-in">
+    <div class="eyebrow"><span class="stripes"><i></i><i></i><i></i><i></i></span>HP, Moon to Mars with Butterfly Effect</div>
+    <h1>From space to your workspace</h1>
+    <p>The creator programme, live and moving. Scroll on for where things stand, the timeline, the roster and the open items.</p>
+    <a class="land-cta" href="#overview">Enter the dashboard &darr;</a>
+  </div>
+</section>
 
 <!-- overview -->
 <section class="wrap hero" id="overview">
